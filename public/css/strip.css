@@ -1,0 +1,186 @@
+#templateStrip {
+  display: none;
+}
+
+.stripContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 480px);
+  width: auto;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.stripContainer>div.stripList {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 70px repeat(10, 150px);
+
+  /* background-color: rgba(35, 45, 128, 0.575); */
+}
+
+.listName {
+  text-align: center;
+}
+
+.stripContainer .stripList:nth-child(-n+3) {
+  background-image: linear-gradient(rgb(255, 255, 255) 33%, rgba(255, 255, 255, 0) 0%);
+  background-position: right;
+  background-size: 1px 15px;
+  background-repeat: repeat-y;
+}
+
+.strip {
+  margin: .4rem;
+  padding: .5rem;
+  /* border-radius: 15px; */
+  background-color: var(--strip-color);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: 3fr 1fr;
+  height: fit-content;
+  max-height: 180px;
+  min-height: 125px;
+  border: 2px solid var(--strip-border);
+}
+
+.strip[data-deletion-confirmed='true'] {
+  border: 2px solid red !important;
+}
+
+.leftMain {
+  padding: .2rem;
+  grid-column: 1/4;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.rightMain {
+  padding: 0 .2rem 0 .2rem;
+  grid-column: 4/9;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.strip>.bottom {
+  padding: .2rem;
+  grid-column: span 8;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.strip>.bottom>input {
+  width: 100%;
+}
+
+.textInput {
+  text-transform: uppercase;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: text;
+  border: none;
+  color: aliceblue;
+  background-color: rgb(32, 32, 32);
+  font-family: var(--default-font);
+}
+
+.callsignInput {
+  font-size: large;
+  font-weight: 900;
+  width: 100%;
+  height: 30px;
+}
+
+.callsignSpoken {
+  margin: .1rem 0 .1rem 0;
+  text-transform: uppercase;
+}
+
+.squawkInput {
+  width: 60%;
+}
+
+.rightMain>input {
+  margin: auto;
+  width: 95%;
+  height: 70%;
+  font-size: small;
+}
+
+/* Strip parts spacing */
+/* .route {
+  grid-column: 1 / 2;
+  text-align: left;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid var(--main-divider);
+}
+
+.route:empty::before {
+  content: 'DPRT -> ARVL';
+  color: grey;
+}
+
+.callsignWrapper {
+  grid-column: 2 / 4;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.callsign {
+  text-align: center;
+  font-weight: bold;
+  font-size: small;
+  height: auto;
+  width: 90%;
+}
+
+.callsign:empty::before {
+  content: 'Callsign';
+  color: grey;
+}
+
+.acType {
+  grid-column: 4 / 5;
+  text-align: right;
+  font-size: small;
+  height: auto;
+}
+
+.acType:empty::before {
+  content: 'Aircraft Type';
+  color: grey;
+}
+
+.taxi {
+  grid-column: span 4;
+  height: auto;
+}
+
+.taxi:empty::before {
+  content: 'Taxi clearance';
+  color: grey;
+}
+
+.clearances {
+  grid-column: span 4;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.clearances label {
+  font-size: x-small;
+}
+
+.clearanceWrapper {
+  margin-top: .5rem;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+} */

@@ -1,0 +1,71 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.settingsOverlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+}
+
+.settingsContainer {
+  width: 45rem;
+  height: 30rem;
+  background-color: var(--background);
+  border-radius: 11px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr .5fr;
+
+  z-index: 201;
+}
+
+.settingsTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid var(--strip-border);
+}
+
+.settingsTitle>span {
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.settingsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}
+
+.settingsFooter {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr min-content;
+}
+
+.socialMediaContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.socialMediaSvg {
+  width: 4rem;
+  cursor: pointer;
+}
+
+.appVersion {
+  grid-column: span 3;
+  width: 100%;
+  text-align: center;
+  color: gray;
+}

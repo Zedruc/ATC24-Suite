@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300;600&display=swap');
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: aliceblue;
+  font-family: var(--default-font-family);
+  background-color: var(--background);
+}

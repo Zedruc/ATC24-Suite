@@ -1,0 +1,23 @@
+:root {
+  --info-bar-background: rgba(45, 45, 45, 1);
+  --info-bar-item-border: rgba(37, 37, 37, 1);
+  --main-divider: rgba(255, 191, 0, 1);
+  --background: rgba(36, 36, 36, 1);
+  --selected: rgb(70, 70, 70);
+  --active: rgb(187, 187, 187);
+  --strip-color: rgb(70, 70, 70);
+  --strip-border: rgb(155, 155, 155);
+  --default-font-family: "JetBrains Mono", Helvetica;
+  --radar-font-font-family: "JetBrains Mono", Helvetica;
+  --radar-font-font-weight: 400;
+  --radar-font-font-size: 24px;
+  --radar-font-letter-spacing: 0px;
+  --radar-font-line-height: normal;
+  --radar-font-font-style: normal;
+  --inbound-bg: rgba(0, 128, 0, 0.3);
+  --inbound-border: rgb(0, 172, 0);
+  --outbound-bg: rgba(26, 144, 255, 0.3);
+  --outbound-border: rgb(100, 151, 218);
+  --vfr-bg: rgba(148, 0, 148, 0.3);
+  --vfr-border: rgb(196, 0, 196);
+}

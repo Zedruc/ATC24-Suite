@@ -1,0 +1,146 @@
+@import url("./styleguide.css");
+/* Strip styling in extra file due to complexity of this file */
+@import url('./css/strip.css');
+
+.cornerMenu {
+  width: auto;
+  height: auto;
+  position: fixed;
+  /* background-color: aqua; */
+  left: 0;
+  bottom: 0;
+  margin: 0 0 1rem 1rem;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr .25fr;
+}
+
+.settingsButtonContainer {
+  max-height: 100px;
+}
+
+.settingsButton {
+  width: 50px;
+  height: 50px;
+  fill: aliceblue;
+  cursor: pointer;
+}
+
+.copyrightNotice {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  color: white;
+}
+
+.ATC-suite-info-bar {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 80px;
+  display: grid;
+  grid-template-columns: minmax(0, 100px) [logo] repeat(6, 1fr);
+  grid-template-rows: 100%;
+
+  background-color: var(--info-bar-background);
+}
+
+.logo {
+  display: flex;
+  color: var(--main-divider);
+  font-family: var(--default-font-family);
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.ATC-suite-info-bar>.info-bar-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 0.4fr 1.5fr;
+
+  border-left: 2px solid var(--info-bar-item-border);
+  padding: 4px;
+}
+
+.leftNote,
+.rightNote {
+  font-size: small;
+}
+
+.rightNote {
+  text-align: right;
+}
+
+.infoName {
+  text-align: center;
+  grid-column: span 2;
+  font-size: smaller;
+  text-decoration: underline dotted;
+}
+
+.info-bar-item>.content {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+select,
+button {
+  outline: none;
+  border: none;
+  font-family: var(--default-font-family);
+  font-size: 12px;
+  font-weight: bold;
+  max-width: 100%;
+  min-width: 50%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  background-color: var(--active)
+}
+
+.main {
+  height: calc(100vh - 80px);
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--background);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) 4fr;
+  grid-template-rows: 1fr;
+
+  z-index: -1;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 2px solid var(--main-divider);
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.chartContainer>img {
+  max-width: 600px;
+  width: 100%;
+  background-color: white;
+  object-fit: scale-down;
+  z-index: 4;
+}
+
+.swal-modal {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+[data-no-select] {
+  user-select: none;
+}
