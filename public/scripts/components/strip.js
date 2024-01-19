@@ -38,6 +38,32 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
   return newStrip;
 }
 
+function generatePrepopulatedStrip(saveData) {
+  let newStrip = templateStrip.cloneNode(true);
+  newStrip.id = '';
+  newStrip.setAttribute('data-type', saveData.type);
+
+  if (!stripTypes.includes(saveData.type)) return;
+
+  newStrip.style.backgroundColor = `var(--${saveData.type}-bg)`;
+  newStrip.style.border = `2px solid var(--${saveData.type}-border)`;
+
+  /* let callsignField = */ newStrip.querySelector('#callsign').value = saveData.info.callsign;
+  /* let squawkField = */ newStrip.querySelector('#squawk').value = saveData.info.squawk;
+  /* let departingField = */ newStrip.querySelector('#departure').value = saveData.info.departure;
+  /* let arrivingField = */ newStrip.querySelector('#arrival').value = saveData.info.arrival;
+  /* let aircraftField = */ newStrip.querySelector('#aircraft').value = saveData.info.aircraft;
+  /* let altitudeField = */ newStrip.querySelector('#altitude').value = saveData.info.altitude;
+  /* let gateField = */ newStrip.querySelector('#gate').value = saveData.info.gate;
+  /* let statusField = */ newStrip.querySelector('#status').value = saveData.info.status;
+  /* let infoField = */ newStrip.querySelector('#info').value = saveData.info.info;
+  /* let runwayField = */ newStrip.querySelector('#runway').value = saveData.info.runway;
+  /* let sidstarField = */ newStrip.querySelector('#sidstar').value = saveData.info.sidstar;
+  /* let freeTextField = */ newStrip.querySelector('#freeText').value = saveData.info.freeText;
+
+  return newStrip;
+}
+
 function generateSquawk() {
   let squawk = '';
   for (let i = 0; i < length; i++) {

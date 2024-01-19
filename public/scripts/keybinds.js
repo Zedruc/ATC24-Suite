@@ -57,7 +57,7 @@ const keybinds = [
       let stripClone = strip.cloneNode(true);
       strip.remove();
       nextStripList.appendChild(stripClone);
-      saveStrips();
+      StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },
   },
   {
@@ -69,8 +69,7 @@ const keybinds = [
       let stripClone = strip.cloneNode(true);
       strip.remove();
       nextStripList.appendChild(stripClone);
-      saveStrips();
-      StripSaveManager.previousList(strip, list, nextStripList);
+      StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },
   },
 ];

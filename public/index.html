@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="./css/loader.css" />
     <link rel="stylesheet" href="./css/settings.css" />
 
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+    /> -->
+    <link rel="stylesheet" href="./css/hljs.dracula.css" />
+
     <!-- Meta Tags -->
     <!-- Primary Meta Tags -->
     <title>ATC24 Suite</title>
@@ -57,7 +63,15 @@ Charts - Flightstrips - Flightplan Management"
           <span>Settings</span>
         </div>
         <div class="settingsList">
-          <p>To be added</p>
+          <div class="settingContainer">
+            <input
+              type="checkbox"
+              id="loadStripsOnStart"
+              data-setting
+              onchange="Settings.set(this.id, this.checked)"
+            />
+            <p>Load strips from last session upon startup</p>
+          </div>
         </div>
         <div class="settingsFooter">
           <div class="socialMediaContainer">
@@ -193,7 +207,7 @@ Charts - Flightstrips - Flightplan Management"
             </a>
           </div>
           <div class="appVersion">
-            <span>v1.0.0</span>
+            <span>v b-1.0.0</span>
           </div>
         </div>
       </div>
@@ -285,7 +299,12 @@ Charts - Flightstrips - Flightplan Management"
           <div class="listName" id="listName">
             <h1>Delivery</h1>
           </div>
-          <div class="strip" data-deletion-confirmed="false" id="templateStrip">
+          <div
+            class="strip"
+            data-deletion-confirmed="false"
+            id="templateStrip"
+            oninput="StripSaveManager.updateStrip(this, this.parentElement)"
+          >
             <div class="leftMain">
               <!-- <span role="textbox" contenteditable="true" class="callsignInput"></span> -->
               <input
@@ -325,7 +344,7 @@ Charts - Flightstrips - Flightplan Management"
                 type="text"
                 id="freeText"
                 placeholder="Free Text"
-                onpaste="clearanceFromFlightPlan(this)"
+                onpaste="clearanceFromFlightPlan(this);"
               />
             </div>
           </div>
@@ -397,6 +416,8 @@ Charts - Flightstrips - Flightplan Management"
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="./scripts/lib/settings.js"></script>
+    <!-- HLJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <!-- Components -->
     <script src="./scripts/components/strip.js"></script>
     <!-- Main -->
@@ -405,14 +426,15 @@ Charts - Flightstrips - Flightplan Management"
     <script src="./scripts/infoUpdater.js"></script>
     <script src="./scripts/changeStation.js"></script>
     <script src="./scripts/changeAirport.js"></script>
+    <script src="./scripts/autosave.js"></script>
     <script src="./scripts/main.js"></script>
     <script src="./scripts/loadCharts.js"></script>
     <script src="./scripts/modalimage.js"></script>
     <script src="./scripts/keybinds.js"></script>
     <script src="./scripts/toggleChart.js"></script>
     <script src="./scripts/airlineNameDetector.js"></script>
-    <script src="./scripts/autosave.js"></script>
     <script src="./scripts/generateClearanceOnPaste.js"></script>
+    <script src="./scripts/settingsVersionClicks.js"></script>
     <script>
       /**
        * data-tippy = element has tooltip

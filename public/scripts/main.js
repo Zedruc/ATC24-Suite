@@ -326,3 +326,6 @@ airportSelect.addEventListener('change', changeAirport);
 stationSelect.addEventListener('change', changeStation);
 
 executeStationSelectUpdate('rockford', 'Rockford');
+
+// execute setting functions as required
+if (Settings.get('loadStripsOnStart')) StripSaveManager.loadFromStorageAndPopulate();
