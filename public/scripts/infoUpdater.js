@@ -13,7 +13,7 @@ function updateAirportInfo(airport) {
   airportIata.textContent = airport.iata;
   currentAirport = airport;
 
-  $('#chart').prop('src', `./charts/${airport.icao}/${airport.icao} Ground Chart.png`);
+  $('#chart').prop('src', `./charts/${airport.icao}/${airport.icao} Ground Chart.png.webp`);
 }
 
 function updateStationInfo(currentStation = stationSelect.value) {

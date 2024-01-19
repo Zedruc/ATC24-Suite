@@ -295,7 +295,6 @@ console.log('checking first');
 let firstTimeVisit = localStorage.getItem('firstTimeVisit');
 console.log(firstTimeVisit);
 if (firstTimeVisit !== 'true') {
-  console.log('meem');
   localStorage.setItem('firstTimeVisit', 'true');
   swal({
     title: 'Welcome!',
