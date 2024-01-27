@@ -56,7 +56,7 @@ Charts - Flightstrips - Flightplan Management"
 
     <link rel="shortcut icon" href="./favicon.jpg" type="image/x-icon" />
   </head>
-  <body>
+  <body data-prod="false">
     <div class="settingsOverlay center" style="display: none">
       <div class="settingsContainer">
         <div class="settingsTitle">
@@ -258,29 +258,27 @@ Charts - Flightstrips - Flightplan Management"
         <div class="content"></div>
       </div>
       <div class="info-bar-item" id="info-bar-item-4">
-        <div class="leftNote"></div>
-        <div class="rightNote"></div>
+        <div class="leftNote" data-no-select data-action>
+          <a href="#" target="_blank">Issues/Suggestions</a>
+        </div>
+        <div class="rightNote" data-no-select data-action onclick="openRadarWindow()">
+          Radar Screen
+        </div>
         <div class="infoName"></div>
         <div class="content"></div>
       </div>
       <div class="info-bar-item" id="info-bar-item-5">
         <div
           class="leftNote"
-          style="text-decoration: underline dotted; cursor: pointer"
           data-tippy=""
           data-tippy-placement="top"
           data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />Paste Discord Flightplan For Automatic Fill-in"
           data-no-select
+          data-action
         >
           Help
         </div>
-        <div
-          class="rightNote"
-          style="text-decoration: underline dotted; cursor: pointer"
-          id="toggleChart"
-          data-is-hidden="false"
-          data-no-select
-        >
+        <div class="rightNote" id="toggleChart" data-is-hidden="false" data-no-select data-action>
           Toggle Chart
         </div>
         <div class="infoName"></div>
@@ -299,12 +297,9 @@ Charts - Flightstrips - Flightplan Management"
           <div class="listName" id="listName">
             <h1>Delivery</h1>
           </div>
-          <div
-            class="strip"
-            data-deletion-confirmed="false"
-            id="templateStrip"
-            oninput="StripSaveManager.updateStrip(this, this.parentElement)"
-          >
+          <div class="strip" data-deletion-confirmed="false" id="templateStrip">
+            <!--^^^^^^ oninput="StripSaveManager.updateStrip(this, this.parentElement)" -->
+
             <div class="leftMain">
               <!-- <span role="textbox" contenteditable="true" class="callsignInput"></span> -->
               <input
@@ -406,6 +401,9 @@ Charts - Flightstrips - Flightplan Management"
       </span>
       <span class="copyrightNotice" id="copyrightNotice" style="user-select: none">&copy;</span>
     </div>
+    <script>
+      if (document.body.getAttribute('data-prod') == 'true') console.log = () => {};
+    </script>
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -424,6 +422,7 @@ Charts - Flightstrips - Flightplan Management"
     <script src="./scripts/lib/airlineTable.js"></script>
     <script src="./scripts/lib/htmlBuilder.js"></script>
     <script src="./scripts/infoUpdater.js"></script>
+    <script src="./scripts/radarWindow.js"></script>
     <script src="./scripts/changeStation.js"></script>
     <script src="./scripts/changeAirport.js"></script>
     <script src="./scripts/autosave.js"></script>
