@@ -98,8 +98,12 @@ class StripSaveManager {
 
   static updateStrip(strip, list) {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
-    if (!currentData[list.id]) return;
+    if (!currentData[list.id]) {
+      console.log('list nonexistent');
+      return;
+    }
     let stripToUpdateData = extractInfo(strip);
+    console.log(stripToUpdateData);
     for (let i = 0; i < currentData[list.id].length; i++) {
       const dataStrip = currentData[list.id][i];
       if (dataStrip.info.squawk == stripToUpdateData.info.squawk) {

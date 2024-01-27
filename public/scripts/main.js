@@ -1,5 +1,3 @@
-if (document.body.getAttribute('data-prod') == 'true') console.log = () => {};
-
 const airports = {
   cyprus: [
     {

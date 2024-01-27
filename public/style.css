@@ -144,3 +144,13 @@ button:active {
 [data-no-select] {
   user-select: none;
 }
+
+[data-action] {
+  text-decoration: underline dotted;
+  cursor: pointer
+}
+
+a {
+  color: aliceblue;
+  text-decoration: underline dotted;
+}
