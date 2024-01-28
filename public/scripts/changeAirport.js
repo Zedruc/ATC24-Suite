@@ -31,6 +31,12 @@ function executeStationSelectUpdate(island, airportName) {
     if (airport.name == airportName) {
       stations = airport.stations;
       runways = airport.runways;
+      if (window.radarWindow) {
+        window.radarWindow.postMessage({
+          type: 'airport_change',
+          airport: airport.icao.toLowerCase(),
+        });
+      }
 
       updateAirportInfo(airport);
       break;
@@ -46,12 +52,12 @@ function executeStationSelectUpdate(island, airportName) {
 
   for (let i = 0; i < runways.length; i++) {
     const runway = runways[i];
-    console.log(runway);
     let option = document.createElement('option');
     option.value = runway;
     option.textContent = runway;
     runwaySelect.appendChild(option);
   }
+  activeRunway = runwaySelect.value;
 
   updateStationInfo();
 }

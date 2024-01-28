@@ -40,9 +40,9 @@
 }
 
 .settingsList {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr; */
   padding: 0 1rem 0 1rem;
   overflow: auto;
 }

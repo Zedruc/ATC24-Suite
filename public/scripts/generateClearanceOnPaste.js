@@ -12,8 +12,6 @@ async function clearanceFromFlightPlan(target) {
     data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
   }
 
-  console.log(data);
-
   // update strip with flight plan data
   let strip = target.parentElement.parentElement;
   let squawkField = strip.querySelector('#squawk');
@@ -29,11 +27,9 @@ async function clearanceFromFlightPlan(target) {
   let clearance;
   let isGpsRouting =
     data.route.toLowerCase().includes('gps') || data.route.toLowerCase().includes('n/a');
-  console.log(isGpsRouting);
   let departureSid;
   if (!isGpsRouting) departureSid = detectDepartureRouting(data.route);
   else departureSid = 'GPS';
-  console.log(departureSid);
 
   if (data.flightrules.toLowerCase() == 'ifr') {
     clearance = `CLR ${data.arriving} ${isGpsRouting ? 'GPS' : 'RENTS1A'} FPL ${

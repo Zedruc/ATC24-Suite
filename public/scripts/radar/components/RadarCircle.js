@@ -2,7 +2,6 @@ let headingStep = 5;
 class RadarCircle {
   static draw(lastMousePos) {
     // draw initial circle
-    let circleCenterAndRadius = canvasSize / 2;
     ctx.beginPath();
     ctx.arc(circleCenterAndRadius, circleCenterAndRadius, circleCenterAndRadius, 0, 2 * Math.PI);
     ctx.strokeStyle = mainColor;
@@ -15,7 +14,7 @@ class RadarCircle {
     while (theta < 360) {
       theta += headingStep;
       if (theta % 90 == 0) {
-        let lineWidth = 5;
+        let lineWidth = 5 * resolutionScale;
         /**
          * rotatedX = (self.x - origin.x) * math.cos(radians) - (self.y - origin.y) * math.sin(radians) + origin.x
          * rotatedY = (self.x - origin.x) * math.sin(radians) - (self.y - origin.y) * math.cos(radians) + origin.y
@@ -28,7 +27,7 @@ class RadarCircle {
 
         let endPoint = {
           x: circleCenterAndRadius,
-          y: defaultLineWidth + 20,
+          y: defaultLineWidth + 20 * resolutionScale,
         };
 
         let rotatedStartingPoint = rotatePoint(
@@ -58,7 +57,7 @@ class RadarCircle {
         // text point
         let textPoint = {
           x: circleCenterAndRadius,
-          y: defaultLineWidth + 35,
+          y: defaultLineWidth + 35 * resolutionScale,
         };
         let rotatedTextPoint = rotatePoint(
           textPoint.x,
@@ -77,7 +76,7 @@ class RadarCircle {
         };
         let endPoint = {
           x: circleCenterAndRadius,
-          y: defaultLineWidth + 20,
+          y: defaultLineWidth + 15 * resolutionScale,
         };
 
         let rotatedStartingPoint = rotatePoint(
@@ -111,7 +110,7 @@ class RadarCircle {
         };
         let endPoint = {
           x: circleCenterAndRadius,
-          y: defaultLineWidth + 5,
+          y: defaultLineWidth + 5 * resolutionScale,
         };
 
         let rotatedStartingPoint = rotatePoint(

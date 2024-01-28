@@ -1,6 +1,6 @@
 body,
 html {
-  background-color: black;
+  background-color: rgb(19, 19, 19);
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -11,4 +11,7 @@ canvas {
   padding: 0;
   width: 500px;
   height: 500px;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: -18px;
 }

@@ -21,6 +21,13 @@ function updateStationInfo(currentStation = stationSelect.value) {
     let vals = currentStation.split('/');
     currentStation = { type: vals[0], frequency: vals[1] };
   }
+  if (window.) {
+    window.radarWindow.postMessage({ type: 'runway_change', runway: activeRunway });
+  }
   stationType.textContent = currentStation.type;
   stationFrequency.textContent = currentStation.frequency + ' MHz';
+}
+
+function runwayChange(target) {
+  activeRunway = target.value;
 }

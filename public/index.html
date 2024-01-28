@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./css/modalimage.css" />
-    <link rel="stylesheet" href="./css/loader.css" />
     <link rel="stylesheet" href="./css/settings.css" />
 
     <!-- <link
@@ -55,8 +54,10 @@ Charts - Flightstrips - Flightplan Management"
     <!-- Why are you reading this? -->
 
     <link rel="shortcut icon" href="./favicon.jpg" type="image/x-icon" />
+
+    <script src="./scripts/airportData.js"></script>
   </head>
-  <body data-prod="false">
+  <body data-prod="false" id="main">
     <div class="settingsOverlay center" style="display: none">
       <div class="settingsContainer">
         <div class="settingsTitle">
@@ -71,6 +72,33 @@ Charts - Flightstrips - Flightplan Management"
               onchange="Settings.set(this.id, this.checked)"
             />
             <p>Load strips from last session upon startup</p>
+          </div>
+          <div class="settingContainer">
+            <input
+              type="checkbox"
+              id="snapHeading"
+              data-setting
+              onchange="Settings.set(this.id, this.checked)"
+            />
+            <p>Snap radar heading vector to next standard heading</p>
+          </div>
+          <div class="settingContainer">
+            <input
+              type="checkbox"
+              id="keepHeadingVector"
+              data-setting
+              onchange="Settings.set(this.id, this.checked)"
+            />
+            <p>Keep radar vector after dragging</p>
+          </div>
+          <div class="settingContainer">
+            <input
+              type="checkbox"
+              id="loadRadarChart"
+              data-setting
+              onchange="Settings.set(this.id, this.checked)"
+            />
+            <p>Set respective aerodrome chart as radar background</p>
           </div>
         </div>
         <div class="settingsFooter">
@@ -248,7 +276,7 @@ Charts - Flightstrips - Flightplan Management"
         <div class="rightNote"></div>
         <div class="infoName">Active Runway</div>
         <div class="content">
-          <select id="runway-select"></select>
+          <select id="runway-select" onchange="runwayChange(this)"></select>
         </div>
       </div>
       <div class="info-bar-item" id="info-bar-item-3">
@@ -290,7 +318,7 @@ Charts - Flightstrips - Flightplan Management"
         <!-- <div style="position: relative; left: calc(50% - 16px)">
           <div class="loader-4 center"><span></span></div>
         </div> -->
-        <img id="chart" src="./charts/IRFD/IRFD Ground Chart.png" alt="CURRENT_CHART" />
+        <img id="chart" src="./charts/IRFD/IRFD Ground Chart.png.webp" alt="CURRENT_CHART" />
       </div>
       <div class="stripContainer">
         <div class="stripList" id="del" data-list="0">
@@ -421,8 +449,8 @@ Charts - Flightstrips - Flightplan Management"
     <!-- Main -->
     <script src="./scripts/lib/airlineTable.js"></script>
     <script src="./scripts/lib/htmlBuilder.js"></script>
-    <script src="./scripts/infoUpdater.js"></script>
     <script src="./scripts/radarWindow.js"></script>
+    <script src="./scripts/infoUpdater.js"></script>
     <script src="./scripts/changeStation.js"></script>
     <script src="./scripts/changeAirport.js"></script>
     <script src="./scripts/autosave.js"></script>
