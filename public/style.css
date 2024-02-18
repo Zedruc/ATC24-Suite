@@ -20,6 +20,14 @@
   max-height: 100px;
 }
 
+.swal2-container,
+.swal2-html-container {
+  font-family: system-ui;
+  text-align: left !important;
+}
+
+
+
 .settingsButton {
   width: 50px;
   height: 50px;

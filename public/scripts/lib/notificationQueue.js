@@ -9,7 +9,7 @@ class NotificationQueue {
 
   #display(notiOptions) {
     if (!notiOptions) return;
-    swal(notiOptions).then(_ => {
+    swal.fire(notiOptions).then(_ => {
       this.notifications.shift();
       if (this.notifications.length) {
         this.#display(this.notifications[0]);
