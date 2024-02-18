@@ -12,11 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@main
       - name: Upload to server
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        uses: Creepios/sftp-action@v1.0.3
         with:
-          server: zedruc.net
+          host: zedruc.net
           username: markus
+          port: 22
           password: ${{ secrets.ftp_password }}
-          protocol: ftps
-          local-dir: ./public/
-          server-dir: /home/markus/servers/zedruc_net/website/atc24-suite/
+          localPath: ./public/
+          remotePath: /home/markus/servers/zedruc_net/website/atc24-suite/
