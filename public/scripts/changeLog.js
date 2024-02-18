@@ -13,7 +13,7 @@ fetch('https://api.zedruc.net/changelogs/atc24-suite', {
   })
   .catch(err => {
     console.log(err);
-    swal({
+    notificationQueue.queue({
       title: 'Whoops!',
       text: 'An error was encountered trying to fetch the requested data. Please try again later.',
       icon: 'error',
@@ -36,7 +36,7 @@ function showChangelog() {
     .getFullYear()
     .toString()
     .substring(2, 4)}`;
-  swal({
+  notificationQueue.queue({
     title: `🚀 Update ${window.appVersion} (${dateString})`,
     text: window.changelog.message,
   });
