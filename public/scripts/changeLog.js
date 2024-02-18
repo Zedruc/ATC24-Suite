@@ -9,6 +9,7 @@ fetch('https://api.zedruc.net/changelogs/atc24-suite', {
   .then(response => response.json())
   .then(response => {
     window.changelog = response;
+    console.log(response);
     checkChangelog();
   })
   .catch(err => {
@@ -20,9 +21,11 @@ fetch('https://api.zedruc.net/changelogs/atc24-suite', {
   });
 
 function checkChangelog() {
-  let lastChangelogReceived = localStorage.getItem('changelog') || undefined;
+  let lastChangelogReceived = localStorage.getItem('changelog') || '';
+  console.log(lastChangelogReceived);
   if (lastChangelogReceived !== window.changelog) {
-    localStorage.setItem('changelog', window, changelog);
+    localStorage.setItem('changelog', window.changelog);
+    showChangelog();
   }
 }
 
