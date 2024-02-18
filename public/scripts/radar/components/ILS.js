@@ -1,6 +1,6 @@
 class ILS {
-  static draw(bottomMiddle, rwyHeading, rwyLength) {
-    if (rwyHeading !== activeRunway) {
+  static draw(middle, rwyHeading, rwyObject) {
+    /* if (rwyHeadingIdentifier !== activeRunway) {
       let runway = getRunway(activeRunway);
       bottomMiddle = runway.bottomMiddle;
       // rwyHeading = runway.heading;
@@ -9,17 +9,20 @@ class ILS {
       let rwyHeading = possibleHeadings.forEach(hdg => {
         if (activeRunway == hdg) return hdg;
       });
-      console.log(rwyHeading);
+    } */
 
-      rwyLength = runway.length;
-    }
+    // let runwayHeading = rwyHeading.toString().substring(0, 2);
+    const ilsDrawDirection = rwyHeading - 180;
+    let rwyLength = feetToPixel(rwyObject.length);
 
-    let runwayHeading = rwyHeading.toString().substring(0, 2);
-    const approachCourse = runwayHeading - 180;
-    let endPoint = movePointAlongAngle(bottomMiddle, nmToPixel(ilsDistance), approachCourse);
-    Line.drawDashed(bottomMiddle, endPoint, ilsColor, defaultLineWidth, ilsDashSequence);
+    let startPoint = movePointAlongAngle(middle, rwyLength / 2, ilsDrawDirection);
+    let endPoint = movePointAlongAngle(middle, nmToPixel(ilsDistance), ilsDrawDirection);
 
-    let markerPoints = getThreeMileMarkerPoints(bottomMiddle, approachCourse);
+    // console.log(runwayHeading, approachCourse, endPoint);
+
+    Line.drawDashed(startPoint, endPoint, ilsColor, defaultLineWidth, ilsDashSequence);
+
+    let markerPoints = getThreeMileMarkerPoints(middle, ilsDrawDirection);
     for (const markerSet of markerPoints) {
       Line.draw(markerSet[0], markerSet[1], ilsColor, threeMileMarkerThickness);
     }

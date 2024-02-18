@@ -2,8 +2,8 @@ radarCanvas.height = canvasSize;
 radarCanvas.width = canvasSize;
 radarCanvas.style.height = canvasSize;
 radarCanvas.style.width = canvasSize;
-let radarAirport = 'irfd';
-let activeRunway = '36L';
+let radarAirport = window.opener.currentAirport;
+let activeRunway = window.opener.activeRunway;
 // make window fit content
 window.resizeBy(windowSize - window.innerWidth, windowSize - window.innerHeight);
 
@@ -16,6 +16,7 @@ window.addEventListener('message', ev => {
     let newAirport = msg.airport;
     radarAirport = newAirport;
     if (Settings.get('loadRadarChart'))
+      // radarCanvas.style.backgroundImage = `url(../charts/${newAirport}/${newAirport}%20Ground%20Chart.png.webp)`;
       radarCanvas.style.backgroundImage = `url(../radars/${newAirport}.png)`;
     window.requestAnimationFrame(redrawRadarScreen);
   } else if (msg.type == 'runway_change') {

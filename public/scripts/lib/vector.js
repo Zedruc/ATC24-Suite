@@ -40,14 +40,12 @@ class Vec {
     if (v2.x > v1.x) {
       let deltaY = v2.y - v1.y;
       let deltaX = v2.x - v1.x;
-      console.log(deltaY, deltaX);
 
       let d = Math.sqrt(deltaY ** 2 + deltaX ** 2);
       return d;
     } else {
       let deltaY = v1.y - v2.y;
       let deltaX = v1.x - v2.x;
-      console.log(deltaY, deltaX);
       let d = Math.sqrt(deltaY ** 2 + deltaX ** 2);
       return d;
     }

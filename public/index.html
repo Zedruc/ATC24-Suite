@@ -98,7 +98,7 @@ Charts - Flightstrips - Flightplan Management"
               data-setting
               onchange="Settings.set(this.id, this.checked)"
             />
-            <p>Set respective aerodrome chart as radar background</p>
+            <p>[WIP] Set respective aerodrome chart as radar background</p>
           </div>
         </div>
         <div class="settingsFooter">
@@ -235,7 +235,8 @@ Charts - Flightstrips - Flightplan Management"
             </a>
           </div>
           <div class="appVersion">
-            <span>v b-1.0.0</span>
+            <span id="appVersion"></span><br />
+            <span data-action onclick="showChangelog()">changelog</span>
           </div>
         </div>
       </div>
@@ -287,7 +288,9 @@ Charts - Flightstrips - Flightplan Management"
       </div>
       <div class="info-bar-item" id="info-bar-item-4">
         <div class="leftNote" data-no-select data-action>
-          <a href="#" target="_blank">Issues/Suggestions</a>
+          <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank"
+            >Issues/Suggestions</a
+          >
         </div>
         <div class="rightNote" data-no-select data-action onclick="openRadarWindow()">
           Radar Screen
@@ -300,7 +303,7 @@ Charts - Flightstrips - Flightplan Management"
           class="leftNote"
           data-tippy=""
           data-tippy-placement="top"
-          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />Paste Discord Flightplan For Automatic Fill-in"
+          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />Right Click > Copy and Paste Discord Flightplan For Automatic Fill-in"
           data-no-select
           data-action
         >
@@ -428,6 +431,13 @@ Charts - Flightstrips - Flightplan Management"
         </svg>
       </span>
       <span class="copyrightNotice" id="copyrightNotice" style="user-select: none">&copy;</span>
+      <span class="copyrightNotice" id="note" style="user-select: none; font-size: 12px"
+        >Not affiliated with ATC24 or PTFS.</span
+      >
+      <span class="copyrightNotice" id="note" style="user-select: none; font-size: 12px"
+        >Charts are property of their respective owners provided by
+        <a href="https://ptfs.xyz/charts" target="_blank">ptfs.xyz.</a></span
+      >
     </div>
     <script>
       if (document.body.getAttribute('data-prod') == 'true') console.log = () => {};
@@ -447,6 +457,7 @@ Charts - Flightstrips - Flightplan Management"
     <!-- Components -->
     <script src="./scripts/components/strip.js"></script>
     <!-- Main -->
+    <script src="./scripts/changeLog.js"></script>
     <script src="./scripts/lib/airlineTable.js"></script>
     <script src="./scripts/lib/htmlBuilder.js"></script>
     <script src="./scripts/radarWindow.js"></script>

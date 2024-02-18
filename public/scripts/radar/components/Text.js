@@ -5,7 +5,6 @@ class Text {
     y = 0,
     shouldStroke = false,
     strokeColor = 'black',
-    strokeSize = 2.5,
     size = 15,
     color = mainColor
   ) {

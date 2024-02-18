@@ -26,12 +26,22 @@ function redrawRadarScreen() {
   if (runways) {
     for (let i = 0; i < runways.length; i++) {
       const rwy = runways[i];
-      let bottomLeft = new Vec(
-        rwy.bottomMiddle.x * resolutionScale,
-        rwy.bottomMiddle.y * resolutionScale
-      );
-      console.log(rwy);
-      Runway.draw(bottomLeft, runwayWidth, feetToPixel(rwy.length), rwy.heading, rwy.ils);
+      let middle = new Vec(rwy.middle.x * resolutionScale, rwy.middle.y * resolutionScale);
+      Runway.draw(middle, runwayWidth, feetToPixel(rwy.length), rwy, rwy.ils);
+      if (rwy.ils && rwy.id.toLowerCase().includes(activeRunway.toLowerCase())) {
+        let mainLandingRunwaySpecs = getRunway(radarAirport, activeRunway);
+        let runwayInfoIndex = mainLandingRunwaySpecs.id.split('/').indexOf(activeRunway);
+
+        let middle = new Vec(
+          mainLandingRunwaySpecs.middle.x * resolutionScale,
+          mainLandingRunwaySpecs.middle.y * resolutionScale
+        );
+        let runwayHeading = mainLandingRunwaySpecs.courses.split('/')[runwayInfoIndex];
+        ILS.draw(middle, runwayHeading, rwy);
+      } /*  else {
+        console.log('else ===========>');
+        console.log('activeRunway, rwy', activeRunway, rwy);
+      } */
     }
   }
 
@@ -39,7 +49,57 @@ function redrawRadarScreen() {
   let cities = getCities(radarAirport);
   if (cities) {
     for (let i = 0; i < cities.length; i++) {
-      Shape.draw(cities[i]);
+      Shape.draw(cities[i], true);
+    }
+  }
+
+  // Terrain around airport
+  let MEFs = getTerrain(radarAirport); // MEF = Maximum Elevation Figure
+  if (MEFs) {
+    for (let i = 0; i < MEFs.length; i++) {
+      let mef = MEFs[i];
+      Shape.draw(mef.points, false);
+
+      // find highest deltaY and deltaX
+      let maxDeltaX = 0;
+      let dxPoints = [null, null];
+      let maxDeltaY = 0;
+      let dyPoints = [null, null];
+      for (let j = 0; j < MEFs.length; j++) {
+        const pointBeingCompared = mef.points[i];
+        let currentDeltaX = 0;
+        let currentDeltaY = 0;
+        for (let k = 0; k < mef.points.length; k++) {
+          const comparisonPoint = mef.points[k];
+          let dx = pointBeingCompared.x - comparisonPoint.x;
+          if (dx < 0) dx *= -1;
+          let dy = pointBeingCompared.y - comparisonPoint.y;
+          if (dy < 0) dy *= -1;
+          if (dx > currentDeltaX) {
+            dxPoints = [pointBeingCompared, comparisonPoint];
+            currentDeltaX = dx;
+          }
+          if (dy > currentDeltaY) {
+            dyPoints = [pointBeingCompared, comparisonPoint];
+            currentDeltaY = dy;
+          }
+        }
+        if (currentDeltaX > maxDeltaX) maxDeltaX = currentDeltaX;
+        if (currentDeltaY > maxDeltaY) maxDeltaY = currentDeltaY;
+      }
+
+      let leftMostPoint = dxPoints[0].x < dxPoints[1].x ? dxPoints[0] : dxPoints[1];
+      let southernMostPoint = dyPoints[0].y > dyPoints[1].y ? dyPoints[0] : dyPoints[1];
+
+      Text.draw(
+        mef.mef,
+        (leftMostPoint.x + maxDeltaX / 2) * resolutionScale,
+        (southernMostPoint.y - maxDeltaY / 2) * resolutionScale,
+        false,
+        null,
+        10,
+        terrainMefColor
+      );
     }
   }
 }
@@ -132,13 +192,7 @@ function getRunways(icao) {
         if (!airport?.runwaySpecs) return;
         for (let i = 0; i < airport.runwaySpecs.length; i++) {
           const runway = airport.runwaySpecs[i];
-          runways.push({
-            id: runway.id.split('/')[0],
-            heading: +runway.courses.split('/')[0],
-            length: runway.length,
-            bottomMiddle: runway.bottomMiddle,
-            ils: runway.ils,
-          });
+          runways.push(runway);
         }
         break;
       }
@@ -147,10 +201,11 @@ function getRunways(icao) {
   return runways;
 }
 
-function getRunway(id) {
+function getRunway(icao, id) {
   let runways = [];
   for (const country in airports) {
     for (const airport of airports[country]) {
+      if (airport.icao.toLowerCase() !== icao.toLowerCase()) continue;
       if (!airport?.runwaySpecs) return;
       for (let i = 0; i < airport.runwaySpecs.length; i++) {
         let runway = airport.runwaySpecs[i];
@@ -175,4 +230,20 @@ function getCities(icao) {
     }
   }
   return cities;
+}
+
+function getTerrain(icao) {
+  let mefs = [];
+  for (const country in airports) {
+    for (const airport of airports[country]) {
+      if (airport.icao.toLowerCase() == icao) {
+        if (!airport?.terrain) return;
+        for (let i = 0; i < airport.terrain.length; i++) {
+          mefs.push(airport.terrain[i]);
+        }
+        break;
+      }
+    }
+  }
+  return mefs;
 }

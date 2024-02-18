@@ -4,7 +4,7 @@ const resolutionScale = 2;
 const canvasSize = windowSize * resolutionScale;
 const defaultLineWidth = 2 * resolutionScale;
 const runwayColor = '#9c9c9c';
-const runwayWidth = 12 * resolutionScale;
+const runwayWidth = 8 * resolutionScale;
 const circleCenterAndRadius = canvasSize / 2;
 const radarWidth = 24; // nautical miles
 const nmPerPixel = radarWidth / canvasSize;
@@ -16,6 +16,8 @@ const threeMileMarkerWidth = 0.25; // nautical miles
 const threeMileMarkerThickness = 4;
 const dashDivider = 9;
 const ilsDashSequence = [nmToPixel(3) / dashDivider, nmToPixel(3) / dashDivider];
+
+const terrainMefColor = '#acacac';
 
 // 1nm = 6076.125ft
 
@@ -46,4 +48,14 @@ function movePointAlongAngle(vPoint, distance, angle) {
     vPoint.x + distance * Math.cos(degrees_to_radians(angle) - degrees_to_radians(90)),
     vPoint.y + distance * Math.sin(degrees_to_radians(angle) - degrees_to_radians(90))
   );
+}
+
+function getRunwayIdentifier(hdg) {
+  return Math.round(hdg / 10)
+    .toString()
+    .padStart(2, '0');
+}
+
+function flipHeading(hdg) {
+  return hdg <= 180 ? hdg + 180 : hdg - 180;
 }

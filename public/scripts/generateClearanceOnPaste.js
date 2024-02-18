@@ -32,7 +32,7 @@ async function clearanceFromFlightPlan(target) {
   else departureSid = 'GPS';
 
   if (data.flightrules.toLowerCase() == 'ifr') {
-    clearance = `CLR ${data.arriving} ${isGpsRouting ? 'GPS' : 'RENTS1A'} FPL ${
+    clearance = `CLR ${data.arriving} ${isGpsRouting ? 'GPS' : departureSid} FPL ${
       isGpsRouting ? 'CLB' : 'CVS'
     } FL${data.flightlevel} DEP [ ] ?SQ`;
   } else if (data.flightrules.toLowerCase() == 'vfr') {
@@ -47,8 +47,8 @@ async function clearanceFromFlightPlan(target) {
 
 function detectDepartureRouting(route) {
   let icaoAndSidRegex =
-    /([A-Z]{4}(\/|| ||\/\/)[0-9]{2}[RLC]?)(?: ||>>||>||-||\/\/)([A-Z]{5}[0-9]{1}[A-Z]{1})/g;
-  let sidOnlyRegex = /([A-Z]{5}[0-9]{1}[A-Z]{1})/g;
+    /([A-Z]{4}(\/| |\/\/)[0-9]{2}[RLC]?)(?: |>>|>|-|\/\/)([A-Z]{3,5}[0-9]{1}[A-Z]{1})/g;
+  let sidOnlyRegex = /([A-Z]{3,5}[0-9]{1}[A-Z]{1})/g;
 
   let result1 = icaoAndSidRegex.exec(route);
   if (result1) return result1[3];

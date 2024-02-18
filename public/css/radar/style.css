@@ -11,7 +11,9 @@ canvas {
   padding: 0;
   width: 500px;
   height: 500px;
-  background-size: cover;
+  background-size: contain;
+  /* background-size: 10%; */
   background-position-x: center;
-  background-position-y: -18px;
+  background-position-y: center;
+  background-repeat: no-repeat;
 }

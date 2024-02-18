@@ -4,6 +4,10 @@ let windowFeatures = 'width=500,height=500';
 function openRadarWindow() {
   try {
     window.radarWindow = window.open('./windows/radar.html', 'radar', windowFeatures);
+    /* window.radarWindow.postMessage({
+      type: 'airport_change',
+      airport: currentAirport.icao.toLowerCase(),
+    }); */
   } catch (error) {
     swal({
       title: 'Whoops!',

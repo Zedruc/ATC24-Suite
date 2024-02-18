@@ -31,6 +31,7 @@ function executeStationSelectUpdate(island, airportName) {
     if (airport.name == airportName) {
       stations = airport.stations;
       runways = airport.runways;
+      window.currentAirport = airport.icao.toLowerCase();
       if (window.radarWindow) {
         window.radarWindow.postMessage({
           type: 'airport_change',
