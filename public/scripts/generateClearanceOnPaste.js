@@ -12,8 +12,6 @@ async function clearanceFromFlightPlan(target) {
     data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
   }
 
-  console.log(data);
-
   // update strip with flight plan data
   let strip = target.parentElement.parentElement;
   let squawkField = strip.querySelector('#squawk');
@@ -29,14 +27,12 @@ async function clearanceFromFlightPlan(target) {
   let clearance;
   let isGpsRouting =
     data.route.toLowerCase().includes('gps') || data.route.toLowerCase().includes('n/a');
-  console.log(isGpsRouting);
   let departureSid;
   if (!isGpsRouting) departureSid = detectDepartureRouting(data.route);
   else departureSid = 'GPS';
-  console.log(departureSid);
 
   if (data.flightrules.toLowerCase() == 'ifr') {
-    clearance = `CLR ${data.arriving} ${isGpsRouting ? 'GPS' : 'RENTS1A'} FPL ${
+    clearance = `CLR ${data.arriving} ${isGpsRouting ? 'GPS' : departureSid} FPL ${
       isGpsRouting ? 'CLB' : 'CVS'
     } FL${data.flightlevel} DEP [ ] ?SQ`;
   } else if (data.flightrules.toLowerCase() == 'vfr') {
@@ -51,8 +47,8 @@ async function clearanceFromFlightPlan(target) {
 
 function detectDepartureRouting(route) {
   let icaoAndSidRegex =
-    /([A-Z]{4}(\/|| ||\/\/)[0-9]{2}[RLC]?)(?: ||>>||>||-||\/\/)([A-Z]{5}[0-9]{1}[A-Z]{1})/g;
-  let sidOnlyRegex = /([A-Z]{5}[0-9]{1}[A-Z]{1})/g;
+    /([A-Z]{4}(\/| |\/\/)[0-9]{2}[RLC]?)(?: |>>|>|-|\/\/)([A-Z]{3,5}[0-9]{1}[A-Z]{1})/g;
+  let sidOnlyRegex = /([A-Z]{3,5}[0-9]{1}[A-Z]{1})/g;
 
   let result1 = icaoAndSidRegex.exec(route);
   if (result1) return result1[3];

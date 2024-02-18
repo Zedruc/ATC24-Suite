@@ -78,7 +78,6 @@ class StripSaveManager {
 
   // move strip from currentList into the nextList
   static moveBetweenLists(strip, currentList, nextList) {
-    // console.log(strip, currentList, nextList);
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
     if (!currentData[currentList.id]) return;
     if (!currentData[nextList.id]) currentData[nextList.id] = [];
@@ -93,17 +92,14 @@ class StripSaveManager {
         break;
       }
     }
-    console.log(JSON.parse(localStorage.getItem('strips') || '{}'));
   }
 
   static updateStrip(strip, list) {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
     if (!currentData[list.id]) {
-      console.log('list nonexistent');
       return;
     }
     let stripToUpdateData = extractInfo(strip);
-    console.log(stripToUpdateData);
     for (let i = 0; i < currentData[list.id].length; i++) {
       const dataStrip = currentData[list.id][i];
       if (dataStrip.info.squawk == stripToUpdateData.info.squawk) {

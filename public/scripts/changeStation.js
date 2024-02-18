@@ -4,7 +4,6 @@
  * @returns void
  */
 function changeStation(e) {
-  console.log('station change');
   if (typeof e == 'string') {
     let stationType = e;
     updateStationInfo(findStation(stationType));
@@ -17,7 +16,6 @@ function changeStation(e) {
 }
 
 function findStation(type) {
-  console.log('findstation');
   for (const station of currentAirport.stations) {
     if (station.type == type) return station;
   }

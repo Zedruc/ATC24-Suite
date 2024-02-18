@@ -1,0 +1,19 @@
+body,
+html {
+  background-color: rgb(19, 19, 19);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+canvas {
+  margin: 0;
+  padding: 0;
+  width: 500px;
+  height: 500px;
+  background-size: contain;
+  /* background-size: 10%; */
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+}
