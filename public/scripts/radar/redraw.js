@@ -28,9 +28,9 @@ function redrawRadarScreen() {
       const rwy = runways[i];
       let middle = new Vec(rwy.middle.x * resolutionScale, rwy.middle.y * resolutionScale);
       Runway.draw(middle, runwayWidth, feetToPixel(rwy.length), rwy, rwy.ils);
-      if (rwy.ils && rwy.id.toLowerCase().includes(activeRunway.toLowerCase())) {
-        let mainLandingRunwaySpecs = getRunway(radarAirport, activeRunway);
-        let runwayInfoIndex = mainLandingRunwaySpecs.id.split('/').indexOf(activeRunway);
+      if (rwy.ils && rwy.id.toLowerCase().includes(activeArrRunway.toLowerCase())) {
+        let mainLandingRunwaySpecs = getRunway(radarAirport, activeArrRunway);
+        let runwayInfoIndex = mainLandingRunwaySpecs.id.split('/').indexOf(activeArrRunway);
 
         let middle = new Vec(
           mainLandingRunwaySpecs.middle.x * resolutionScale,

@@ -22,9 +22,11 @@ function executeStationSelectUpdate(island, airportName) {
   while (stationSelect.firstChild) {
     stationSelect.removeChild(stationSelect.lastChild);
   }
-  while (runwaySelect.firstChild) {
-    runwaySelect.removeChild(runwaySelect.lastChild);
+  while (arrRunwaySelect.firstChild && depRunwaySelect.firstChild) {
+    arrRunwaySelect.removeChild(arrRunwaySelect.lastChild);
+    depRunwaySelect.removeChild(depRunwaySelect.lastChild);
   }
+
   let stations;
   let runways;
   for (const airport of airports[island]) {
@@ -56,9 +58,14 @@ function executeStationSelectUpdate(island, airportName) {
     let option = document.createElement('option');
     option.value = runway;
     option.textContent = runway;
-    runwaySelect.appendChild(option);
+    let option2 = document.createElement('option');
+    option2.value = runway;
+    option2.textContent = runway;
+    arrRunwaySelect.appendChild(option);
+    depRunwaySelect.appendChild(option2);
   }
-  activeRunway = runwaySelect.value;
+  activeArrRunway = arrRunwaySelect.value;
+  activeDepRunway = depRunwaySelect.value;
 
   updateStationInfo();
 }
