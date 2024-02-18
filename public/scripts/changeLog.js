@@ -9,10 +9,10 @@ fetch('https://api.zedruc.net/changelogs/atc24-suite', {
   .then(response => response.json())
   .then(response => {
     window.changelog = response;
-    console.log(response);
     checkChangelog();
   })
   .catch(err => {
+    console.log(err);
     swal({
       title: 'Whoops!',
       text: 'An error was encountered trying to fetch the requested data. Please try again later.',
@@ -21,17 +21,23 @@ fetch('https://api.zedruc.net/changelogs/atc24-suite', {
   });
 
 function checkChangelog() {
-  let lastChangelogReceived = localStorage.getItem('changelog') || '';
-  console.log(lastChangelogReceived);
-  if (lastChangelogReceived !== window.changelog) {
-    localStorage.setItem('changelog', window.changelog);
+  let lastChangelogTime = localStorage.getItem('lastChangelogTime') || 0;
+  let receivedChangelogTime = new Date(window.changelog.time);
+  if (receivedChangelogTime.getTime() > lastChangelogTime) {
+    localStorage.setItem('lastChangelogTime', receivedChangelogTime.getTime());
     showChangelog();
   }
 }
 
 function showChangelog() {
+  let changelogTime = new Date(window.changelog.time);
+  console.log(changelogTime);
+  let dateString = `${changelogTime.getDate()}.${changelogTime.getMonth()}.${changelogTime
+    .getFullYear()
+    .toString()
+    .substring(2, 4)}`;
   swal({
-    title: `🚀 Changelog ${window.appVersion}`,
-    text: window.changelog,
+    title: `🚀 Update ${window.appVersion} (${dateString})`,
+    text: window.changelog.message,
   });
 }
