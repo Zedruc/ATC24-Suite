@@ -633,7 +633,7 @@ const airports = {
           courses: '127/307',
           length: 4850, // feet,
           middle: {
-            x: 256.2000045776367,
+            x: 236.2000045776367,
             y: 218,
           },
           ils: true, // whether runway has ils equipped
@@ -643,7 +643,7 @@ const airports = {
           courses: '020/200',
           length: 3754, // feet,
           middle: {
-            x: 244.20000457763672,
+            x: 280,
             y: 254,
           },
           ils: true, // whether runway has ils equipped

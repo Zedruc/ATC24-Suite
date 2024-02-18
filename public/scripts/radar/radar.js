@@ -3,7 +3,8 @@ radarCanvas.width = canvasSize;
 radarCanvas.style.height = canvasSize;
 radarCanvas.style.width = canvasSize;
 let radarAirport = window.opener.currentAirport;
-let activeRunway = window.opener.activeRunway;
+let activeArrRunway = window.opener.activeArrRunway;
+let activeDepRunway = window.opener.activeDepRunway;
 // make window fit content
 window.resizeBy(windowSize - window.innerWidth, windowSize - window.innerHeight);
 
@@ -19,9 +20,13 @@ window.addEventListener('message', ev => {
       // radarCanvas.style.backgroundImage = `url(../charts/${newAirport}/${newAirport}%20Ground%20Chart.png.webp)`;
       radarCanvas.style.backgroundImage = `url(../radars/${newAirport}.png)`;
     window.requestAnimationFrame(redrawRadarScreen);
-  } else if (msg.type == 'runway_change') {
+  } else if (msg.type == 'arr_runway_change') {
     let newRunway = msg.runway;
-    activeRunway = newRunway;
+    activeArrRunway = newRunway;
+    window.requestAnimationFrame(redrawRadarScreen);
+  } else if (msg.type == 'dep_runway_change') {
+    let newRunway = msg.runway;
+    activeDepRunway = newRunway;
     window.requestAnimationFrame(redrawRadarScreen);
   }
 });

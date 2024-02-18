@@ -22,16 +22,25 @@ function updateStationInfo(currentStation = stationSelect.value) {
     currentStation = { type: vals[0], frequency: vals[1] };
   }
   if (window.radarWindow) {
-    window.radarWindow.postMessage({ type: 'runway_change', runway: activeRunway });
+    window.radarWindow.postMessage({ type: 'arr_runway_change', runway: activeArrRunway });
+    window.radarWindow.postMessage({ type: 'dep_runway_change', runway: activeDepRunway });
   }
   stationType.textContent = currentStation.type;
   stationFrequency.textContent = currentStation.frequency + ' MHz';
 }
 
-function runwayChange(target) {
-  window.activeRunway = target.value;
-  activeRunway = target.value;
+function arrRunwayChange(target) {
+  window.activeArrRunway = target.value;
+  activeArrRunway = target.value;
   if (window.radarWindow) {
-    window.radarWindow.postMessage({ type: 'runway_change', runway: activeRunway });
+    window.radarWindow.postMessage({ type: 'arr_runway_change', runway: activeArrRunway });
+  }
+}
+
+function depRunwayChange(target) {
+  window.activeDepRunway = target.value;
+  activeDepRunway = target.value;
+  if (window.radarWindow) {
+    window.radarWindow.postMessage({ type: 'dep_runway_change', runway: activeDepRunway });
   }
 }
