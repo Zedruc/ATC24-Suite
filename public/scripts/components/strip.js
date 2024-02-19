@@ -28,7 +28,7 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
   }
 
   if (type !== 'vfr') {
-    newStrip.querySelector('#runway').value = runwaySelect.value || '';
+    newStrip.querySelector('#runway').value = depRunwaySelect.value || '';
     newStrip.querySelector('#departure').value = currentAirport.icao || '';
   }
 
