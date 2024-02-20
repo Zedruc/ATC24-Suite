@@ -317,7 +317,7 @@ Charts - Flightstrips - Flightplan Management"
           class="leftNote"
           data-tippy=""
           data-tippy-placement="top"
-          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />Right Click > Copy and Paste Discord Flightplan For Automatic Fill-in"
+          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
           data-no-select
           data-action
         >
@@ -382,10 +382,12 @@ Charts - Flightstrips - Flightplan Management"
               <input
                 class="textInput"
                 type="text"
-                id="freeText"
-                placeholder="Free Text"
+                id="flightplan"
+                placeholder="Paste Flightplan"
                 onpaste="clearanceFromFlightPlan(this);"
               />
+              <input class="textInput" type="text" id="route" placeholder="User Route" />
+              <input class="textInput" type="text" id="notes" placeholder="Notes" />
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-rows: 70px repeat(10, 150px);
+  grid-template-rows: 70px repeat(10, min-content);
 
   /* background-color: rgba(35, 45, 128, 0.575); */
 }
@@ -68,7 +68,7 @@
   padding: .2rem;
   grid-column: span 8;
   height: 100%;
-  display: flex;
+  display: block;
   justify-content: center;
 }
 
@@ -85,6 +85,7 @@
   color: aliceblue;
   background-color: rgb(32, 32, 32);
   font-family: var(--default-font);
+  outline: none;
 }
 
 .callsignInput {

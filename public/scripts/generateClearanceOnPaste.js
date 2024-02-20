@@ -19,6 +19,7 @@ async function clearanceFromFlightPlan(target) {
   let arrivingField = strip.querySelector('#arrival');
   let aircraftField = strip.querySelector('#aircraft');
   let altitudeField = strip.querySelector('#altitude');
+  let routeField = strip.querySelector('#route');
 
   callsignField.value = data.callsign;
   arrivingField.value = data.arriving;
@@ -28,8 +29,14 @@ async function clearanceFromFlightPlan(target) {
   let isGpsRouting =
     data.route.toLowerCase().includes('gps') || data.route.toLowerCase().includes('n/a');
   let departureSid;
-  if (!isGpsRouting) departureSid = detectDepartureRouting(data.route);
-  else departureSid = 'GPS';
+  if (!isGpsRouting) {
+    departureSid = detectDepartureRouting(data.route);
+    routeField.value = data.route;
+    routeField.setAttribute('disabled', 'true');
+  } else {
+    departureSid = 'GPS';
+    routeField.remove();
+  }
 
   if (data.flightrules.toLowerCase() == 'ifr') {
     clearance = `CLR ${data.arriving} ${isGpsRouting ? 'GPS' : departureSid} FPL ${
