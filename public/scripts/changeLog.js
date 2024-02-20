@@ -38,6 +38,6 @@ function showChangelog() {
     .substring(2, 4)}`;
   notificationQueue.queue({
     title: `🚀 Update ${window.appVersion} (${dateString})`,
-    text: window.changelog.message,
+    html: window.changelog.message,
   });
 }

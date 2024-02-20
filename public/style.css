@@ -26,7 +26,14 @@
   text-align: left !important;
 }
 
+.swal2-html-container a,
+.swal2-footer a {
+  color: blue;
+}
 
+.toast-close {
+  display: none;
+}
 
 .settingsButton {
   width: 50px;
@@ -161,4 +168,32 @@ button:active {
 a {
   color: aliceblue;
   text-decoration: underline dotted;
+}
+
+.discordButton {
+  height: auto;
+  padding: .8rem .1rem;
+  margin: 0 1rem 0 0;
+  width: 8rem;
+  color: aliceblue;
+  background-color: #5865F2;
+  border-radius: 5px;
+}
+
+.discordButton:hover {
+  background-color: hsl(235, 86%, 63%);
+}
+
+.discordButton:active {
+  background-color: hsl(235, 86%, 61%);
+}
+
+.disabled {
+  height: auto;
+  padding: .8rem .1rem;
+  margin: 0 1rem 0 0;
+  width: 8rem;
+  color: aliceblue;
+  background-color: var(--disabled);
+  border-radius: 5px;
 }
