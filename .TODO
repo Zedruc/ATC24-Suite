@@ -25,11 +25,7 @@ IF POSSIBLE, being able to move strips around using mouse.
 - "Paste Flightplan" Box verstecken, wenn Flugplan gepasted aber "Generate IFR Clearance" Einstellung disabled
 
 Zukünftig:
-<<<<<<< Updated upstream
-- SHared Rooms
-=======
 - Shared Rooms
->>>>>>> Stashed changes
 - Departure Wegpunkte auf Radar
 - Ein-/Ausschaltbare Wegpunkte auf Radar
 
