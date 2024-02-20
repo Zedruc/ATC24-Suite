@@ -2,22 +2,31 @@ class MessageTypes {
   static AUTH = 'auth';
   static PING = 'ping';
   static PING_RESPONSE = 'ping_response';
+  static CLOSING = 'closing';
 }
 
 class WSManager {
   #init() {
+    console.log('called');
     this.wss.onerror = this.onError;
     this.wss.onmessage = this.onMessage;
     this.wss.onclose = this.onClose;
+    window.onbeforeunload = function (e) {
+      this.#sendMessage({ id: this.id, type: MessageTypes.CLOSING });
+    }.bind(this);
     this.connectionAlive = true;
+
+    if (this.id) {
+      this.authorizeUser();
+    }
   }
 
-  constructor(url, id = undefined) {
+  constructor(url, id = localStorage.getItem('discord_id') || undefined) {
     if (!url) throw Error('No Websocket URL provided');
     this.wss = new WebSocket(url);
     this.url = url;
     this.id = id;
-    this.#init();
+    this.wss.onopen = this.#init.bind(this);
   }
 
   #sendMessage(data) {
@@ -53,7 +62,7 @@ class WSManager {
 
   authorizeUser() {
     if (!this.id) return console.warn('[WsManager] Set user ID before authorizing');
-    this.#sendMessage({ id: id, type: MessageTypes.AUTH });
+    this.#sendMessage({ id: this.id, type: MessageTypes.AUTH });
   }
 
   setUserId(id) {
@@ -131,7 +140,10 @@ class WSManager {
         });
         break;
       default:
+        console.log('Error not identified');
         break;
     }
   }
 }
+
+window.wsManager = new WSManager('ws://127.0.0.1:81');
