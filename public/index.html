@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="./css/modalimage.css" />
     <link rel="stylesheet" href="./css/settings.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
 
     <!-- <link
       rel="stylesheet"
@@ -99,6 +104,14 @@ Charts - Flightstrips - Flightplan Management"
               onchange="Settings.set(this.id, this.checked)"
             />
             <p>[WIP] Set respective aerodrome chart as radar background</p>
+          </div>
+          <div class="settingContainer">
+            <div>
+              <button id="connectDiscord" class="discordButton" onclick="verifyDiscord()">
+                Connect Discord
+              </button>
+            </div>
+            <p id="discordConnectionStatus">Connect to use automatic flight plan management</p>
           </div>
         </div>
         <div class="settingsFooter">
@@ -450,12 +463,15 @@ Charts - Flightstrips - Flightplan Management"
     ></script>
     <script src="./scripts/VERSION.js"></script>
     <!-- Libs -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/lib/apiValues.js"></script>
+    <script src="./scripts/lib/notificationQueue.js"></script>
     <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="./scripts/lib/settings.js"></script>
-    <script src="./scripts/lib/notificationQueue.js"></script>
+    <script src="./scripts/lib/WebsocketManager.js"></script>
     <!-- HLJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <!-- Components -->
@@ -470,6 +486,7 @@ Charts - Flightstrips - Flightplan Management"
     <script src="./scripts/changeAirport.js"></script>
     <script src="./scripts/autosave.js"></script>
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/lib/discordVerification.js"></script>
     <script src="./scripts/loadCharts.js"></script>
     <script src="./scripts/modalimage.js"></script>
     <script src="./scripts/keybinds.js"></script>

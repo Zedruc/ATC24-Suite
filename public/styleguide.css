@@ -20,4 +20,5 @@
   --outbound-border: rgb(100, 151, 218);
   --vfr-bg: rgba(148, 0, 148, 0.3);
   --vfr-border: rgb(196, 0, 196);
+  --disabled: rgb(88, 88, 88);
 }
