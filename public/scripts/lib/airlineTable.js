@@ -19628,8 +19628,8 @@ let airlineTable = {
     callsign: 'TOL AIR',
   },
   TOM: {
-    name: 'Thomsonfly',
-    callsign: 'TOMSON',
+    name: 'Tomjet',
+    callsign: 'TOMJET',
   },
   TOP: {
     name: 'Top Air',
@@ -23140,3 +23140,98 @@ let airlineTable = {
     callsign: 'ASIA CARGO',
   },
 };
+
+let planeTypes = [
+  {
+    typeCode: 'a320',
+    names: ['airbus a320', '320'],
+  },
+  {
+    typeCode: 'a330',
+    names: ['airbus a330', '330'],
+  },
+  {
+    typeCode: 'a340',
+    names: ['airbus a340', '340'],
+  },
+  {
+    typeCode: 'a350',
+    names: ['airbus a350', '350', 'a359'],
+  },
+  {
+    typeCode: 'a380',
+    names: ['airbus a380', '380'],
+  },
+  {
+    typeCode: 'bga',
+    names: ['airbus beluga', 'beluga'],
+  },
+  {
+    typeCode: 'b727',
+    names: ['boeing 727', '727'],
+  },
+  {
+    typeCode: 'b737',
+    names: ['boeing 737', '737', '738'],
+  },
+  {
+    typeCode: 'b747',
+    names: ['boeing 747', '747', '748'],
+  },
+  {
+    typeCode: 'b757',
+    names: ['boeing 757', '757'],
+  },
+  {
+    typeCode: 'b767',
+    names: ['boeing 767', '767'],
+  },
+  {
+    typeCode: 'b777',
+    names: ['boeing 777', '777'],
+  },
+  {
+    typeCode: 'b787',
+    names: ['boeing 787', '787'],
+  },
+  {
+    typeCode: 'an225',
+    names: ['antonov an225', '225'],
+  },
+  {
+    typeCode: 'c172',
+    names: ['skyhawk', '172'],
+  },
+  {
+    typeCode: 'crj7',
+    names: ['crj  700', 'crj700', 'crj'],
+  },
+  {
+    typeCode: 'blcf',
+    names: ['dreamlifer', 'dream lifter'],
+  },
+  {
+    typeCode: 'md90',
+    names: ['douglas md-90', 'douglas md90'],
+  },
+  {
+    typeCode: 'md11',
+    names: ['douglas md-11', 'douglas md11'],
+  },
+  {
+    typeCode: 'lj45',
+    names: ['learjet', 'lear jet', 'lear'],
+  },
+  {
+    typeCode: 'c208',
+    names: ['caravan'],
+  },
+  {
+    typeCode: 'H135',
+    names: ['135', 'H-135', 'KC-135', 'RC-135'],
+  },
+  {
+    typeCode: 'sf50',
+    names: ['cirrus', 'vision'],
+  },
+];

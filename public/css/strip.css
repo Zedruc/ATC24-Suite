@@ -111,6 +111,13 @@
   font-size: small;
 }
 
+.routeText {
+  font-size: small;
+  margin: .1rem 0;
+  width: 100%;
+  text-align: center;
+}
+
 /* Strip parts spacing */
 /* .route {
   grid-column: 1 / 2;

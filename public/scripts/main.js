@@ -29,8 +29,8 @@ if (firstTimeVisit !== 'true') {
 
 let airportSelect = document.getElementById('airport-select');
 let stationSelect = document.getElementById('station-select');
-let arrRunwaySelect = document.getElementById('arr-runway-select');
-let depRunwaySelect = document.getElementById('dep-runway-select');
+let arrRunwayCheckboxes = document.getElementById('arrRunwayCheckboxes');
+let depRunwayCheckboxes = document.getElementById('depRunwayCheckboxes');
 
 for (const island in airports) {
   let group = document.createElement('optgroup');

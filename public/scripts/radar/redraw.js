@@ -28,20 +28,24 @@ function redrawRadarScreen() {
       const rwy = runways[i];
       let middle = new Vec(rwy.middle.x * resolutionScale, rwy.middle.y * resolutionScale);
       Runway.draw(middle, runwayWidth, feetToPixel(rwy.length), rwy, rwy.ils);
-      if (rwy.ils && rwy.id.toLowerCase().includes(activeArrRunway.toLowerCase())) {
-        let mainLandingRunwaySpecs = getRunway(radarAirport, activeArrRunway);
-        let runwayInfoIndex = mainLandingRunwaySpecs.id.split('/').indexOf(activeArrRunway);
 
-        let middle = new Vec(
-          mainLandingRunwaySpecs.middle.x * resolutionScale,
-          mainLandingRunwaySpecs.middle.y * resolutionScale
-        );
-        let runwayHeading = mainLandingRunwaySpecs.courses.split('/')[runwayInfoIndex];
-        ILS.draw(middle, runwayHeading, rwy);
-      } /*  else {
-        console.log('else ===========>');
-        console.log('activeRunway, rwy', activeRunway, rwy);
-      } */
+      let activeArrRunways = getActiveRunways('arr');
+
+      for (let j = 0; j < activeArrRunways.length; j++) {
+        const activeArrRwy = activeArrRunways[j];
+
+        if (rwy.ils && runwayIsSame(activeArrRwy, rwy.id)) {
+          let mainLandingRunwaySpecs = getRunway(radarAirport, activeArrRwy);
+          let runwayInfoIndex = mainLandingRunwaySpecs.id.split('/').indexOf(activeArrRwy);
+
+          let middle = new Vec(
+            mainLandingRunwaySpecs.middle.x * resolutionScale,
+            mainLandingRunwaySpecs.middle.y * resolutionScale
+          );
+          let runwayHeading = mainLandingRunwaySpecs.courses.split('/')[runwayInfoIndex];
+          ILS.draw(middle, runwayHeading, rwy);
+        }
+      }
     }
   }
 
@@ -246,4 +250,20 @@ function getTerrain(icao) {
     }
   }
   return mefs;
+}
+
+function getActiveRunways(arrivalOrDeparture) {
+  let activeUsedRunways = [];
+  activeRunways.forEach(rwy => {
+    if (rwy.arrivalOrDeparture == arrivalOrDeparture && rwy.active)
+      activeUsedRunways.push(rwy.rwyId);
+  });
+  return activeUsedRunways;
+}
+
+function runwayIsSame(rwyId, splitId) {
+  let [id1, id2] = splitId.split('/');
+  if (rwyId == id1) return true;
+  if (rwyId == id2) return true;
+  return false;
 }

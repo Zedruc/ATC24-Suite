@@ -3,16 +3,27 @@ class MessageTypes {
   static PING = 'ping';
   static PING_RESPONSE = 'ping_response';
   static CLOSING = 'closing';
+  static ROOM_CREATE = 'room_create';
+  static ROOM_JOIN = 'room_join';
+  static ROOM_LEAVE = 'room_leave';
+  static ROOM_CREATED = 'room_created';
+  static NO_ERROR = 'no_error';
+  static ALREADY_IN_ROOM = 'already_in_room';
 }
+
+const joinRoomButton = document.getElementById('joinButton');
+joinRoomButton.innerText = 'Join Room'; // popup
+joinRoomButton.setAttribute('onclick', 'joinRoom()');
+
+const roomStatusText = document.getElementById('room-status');
 
 class WSManager {
   #init() {
-    console.log('called');
     this.wss.onerror = this.onError;
     this.wss.onmessage = this.onMessage;
     this.wss.onclose = this.onClose;
     window.onbeforeunload = function (e) {
-      this.#sendMessage({ id: this.id, type: MessageTypes.CLOSING });
+      this.sendMessage({ id: this.id, type: MessageTypes.CLOSING });
     }.bind(this);
     this.connectionAlive = true;
 
@@ -29,7 +40,7 @@ class WSManager {
     this.wss.onopen = this.#init.bind(this);
   }
 
-  #sendMessage(data) {
+  sendMessage(data) {
     /**
      * EVERY message has to be JSON
      */
@@ -42,27 +53,88 @@ class WSManager {
    */
   onMessage({ data: payload }) {
     let data = JSON.parse(payload);
-    if (data?.status && !data?.status.toString().startsWith('200')) {
-      console.log('Error');
-      WSManager.handleError(data);
-    }
 
     let { type } = data;
     switch (type) {
       case MessageTypes.PING:
-        console.log('received ping from server');
         let { id: pingId } = data;
-        this.#sendMessage({ id: this.id, type: MessageTypes.PING_RESPONSE, pingId: pingId });
+        this.sendMessage({ id: this.id, type: MessageTypes.PING_RESPONSE, pingId: pingId });
         break;
+      case MessageTypes.ROOM_CREATED:
+        let { status, roomId } = data;
+        console.log(status);
+        if (status == 409) {
+          return notificationQueue.queue({
+            title: 'Error',
+            icon: 'error',
+            html: 'Can not create another room.',
+          });
+        }
+        window.room = roomId;
+        Toastify({
+          text: 'Room Created',
+          duration: 5000,
+          newWindow: true,
+          close: true,
+          gravity: 'bottom', // `top` or `bottom`
+          position: 'right', // `left`, `center` or `right`
+        }).showToast();
+        roomStatusText.innerText = `Connected - {} Members`;
+        joinRoomButton.innerText = 'Leave Room';
+        joinRoomButton.setAttribute('onclick', 'leaveRoom()');
 
+        break;
+      case MessageTypes.ROOM_JOIN: {
+        if (data.status == 404) {
+          return Toastify({
+            text: `Room with this code does not exist`,
+            duration: 5000,
+            newWindow: true,
+            close: true,
+            gravity: 'bottom', // `top` or `bottom`
+            position: 'right', // `left`, `center` or `right`
+          }).showToast();
+        }
+        let { ownerName, roomId } = data;
+        window.room = roomId;
+        joinRoomButton.innerText = 'Leave Room';
+        joinRoomButton.setAttribute('onclick', 'leaveRoom()');
+        Toastify({
+          text: `Joined ${ownerName.endsWith('s') ? `${ownerName}'` : `${ownerName}'s`} Room`,
+          duration: 5000,
+          newWindow: true,
+          close: true,
+          gravity: 'bottom', // `top` or `bottom`
+          position: 'right', // `left`, `center` or `right`
+        }).showToast();
+        break;
+      }
+      case MessageTypes.ROOM_LEAVE:
+        joinRoomButton.innerText = 'Join Room';
+        joinRoomButton.setAttribute('onclick', 'joinRoom()');
+        Toastify({
+          text: 'Left NAMES Room',
+          duration: 5000,
+          newWindow: true,
+          close: true,
+          gravity: 'bottom', // `top` or `bottom`
+          position: 'right', // `left`, `center` or `right`
+        }).showToast();
+        break;
+      case MessageTypes.ALREADY_IN_ROOM:
+        break;
       default:
+        if (data?.status && !data?.status.toString().startsWith('200')) {
+          console.log('Error');
+          WSManager.handleError(data);
+        }
         break;
     }
   }
 
   authorizeUser() {
     if (!this.id) return console.warn('[WsManager] Set user ID before authorizing');
-    this.#sendMessage({ id: this.id, type: MessageTypes.AUTH });
+    this.sendMessage({ id: this.id, type: MessageTypes.AUTH });
   }
 
   setUserId(id) {
@@ -111,6 +183,11 @@ class WSManager {
   }
 
   static handleError(errorMessage) {
+    roomStatusText.innerText = 'offline';
+    joinRoomButton.innerText = 'Join Room';
+    joinRoomButton.setAttribute('onclick', 'joinRoom()');
+    window.room = null;
+
     let { status } = errorMessage;
     switch (status) {
       case 401: // Unauthorized
@@ -147,3 +224,36 @@ class WSManager {
 }
 
 window.wsManager = new WSManager('ws://127.0.0.1:81');
+
+function createRoom() {
+  wsManager.sendMessage({
+    type: MessageTypes.ROOM_CREATE,
+    id: localStorage.getItem('discord_id'),
+  });
+}
+
+function joinRoom() {
+  notificationQueue.queue({
+    type: 'join_room',
+    title: '💻 Join Room',
+    html: `
+    <div style="display:flex;justify-content:center;flex-direction:column;align-items:center">
+    Enter the room code:<br/>
+    <input id="roomCode" type="text" placeholder="550e8400-e29b..."/>
+    </div>
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Join',
+    cancelButtonText: 'Cancel',
+  });
+}
+
+//TODO: Implement leaveRoom
+function leaveRoom() {
+  roomStatusText.innerText = 'Offline';
+  wsManager.sendMessage({
+    type: MessageTypes.ROOM_LEAVE,
+    id: localStorage.getItem('discord_id'),
+    roomId: window.room,
+  });
+}

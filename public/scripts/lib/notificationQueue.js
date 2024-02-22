@@ -12,6 +12,15 @@ class NotificationQueue {
     swal.fire(notiOptions).then(result => {
       if (notiOptions?.type == 'discord_auth') {
         if (result.isConfirmed) document.location = window.DISCORD_OAUTH2_URI;
+      } else if (notiOptions?.type == 'join_room') {
+        if (result.isConfirmed) {
+          let roomCode = document.getElementById('roomCode').value;
+          wsManager.sendMessage({
+            type: MessageTypes.ROOM_JOIN,
+            id: localStorage.getItem('discord_id'),
+            roomId: roomCode,
+          });
+        }
       }
       this.notifications.shift();
       if (this.notifications.length) {

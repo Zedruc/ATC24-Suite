@@ -5,6 +5,10 @@ const airports = {
       icao: 'ILAR',
       iata: 'LCA',
       stations: [
+        /*         {
+          type: 'CTR',
+          frequency: '126.300',
+        }, */
         {
           type: 'DEP',
           frequency: '130.200',
@@ -394,6 +398,10 @@ const airports = {
       iata: 'PFO',
       stations: [
         {
+          type: 'CTR',
+          frequency: '119.900',
+        },
+        {
           type: 'DEP',
           frequency: '130.635',
         },
@@ -439,6 +447,10 @@ const airports = {
       icao: 'IGRV',
       iata: 'GVK',
       stations: [
+        {
+          type: 'CTR',
+          frequency: '126.750',
+        },
         {
           type: 'DEP',
           frequency: '119.300',
@@ -516,6 +528,10 @@ const airports = {
       icao: 'IZOL',
       iata: 'IZO',
       stations: [
+        {
+          type: 'CTR',
+          frequency: '124.640',
+        },
         {
           type: 'DEP',
           frequency: '124.300',
@@ -687,6 +703,10 @@ const airports = {
       icao: 'ITKO',
       iata: 'HND',
       stations: [
+        {
+          type: 'CTR',
+          frequency: '132.300',
+        },
         {
           type: 'DEP',
           frequency: '119.100',
@@ -890,6 +910,10 @@ const airports = {
       icao: 'IPPH',
       iata: 'PER',
       stations: [
+        {
+          type: 'CTR',
+          frequency: '135.250',
+        },
         {
           type: 'DEP',
           frequency: '118.700',
@@ -1098,6 +1122,10 @@ const airports = {
       icao: 'IRFD',
       iata: 'RFD',
       stations: [
+        {
+          type: 'CTR',
+          frequency: '124.850',
+        },
         {
           type: 'DEP',
           frequency: '121.000',
@@ -1479,6 +1507,14 @@ const airports = {
       icao: 'IBTH',
       iata: 'SBH',
       stations: [
+        {
+          type: 'CTR',
+          frequency: '128.600',
+        },
+        {
+          type: 'TWR',
+          frequency: '128.600',
+        },
         {
           type: 'INFO',
           frequency: '118.450',

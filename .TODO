@@ -1,5 +1,16 @@
 Fertig zu machen:
-- Discord Flugpläne automatisch importieren nach login
+
+- ✔️ CTR Station Option
+- ✔️ Callsign muss callsign detecten, nicht Firmenname
+- ✔️ Mehrere Runways als aktiv markieren
+- ✔️ W und S strips auf/ab bewegen
+- ✔️ Strip Movement/Status Cycle Tasten zu "Help" hinzufügen
+
+Vorschläge:
+- ✔️ Aircraft Type kürzen [`if(type.toLowerCase().contains('a340')) aircraftType = 'A340'`] weil manche Leute lange Typen eingeben
+- ✔️ Text Callsign (z.B. "Lufthansa") zu ICAO umwandeln (DLH) [`if(!airlineTable.includes(filedCallsign)){textToIcao()}`]
+- Custom Strip Listen Namen bzw. Möglichkeit, Strip Listen zu erstellen und zu löschen
+- Strip Status Cyclen mit Q und E "PRE-DEP" -> "PUSH" -> "TAXI" -> "LINE-UP" -> "TAKEOFF" -> "CLIMB" -> "CRZ" -> "DESCENT" -> "APPROACH" -> "TAXI" -> "PARKED"
 
 ZU FIXEN (Von MJ)
 Flight strips clipping in APP/DEP column.
@@ -11,16 +22,6 @@ The help section needs expanding:
   - Add in that W and S move strips around.
 
 Additional:
-I also have a few suggestions that you can have a think about:
-
-Once the user has copy and pasted the flight plan data into the notes, it auto deletes the text there to leave a blank box. Or if a route has been filed, placing the whole route into the box.
-The aircraft box, could it have some string handling to search for common types ("A330","A340" etc.). As there's a bit of an issue with that box always being overflowing as loads of people write out long aircraft types.
-Similar system for callsigns, where possible automatically changing text callsigns into their ICAO codes.
-W and S being available to move strips up and down in column.
-Ability to customise column names and/or add and remove columns.
-Having the "status" box be able to flick through (PUSH/TAXI etc.), maybe using Q and E
-IF POSSIBLE, being able to move strips around using mouse.
-
 - "User Route" Box verstecken, wenn GPS gefiled
 - "Paste Flightplan" Box verstecken, wenn Flugplan gepasted aber "Generate IFR Clearance" Einstellung disabled
 

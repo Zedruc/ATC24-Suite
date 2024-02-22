@@ -102,6 +102,42 @@
   align-items: center;
 }
 
+.info-bar-item:has(.content > .runwayCheckboxes) {
+  overflow-y: hidden;
+  grid-template-rows: 1fr 2fr;
+}
+
+.content:has(.runwayCheckboxes) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100%;
+}
+
+.runwayCheckboxes::-webkit-scrollbar {
+  display: none;
+}
+
+.runwayCheckboxes {
+  overflow-y: scroll;
+  max-height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.runwayCheckboxes:nth-child(-n+1) {
+  border-right: 1px solid grey;
+}
+
+.runwayCheckboxes>p {
+  font-size: small;
+  margin: 0 0 0 0.1rem;
+}
+
+.runwayCheckboxes>input {
+  display: block;
+  height: auto;
+}
+
 select,
 button {
   outline: none;

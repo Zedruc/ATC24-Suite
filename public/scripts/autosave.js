@@ -39,7 +39,7 @@ let extractInfo = strip => {
       sidstar: strip.querySelector('#sidstar').value,
       notes: strip.querySelector('#notes').value,
       route: strip.querySelector('#route').value,
-      flightplan: strip.querySelector('#flightplan').value,
+      flightplan: strip.querySelector('#flightplan')?.value || 'N/A',
     },
   };
 

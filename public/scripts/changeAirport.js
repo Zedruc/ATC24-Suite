@@ -5,6 +5,7 @@
  * @returns void
  */
 function changeAirport(e, ...airportName) {
+  window.activeRunways = [];
   if (typeof e == 'string') {
     let values = [e, ...airportName];
     let island = values[0];
@@ -22,9 +23,9 @@ function executeStationSelectUpdate(island, airportName) {
   while (stationSelect.firstChild) {
     stationSelect.removeChild(stationSelect.lastChild);
   }
-  while (arrRunwaySelect.firstChild && depRunwaySelect.firstChild) {
-    arrRunwaySelect.removeChild(arrRunwaySelect.lastChild);
-    depRunwaySelect.removeChild(depRunwaySelect.lastChild);
+  while (arrRunwayCheckboxes.firstChild && depRunwayCheckboxes.firstChild) {
+    arrRunwayCheckboxes.removeChild(arrRunwayCheckboxes.lastChild);
+    depRunwayCheckboxes.removeChild(depRunwayCheckboxes.lastChild);
   }
 
   let stations;
@@ -55,17 +56,78 @@ function executeStationSelectUpdate(island, airportName) {
 
   for (let i = 0; i < runways.length; i++) {
     const runway = runways[i];
-    let option = document.createElement('option');
-    option.value = runway;
-    option.textContent = runway;
-    let option2 = document.createElement('option');
-    option2.value = runway;
-    option2.textContent = runway;
-    arrRunwaySelect.appendChild(option);
-    depRunwaySelect.appendChild(option2);
+    let checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.id = 'arr';
+    checkbox.setAttribute('data-runway', runway);
+    checkbox.setAttribute('onchange', 'changeRunwayStatus(this)');
+    let p = document.createElement('p');
+    p.innerText = runway;
+
+    let checkbox2 = document.createElement('input');
+    checkbox2.setAttribute('type', 'checkbox');
+    checkbox2.id = 'dep';
+    checkbox2.setAttribute('data-runway', runway);
+    checkbox2.setAttribute('onchange', 'changeRunwayStatus(this)');
+    let p2 = document.createElement('p');
+    p2.innerText = runway;
+
+    if (i == 0) {
+      checkbox.checked = true;
+      checkbox2.checked = true;
+    }
+
+    arrRunwayCheckboxes.appendChild(checkbox);
+    arrRunwayCheckboxes.appendChild(p);
+
+    depRunwayCheckboxes.appendChild(checkbox2);
+    depRunwayCheckboxes.appendChild(p2);
+
+    changeRunwayStatus(checkbox);
+    changeRunwayStatus(checkbox2);
   }
-  activeArrRunway = arrRunwaySelect.value;
-  activeDepRunway = depRunwaySelect.value;
+  // activeArrRunways = getActiveRunways('arr');
+  // activeDepRunways = getActiveRunways('dep');
 
   updateStationInfo();
+}
+
+function changeRunwayStatus(checkboxElement) {
+  let runway = checkboxElement.getAttribute('data-runway');
+  let active = checkboxElement.checked;
+  let arrivalOrDeparture = checkboxElement.id;
+
+  if (!window.activeRunways) window.activeRunways = [];
+
+  let rwyObject = {
+    rwyId: runway,
+    active: active,
+    arrivalOrDeparture: arrivalOrDeparture,
+  };
+
+  let runwayIndex = getRunwayIndex(runway, arrivalOrDeparture);
+
+  if (runwayInArray(window.activeRunways, runway, arrivalOrDeparture)) {
+    window.activeRunways.splice(runwayIndex, 1, rwyObject);
+  } else {
+    window.activeRunways.push(rwyObject);
+  }
+
+  window?.radarWindow?.postMessage({ type: 'runway_changes', runways: window.activeRunways });
+}
+
+function runwayInArray(arr, id, arrivalOrDeparture) {
+  for (let i = 0; i < arr.length; i++) {
+    const rwy = arr[i];
+    if (rwy.rwyId == id && rwy.arrivalOrDeparture == arrivalOrDeparture) return true;
+  }
+  return false;
+}
+
+function getRunwayIndex(id, arrivalOrDeparture) {
+  for (let i = 0; i < window.activeRunways.length; i++) {
+    const rwy = window.activeRunways[i];
+    if (rwy.rwyId == id && rwy.arrivalOrDeparture == arrivalOrDeparture) return i;
+  }
+  return -1;
 }

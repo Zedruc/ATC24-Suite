@@ -22,8 +22,9 @@ async function clearanceFromFlightPlan(target) {
   let routeField = strip.querySelector('#route');
 
   callsignField.value = data.callsign;
+  detectCallsign(callsignField);
   arrivingField.value = data.arriving;
-  aircraftField.value = data.aircraft;
+  aircraftField.value = validateAircraftType(data.aircraft);
   altitudeField.value = data.flightlevel;
   let clearance;
   let isGpsRouting =
@@ -31,11 +32,11 @@ async function clearanceFromFlightPlan(target) {
   let departureSid;
   if (!isGpsRouting) {
     departureSid = detectDepartureRouting(data.route);
-    routeField.value = data.route;
-    routeField.setAttribute('disabled', 'true');
+    routeField.innerText = data.route;
+    // routeField.setAttribute('disabled', 'true');
   } else {
     departureSid = 'GPS';
-    routeField.remove();
+    routeField.innerText = 'GPS Direct';
   }
 
   if (data.flightrules.toLowerCase() == 'ifr') {
@@ -48,7 +49,11 @@ async function clearanceFromFlightPlan(target) {
   }
   if (departureSid)
     target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
-  target.value = clearance;
+  if (Settings.get('generateClearance')) {
+    target.value = clearance;
+  } else {
+    target.remove();
+  }
   StripSaveManager.updateStrip(strip, strip.parentElement);
 }
 
@@ -64,4 +69,20 @@ function detectDepartureRouting(route) {
   if (result2) return result2[1];
 
   return false;
+}
+
+function validateAircraftType(givenTypeName) {
+  for (let i = 0; i < planeTypes.length; i++) {
+    const planeType = planeTypes[i];
+    if (planeType.typeCode.toLowerCase() == givenTypeName.toLowerCase()) return planeType.typeCode;
+    else {
+      for (let j = 0; j < planeType.names.length; j++) {
+        const names = planeType.names[j];
+        if (names.includes(givenTypeName.toLowerCase())) return planeType.typeCode;
+      }
+    }
+  }
+
+  // if it is not detected, leave it
+  return givenTypeName;
 }

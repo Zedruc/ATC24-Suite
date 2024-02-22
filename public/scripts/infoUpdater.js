@@ -22,14 +22,13 @@ function updateStationInfo(currentStation = stationSelect.value) {
     currentStation = { type: vals[0], frequency: vals[1] };
   }
   if (window.radarWindow) {
-    window.radarWindow.postMessage({ type: 'arr_runway_change', runway: activeArrRunway });
-    window.radarWindow.postMessage({ type: 'dep_runway_change', runway: activeDepRunway });
+    window.radarWindow.postMessage({ type: 'runway_changes', runways: window.activeRunways });
   }
   stationType.textContent = currentStation.type;
   stationFrequency.textContent = currentStation.frequency + ' MHz';
 }
 
-function arrRunwayChange(target) {
+/* function arrRunwayChange(target) {
   window.activeArrRunway = target.value;
   activeArrRunway = target.value;
   if (window.radarWindow) {
@@ -44,3 +43,4 @@ function depRunwayChange(target) {
     window.radarWindow.postMessage({ type: 'dep_runway_change', runway: activeDepRunway });
   }
 }
+ */

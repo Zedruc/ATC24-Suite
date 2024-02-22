@@ -99,12 +99,21 @@ Charts - Flightstrips - Flightplan Management"
           <div class="settingContainer">
             <input
               type="checkbox"
+              id="generateClearance"
+              data-setting
+              onchange="Settings.set(this.id, this.checked)"
+            />
+            <p>Generate IFR clearance shorthand when loading flightplan</p>
+          </div>
+          <!-- <div class="settingContainer">
+            <input
+              type="checkbox"
               id="loadRadarChart"
               data-setting
               onchange="Settings.set(this.id, this.checked)"
             />
             <p>[WIP] Set respective aerodrome chart as radar background</p>
-          </div>
+          </div> -->
           <div class="settingContainer">
             <div>
               <button id="connectDiscord" class="discordButton" onclick="verifyDiscord()">
@@ -286,19 +295,25 @@ Charts - Flightstrips - Flightplan Management"
         </div>
       </div>
       <div class="info-bar-item" id="runway">
-        <div class="leftNote"></div>
-        <div class="rightNote"></div>
-        <div class="infoName">ARR RWY - DEP RWY</div>
+        <div class="leftNote">ARR RWY</div>
+        <div class="rightNote">DEP RWY</div>
+        <!-- <div class="infoName"></div> -->
         <div class="content">
-          <select id="arr-runway-select" onchange="arrRunwayChange(this)"></select>
-          <select id="dep-runway-select" onchange="depRunwayChange(this)"></select>
+          <div id="arrRunwayCheckboxes" class="runwayCheckboxes"></div>
+          <!-- onchange="arrRunwayChange(this)" -->
+          <div id="depRunwayCheckboxes" class="runwayCheckboxes"></div>
+          <!-- onchange="depRunwayChange(this)" -->
         </div>
       </div>
       <div class="info-bar-item" id="info-bar-item-3">
-        <div class="leftNote"></div>
-        <div class="rightNote"></div>
-        <div class="infoName"></div>
-        <div class="content"></div>
+        <div class="leftNote">
+          <button onclick="createRoom()">Create Room</button>
+        </div>
+        <div class="rightNote">
+          <button id="joinButton">Join Room</button>
+        </div>
+        <div class="infoName">Status</div>
+        <div class="content" id="room-status">Offline</div>
       </div>
       <div class="info-bar-item" id="info-bar-item-4">
         <div class="leftNote" data-no-select data-action>
@@ -317,7 +332,7 @@ Charts - Flightstrips - Flightplan Management"
           class="leftNote"
           data-tippy=""
           data-tippy-placement="top"
-          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
+          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />A - Move Strip to The Left<br />D - Move Strip to The Right<br />W - Move Strip Up<br />S - Move Strip Down<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
           data-no-select
           data-action
         >
@@ -379,6 +394,7 @@ Charts - Flightstrips - Flightplan Management"
               <input class="textInput" type="text" id="sidstar" placeholder="SID/STAR" />
             </div>
             <div class="bottom">
+              <p id="route" class="routeText"></p>
               <input
                 class="textInput"
                 type="text"
@@ -386,7 +402,6 @@ Charts - Flightstrips - Flightplan Management"
                 placeholder="Paste Flightplan"
                 onpaste="clearanceFromFlightPlan(this);"
               />
-              <input class="textInput" type="text" id="route" placeholder="User Route" />
               <input class="textInput" type="text" id="notes" placeholder="Notes" />
             </div>
           </div>
