@@ -1,15 +1,25 @@
-async function clearanceFromFlightPlan(target) {
-  let rawPlan = await navigator.clipboard.readText();
+async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripData) {
+  let rawPlan;
+  if (isWebsocketUpdate) {
+    rawPlan = stripData.info.flightplan;
+  } else {
+    rawPlan = await navigator.clipboard.readText();
+  }
+
   if (!(rawPlan.length > 80)) return;
 
-  let rawInfo = rawPlan.startsWith('U')
-    ? rawPlan.split('\n').slice(1, 8)
-    : rawPlan.split('\r\n').slice(0, 7);
   let data = {};
-  for (let i = 0; i < rawInfo.length; i++) {
-    let [key, value] = rawInfo[i].replace(' ', '').split(':');
+  if (isWebsocketUpdate) {
+    data = flightPlanFromTransmittedString(rawPlan);
+  } else {
+    let rawInfo = rawPlan.startsWith('U')
+      ? rawPlan.split('\n').slice(1, 8)
+      : rawPlan.split('\r\n').slice(0, 7);
+    for (let i = 0; i < rawInfo.length; i++) {
+      let [key, value] = rawInfo[i].replace(' ', '').split(':');
 
-    data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
+      data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
+    }
   }
 
   // update strip with flight plan data
@@ -50,7 +60,10 @@ async function clearanceFromFlightPlan(target) {
   if (departureSid)
     target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
   if (Settings.get('generateClearance')) {
-    target.value = clearance;
+    if (target.id !== 'flightplan') target.querySelector('#flightplan').value = clearance;
+    else target.value = clearance;
+    target.setAttribute('data-fp', clearance);
+    console.log(`FLP set to ${clearance}`);
   } else {
     target.remove();
   }
@@ -85,4 +98,47 @@ function validateAircraftType(givenTypeName) {
 
   // if it is not detected, leave it
   return givenTypeName;
+}
+
+function massReplace(str, wordArr, replacementArr) {
+  let res = str;
+  for (let i = 0; i < wordArr.length; i++) {
+    res = res.replaceAll(wordArr[i], replacementArr[i]);
+  }
+  return res;
+}
+
+function flightPlanFromTransmittedString(str) {
+  let planStr = massReplace(
+    str,
+    [
+      'Username: ',
+      ' Callsign: ',
+      ' Aircraft: ',
+      ' Flight Rules: ',
+      ' Departing: ',
+      ' Arriving: ',
+      ' Route: ',
+      ' Flight Level: ',
+      ' _ _',
+    ],
+    ['', '#', '#', '#', '#', '#', '#', '#', '']
+  );
+
+  let plan = {};
+  for (let i = 0; i < planStr.split('#').length; i++) {
+    const value = planStr.split('#')[i];
+    let keys = [
+      'username',
+      'callsign',
+      'aircraft',
+      'flightrules',
+      'departing',
+      'arriving',
+      'route',
+      'flightlevel',
+    ];
+    plan[keys[i]] = value;
+  }
+  return plan;
 }

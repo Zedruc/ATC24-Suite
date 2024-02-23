@@ -3,6 +3,14 @@ document.getElementById('copyrightNotice').innerHTML = `&copy; Zedruc ${currentY
 
 document.getElementById('appVersion').innerText = window.appVersion;
 
+if (!window?.navigator?.clipboard?.readText) {
+  notificationQueue.queue({
+    title: 'Important!',
+    html: `It seems you are using a browser like Firefox, which doesn't support features required for this program to function properly.<br/>Consider using Chrome, as this is what the ATC24-Suite was developed for.`,
+    icon: 'info',
+  });
+}
+
 // check if first time visitor
 let firstTimeVisit = localStorage.getItem('firstTimeVisit');
 if (firstTimeVisit !== 'true') {
@@ -53,3 +61,4 @@ executeStationSelectUpdate('rockford', 'Rockford');
 
 // execute setting functions as required
 if (Settings.get('loadStripsOnStart')) StripSaveManager.loadFromStorageAndPopulate();
+else localStorage.setItem('strips', '{}');

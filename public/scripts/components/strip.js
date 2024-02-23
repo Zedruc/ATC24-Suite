@@ -16,7 +16,12 @@ let templateStrip = document.getElementById('templateStrip');
  */
 function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
   let newStrip = templateStrip.cloneNode(true);
-  newStrip.id = '';
+  newStrip.id = generateId(10);
+  newStrip.querySelectorAll('.textInput').forEach(input => {
+    input.addEventListener('focusout', event => {
+      StripSaveManager.updateStrip(newStrip, newStrip.parentElement);
+    });
+  });
   newStrip.setAttribute('data-type', type);
   if (!stripTypes.includes(type)) return;
   if (!stripListTypes.includes(stripListType)) return;
@@ -39,8 +44,14 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
 
 function generatePrepopulatedStrip(saveData) {
   let newStrip = templateStrip.cloneNode(true);
-  newStrip.id = '';
+  newStrip.id = saveData?.info?.stripId || '';
   newStrip.setAttribute('data-type', saveData.type);
+
+  newStrip.querySelectorAll('.textInput').forEach(input => {
+    input.addEventListener('focusout', event => {
+      StripSaveManager.updateStrip(newStrip, newStrip.parentElement);
+    });
+  });
 
   if (!stripTypes.includes(saveData.type)) return;
 
@@ -81,4 +92,14 @@ function getDepartureRunway() {
     if (rwy.arrivalOrDeparture == 'dep' && rwy.active) return rwy.rwyId;
   }
   return '';
+}
+
+function generateId(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }

@@ -6,8 +6,8 @@ const keybinds = [
     action: (strip, deletionConfirmed, list) => {
       if (!strip) return;
       if (deletionConfirmed == 'true') {
-        strip.remove();
         StripSaveManager.remove(strip, list);
+        strip.remove();
       } else {
         strip.setAttribute('data-deletion-confirmed', 'true');
       }
@@ -222,6 +222,22 @@ document.addEventListener('keypress', e => {
       if (!strip) return;
 
       usedKeybind.action(list, strip);
+      if (window?.room) {
+        let payload = {
+          id: localStorage.getItem('discord_id'),
+          type: 'strip_move',
+          stripId: strip.id,
+          listId: list.id,
+          roomId: window.room,
+        };
+        if (usedKeybind.key.toLowerCase() == 'w') {
+          payload.direction = 'up';
+          wsManager.sendMessage(payload);
+        } else if (usedKeybind.key.toLowerCase() == 's') {
+          payload.direction = 'down';
+          wsManager.sendMessage(payload);
+        }
+      }
       break;
     }
 

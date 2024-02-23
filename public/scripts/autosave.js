@@ -26,6 +26,7 @@ let extractInfo = strip => {
   let extract = {
     type: strip.getAttribute('data-type'),
     info: {
+      stripId: strip.id,
       callsign: strip.querySelector('#callsign').value,
       squawk: strip.querySelector('#squawk').value,
       departure: strip.querySelector('#departure').value,
@@ -39,28 +40,84 @@ let extractInfo = strip => {
       sidstar: strip.querySelector('#sidstar').value,
       notes: strip.querySelector('#notes').value,
       route: strip.querySelector('#route').value,
-      flightplan: strip.querySelector('#flightplan')?.value || 'N/A',
+      flightplan: strip.querySelector('#flightplan')?.value.replaceAll('\n', '#') || '',
     },
   };
 
   return extract;
 };
 
-// save JSON data as string into localStorage
-let saveData = data => {
+let saveData_moveScripts = (data, stripId, oldListId, newListId) => {
   localStorage.setItem('strips', JSON.stringify(data));
+  if (window?.room?.length >= 7) {
+    for (let i = 0; i < data[listId].length; i++) {
+      const strip = data[listId][i];
+      if (strip.info.stripId == stripId) {
+        let payload = {
+          type: 'strip_move_list',
+          stripId: stripId,
+          oldListId: oldListId,
+          newListId: newListId,
+          data: strip,
+          deletion: false,
+          roomId: window.room,
+        };
+        wsManager.sendMessage(payload);
+
+        break;
+      }
+    }
+  }
+};
+
+// save JSON data as string into localStorage
+let saveData = (data, stripId, listId, deletion = false) => {
+  localStorage.setItem('strips', JSON.stringify(data));
+  // let stripData = 'NOT FOUND';
+  if (window?.room?.length >= 7) {
+    if (deletion) {
+      let payload = {
+        type: 'strip_data',
+        stripId: stripId,
+        listId: listId,
+        deletion: true,
+        roomId: window.room,
+      };
+      wsManager.sendMessage(payload);
+      return;
+    }
+    for (let i = 0; i < data[listId].length; i++) {
+      const strip = data[listId][i];
+      if (strip.info.stripId == stripId) {
+        let payload = {
+          type: 'strip_data',
+          stripId: stripId,
+          listId: listId,
+          data: strip,
+          deletion: false,
+          roomId: window.room,
+        };
+        wsManager.sendMessage(payload);
+
+        // stripData = strip;
+        break;
+      }
+    }
+  }
 };
 class StripSaveManager {
   // add strip to list
-  static add(strip, list) {
+  static add(strip, list, shouldSave = true) {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
     if (!currentData[list.id]) currentData[list.id] = [];
     currentData[list.id].push(extractInfo(strip));
-    saveData(currentData);
+    if (shouldSave) {
+      saveData(currentData, strip.id, list.id);
+    }
   }
 
   // remove strip from list
-  static remove(strip, list) {
+  static remove(strip, list, shouldSave = true) {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
     if (!currentData[list.id]) return;
     let stripToRemoveData = extractInfo(strip);
@@ -75,7 +132,9 @@ class StripSaveManager {
         break;
       }
     }
-    saveData(currentData);
+    if (shouldSave) {
+      saveData(currentData, strip.id, list.id, true);
+    }
   }
 
   // move strip from currentList into the nextList
@@ -83,14 +142,13 @@ class StripSaveManager {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
     if (!currentData[currentList.id]) return;
     if (!currentData[nextList.id]) currentData[nextList.id] = [];
-
     // loop until we find strip with correct callsign
     let stripToMove;
     for (const stripToCheck of currentData[currentList.id]) {
       if (stripToCheck.callsign == strip.callsign) {
         stripToMove = stripToCheck;
-        this.remove(strip, currentList);
-        this.add(strip, nextList);
+        this.remove(strip, currentList); /* , false, false */
+        this.add(strip, nextList); /* , true, true */
         break;
       }
     }
@@ -98,25 +156,25 @@ class StripSaveManager {
 
   static updateStrip(strip, list) {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
+    let stripId = strip.id;
     if (!currentData[list.id]) {
       return;
     }
     let stripToUpdateData = extractInfo(strip);
     for (let i = 0; i < currentData[list.id].length; i++) {
       const dataStrip = currentData[list.id][i];
-      if (dataStrip.info.squawk == stripToUpdateData.info.squawk) {
-        currentData[list.id][i] = stripToUpdateData;
-        break;
-      } else if (dataStrip.info.callsign == stripToUpdateData.info.callsign) {
+      if (dataStrip.info.stripId == stripId) {
         currentData[list.id][i] = stripToUpdateData;
         break;
       }
     }
-    saveData(currentData);
+
+    saveData(currentData, strip.id, list.id);
   }
 
   static loadFromStorageAndPopulate() {
-    let stripData = JSON.parse(localStorage.getItem('strips') || '{}');
+    let stripData = JSON.parse(localStorage.getItem('strips') || {});
+    if (Object.keys(stripData).length == 0) return;
     for (const listId in stripData) {
       let listData = stripData[listId];
       let listElement = document.getElementById(listId);
