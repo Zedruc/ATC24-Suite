@@ -1,4 +1,7 @@
 async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripData) {
+  // console.log(window.lastStripFPChange);
+  // window.lastStripFPChange = true;
+  console.log(target);
   let rawPlan;
   if (isWebsocketUpdate) {
     rawPlan = stripData.info.flightplan;
@@ -24,6 +27,7 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
 
   // update strip with flight plan data
   let strip = target.parentElement.parentElement;
+  if (isWebsocketUpdate) strip = target;
   let squawkField = strip.querySelector('#squawk');
   let callsignField = strip.querySelector('#callsign');
   let arrivingField = strip.querySelector('#arrival');
@@ -59,14 +63,15 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   }
   if (departureSid)
     target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
+  target.setAttribute('data-fp', clearance);
   if (Settings.get('generateClearance')) {
     if (target.id !== 'flightplan') target.querySelector('#flightplan').value = clearance;
     else target.value = clearance;
-    target.setAttribute('data-fp', clearance);
     console.log(`FLP set to ${clearance}`);
   } else {
     target.remove();
   }
+  // window.lastStripFPChange = false;
   StripSaveManager.updateStrip(strip, strip.parentElement);
 }
 

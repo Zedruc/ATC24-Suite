@@ -14,9 +14,8 @@ class NotificationQueue {
         if (result.isConfirmed) document.location = window.DISCORD_OAUTH2_URI;
       } else if (notiOptions?.type == 'join_room') {
         if (result.isConfirmed) {
-          console.log('confirmed');
           let roomCode = document.getElementById('roomCode').value;
-          console.log(roomCode, 'sending websocket message to join');
+          localStorage.setItem('room_code', roomCode);
           wsManager.sendMessage({
             type: MessageTypes.ROOM_JOIN,
             id: localStorage.getItem('discord_id'),

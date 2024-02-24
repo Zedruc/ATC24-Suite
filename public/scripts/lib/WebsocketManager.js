@@ -39,7 +39,7 @@ class WSManager {
   #init() {
     this.wss.onerror = this.onError;
     this.wss.onmessage = this.onMessage;
-    this.wss.onclose = this.onClose;
+    this.wss.onclose = this.onClose.bind(this);
     window.onbeforeunload = function (e) {
       this.sendMessage({ id: this.id, type: MessageTypes.CLOSING });
     }.bind(this);
@@ -59,6 +59,18 @@ class WSManager {
   }
 
   sendMessage(data) {
+    /* if (this.wss.readyState !== 1) {
+      this.wss = new WebSocket(this.url);
+      this.#init();
+      Toastify({
+        text: 'Reconnected to the Suite. Please try again.',
+        duration: 5000,
+        newWindow: true,
+        close: true,
+        gravity: 'bottom', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+      }).showToast();
+    } */
     /**
      * EVERY message has to be JSON
      */
@@ -213,13 +225,26 @@ class WSManager {
           for (const objectKey in keybinds) {
             let keybind = keybinds[objectKey];
             if (keybind.key == 'w')
-              keybind.action(document.getElementById(stripId), document.getElementById(listId));
+              keybind.action(
+                document.getElementById(listId),
+                document.getElementById(stripId),
+                true
+              );
           }
         } else if (direction == 'down') {
+          console.log('MOVING STRIP DOWN');
           for (const objectKey in keybinds) {
             let keybind = keybinds[objectKey];
-            if (keybind.key == 's')
-              keybind.action(document.getElementById(stripId), document.getElementById(listId));
+            console.log('FOUND KEYBIND');
+            console.log(keybind);
+            if (keybind.key == 's') {
+              console.log('EXECUTING KEYBIND ACTION');
+              keybind.action(
+                document.getElementById(listId),
+                document.getElementById(stripId),
+                true
+              );
+            }
           }
         }
         break;
@@ -233,6 +258,7 @@ class WSManager {
       default:
         if (data?.status && !data?.status.toString().startsWith('200')) {
           WSManager.handleError(data);
+          this.wss.close();
         }
         break;
     }
@@ -275,11 +301,17 @@ class WSManager {
   }
 
   //TODO: Implement
-  onError() {}
+  onError(err) {
+    console.log(err);
+  }
 
   onClose({ code }) {
     switch (code) {
       case 1011:
+        this.wss.close();
+        leaveRoom();
+        /* this.wss = new WebSocket(this.url); */
+        /* this.#init(); */
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
@@ -288,6 +320,11 @@ class WSManager {
         });
         break;
       case 1006:
+        this.wss.close();
+        leaveRoom();
+        /* this.wss = new WebSocket(this.url); */
+        /* this.#init(); */
+        console.log('1006 close');
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
@@ -296,6 +333,10 @@ class WSManager {
         });
         break;
       default:
+        this.wss.close();
+        leaveRoom();
+        /* this.wss = new WebSocket(this.url); */
+        /* this.#init(); */
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
@@ -319,7 +360,7 @@ class WSManager {
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
-          html: 'There was an error logging into the ATC24-Suite, please try again.',
+          html: 'There was an error logging into the ATC24-Suite, please try again and reload.',
           footer:
             'If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>',
         });
@@ -337,7 +378,7 @@ class WSManager {
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
-          html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try connecting again later.<br/><br/>Please try to connect again later.',
+          html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try reconnecting by reloading again later.<br/>',
           footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a><br/><br/>Server message: ${errorMessage.message}`,
         });
         break;
@@ -346,8 +387,11 @@ class WSManager {
     }
   }
 }
-
-window.wsManager = new WSManager('ws://127.0.0.1:81');
+let wsUrl = 'wss://api.zedruc.net/ws';
+if (window.location.hostname == 'localhost') wsUrl = 'ws://127.0.0.1:81';
+if (window.location.hostname == '127.0.0.1') wsUrl = 'ws://127.0.0.1:81';
+console.log(wsUrl);
+window.wsManager = new WSManager(wsUrl);
 
 function createRoom() {
   wsManager.sendMessage({

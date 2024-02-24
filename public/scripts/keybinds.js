@@ -86,6 +86,16 @@ const keybinds = [
       });
 
       let stripClone = strip.cloneNode(true);
+      stripClone.querySelectorAll('.textInput').forEach(input => {
+        if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
+        if (input?.id == 'flightplan') return;
+        input.addEventListener('focusout', event => {
+          StripSaveManager.updateStrip(
+            input.parentElement.parentElement,
+            input.parentElement.parentElement.parentElement
+          );
+        });
+      });
 
       if (stripChildren.indexOf(strip) - 1 < 0) return;
 
@@ -100,7 +110,9 @@ const keybinds = [
   },
   {
     key: 's',
-    action: (list, strip) => {
+    action: (list, strip, wsAction = false) => {
+      console.log('KEYBIND S ACTION');
+      console.log(`List: ${list.id}, Strip: strip.id`);
       if ([...list.childNodes].indexOf(strip) == list.childNodes.length - 1) return;
 
       let listChildren = list.childNodes;
@@ -114,6 +126,17 @@ const keybinds = [
       });
 
       let stripClone = strip.cloneNode(true);
+
+      stripClone.querySelectorAll('.textInput').forEach(input => {
+        if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
+        if (input?.id == 'flightplan') return;
+        input.addEventListener('focusout', event => {
+          StripSaveManager.updateStrip(
+            input.parentElement.parentElement,
+            input.parentElement.parentElement.parentElement
+          );
+        });
+      });
 
       if (stripChildren.indexOf(strip) + 1 > stripChildren.length) return;
 
