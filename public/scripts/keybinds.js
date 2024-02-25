@@ -1,14 +1,5 @@
 const stations = ['del', 'gnd', 'twr', 'app/dep'];
 
-let self;
-let focusOutEvent = event => {
-  console.log(event.target);
-  StripSaveManager.updateStrip(
-    /* self */ event.target.parentElement.parentElement,
-    /* self */ event.target.parentElement.parentElement.parentElement
-  );
-};
-
 const keybinds = [
   {
     key: 'x',
