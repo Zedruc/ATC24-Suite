@@ -15,13 +15,14 @@ let templateStrip = document.getElementById('templateStrip');
  * @returns
  */
 function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
+  console.debug();
   let newStrip = templateStrip.cloneNode(true);
   newStrip.id = generateId(10);
-  newStrip.querySelectorAll('.textInput').forEach(input => {
+  /* newStrip.querySelectorAll('.textInput').forEach(input => {
     input.addEventListener('focusout', event => {
       StripSaveManager.updateStrip(newStrip, newStrip.parentElement);
     });
-  });
+  }); */
   newStrip.setAttribute('data-type', type);
   if (!stripTypes.includes(type)) return;
   if (!stripListTypes.includes(stripListType)) return;
@@ -42,15 +43,20 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
   return newStrip;
 }
 
+let genNewStrip;
+function generateFocusOutEvent(e) {
+  StripSaveManager.updateStrip(genNewStrip, genNewStrip.parentElement);
+}
+
 function generatePrepopulatedStrip(saveData) {
   let newStrip = templateStrip.cloneNode(true);
   newStrip.id = saveData?.info?.stripId || '';
   newStrip.setAttribute('data-type', saveData.type);
 
   newStrip.querySelectorAll('.textInput').forEach(input => {
-    input.addEventListener('focusout', event => {
-      StripSaveManager.updateStrip(newStrip, newStrip.parentElement);
-    });
+    genNewStrip = newStrip;
+    input.removeEventListener('focusout', generateFocusOutEvent);
+    input.addEventListener('focusout', generateFocusOutEvent);
   });
 
   if (!stripTypes.includes(saveData.type)) return;

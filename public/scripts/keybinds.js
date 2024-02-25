@@ -1,5 +1,14 @@
 const stations = ['del', 'gnd', 'twr', 'app/dep'];
 
+let self;
+let focusOutEvent = event => {
+  console.log(event.target);
+  StripSaveManager.updateStrip(
+    /* self */ event.target.parentElement.parentElement,
+    /* self */ event.target.parentElement.parentElement.parentElement
+  );
+};
+
 const keybinds = [
   {
     key: 'x',
@@ -88,13 +97,10 @@ const keybinds = [
       let stripClone = strip.cloneNode(true);
       stripClone.querySelectorAll('.textInput').forEach(input => {
         if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
-        if (input?.id == 'flightplan') return;
-        input.addEventListener('focusout', event => {
-          StripSaveManager.updateStrip(
-            input.parentElement.parentElement,
-            input.parentElement.parentElement.parentElement
-          );
-        });
+        // if (input?.id == 'flightplan') return;
+        self = input;
+        input.removeEventListener('focusout', focusOutEvent);
+        input.addEventListener('focusout', focusOutEvent);
       });
 
       if (stripChildren.indexOf(strip) - 1 < 0) return;
@@ -111,8 +117,6 @@ const keybinds = [
   {
     key: 's',
     action: (list, strip, wsAction = false) => {
-      console.log('KEYBIND S ACTION');
-      console.log(`List: ${list.id}, Strip: strip.id`);
       if ([...list.childNodes].indexOf(strip) == list.childNodes.length - 1) return;
 
       let listChildren = list.childNodes;
@@ -129,13 +133,10 @@ const keybinds = [
 
       stripClone.querySelectorAll('.textInput').forEach(input => {
         if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
-        if (input?.id == 'flightplan') return;
-        input.addEventListener('focusout', event => {
-          StripSaveManager.updateStrip(
-            input.parentElement.parentElement,
-            input.parentElement.parentElement.parentElement
-          );
-        });
+        // if (input?.id == 'flightplan') return;
+        self = input;
+        input.removeEventListener('focusout', focusOutEvent);
+        input.addEventListener('focusout', focusOutEvent);
       });
 
       if (stripChildren.indexOf(strip) + 1 > stripChildren.length) return;

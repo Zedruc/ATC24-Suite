@@ -3,6 +3,12 @@ document.getElementById('copyrightNotice').innerHTML = `&copy; Zedruc ${currentY
 
 document.getElementById('appVersion').innerText = window.appVersion;
 
+if (window.location.hostname == 'zedruc.net') {
+  let noOp = function () {};
+  console.log = noOp;
+  console.warn = noOp;
+}
+
 if (!window?.navigator?.clipboard?.readText) {
   notificationQueue.queue({
     title: 'Important!',

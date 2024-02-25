@@ -33,6 +33,8 @@ const createRoomButton = document.getElementById('create-room-button');
 const createRoomButtonClone = createRoomButton.cloneNode(true);
 let createRoomButtonContainer = createRoomButton.parentElement;
 
+let lastErrorStatusCode;
+
 const roomStatusText = document.getElementById('room-status');
 
 class WSManager {
@@ -126,7 +128,6 @@ class WSManager {
         break;
       case MessageTypes.ROOM_JOIN: {
         if (data.status == 404) {
-          console.log('404');
           return Toastify({
             text: `Room with this code does not exist`,
             duration: 5000,
@@ -232,13 +233,9 @@ class WSManager {
               );
           }
         } else if (direction == 'down') {
-          console.log('MOVING STRIP DOWN');
           for (const objectKey in keybinds) {
             let keybind = keybinds[objectKey];
-            console.log('FOUND KEYBIND');
-            console.log(keybind);
             if (keybind.key == 's') {
-              console.log('EXECUTING KEYBIND ACTION');
               keybind.action(
                 document.getElementById(listId),
                 document.getElementById(stripId),
@@ -253,6 +250,16 @@ class WSManager {
         let { storage } = data;
         // this syncs ALL clients no matter what, disregarding possible data loss
         localStorage.setItem('strips', JSON.stringify(storage));
+
+        for (const key in storage) {
+          const list = storage[key];
+          for (let i = 0; i < list.length; i++) {
+            let strip = list[i];
+            console.log(strip);
+            clearanceFromFlightPlan(document.getElementById(strip.info.stripId), true, strip);
+          }
+        }
+
         break;
       }
       default:
@@ -264,24 +271,29 @@ class WSManager {
     }
 
     document.querySelectorAll('.textInput').forEach(input => {
-      if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
-      if (input?.id == 'flightplan') return;
-      input.addEventListener('focusout', event => {
-        StripSaveManager.updateStrip(
-          input.parentElement.parentElement,
-          input.parentElement.parentElement.parentElement
-        );
+      // if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
+      // if (input?.id == 'flightplan') return;
+      self = input;
+      input.removeEventListener('focusout', focusOutEvent);
+      input.addEventListener('focusout', focusOutEvent);
+    });
+
+    /* if (data?.type == MessageTypes.STRIP_SYNC) {
+      document.querySelectorAll('#callsign').forEach(callsignField => {
+        detectCallsign(callsignField);
       });
-    });
 
-    document.querySelectorAll('#callsign').forEach(callsignField => {
-      detectCallsign(callsignField);
-    });
-
-    document.querySelectorAll('.strip').forEach(strip => {
-      let clearance = strip.getAttribute('data-fp');
-      strip.querySelector('#flightplan').value = clearance || '';
-    });
+      document.querySelectorAll('.strip').forEach(strip => {
+        let clearance = strip.getAttribute('data-fp');
+        if (clearance !== 'null' || null) return;
+        strip.querySelector('#flightplan').value = clearance !== 'null' || null ? clearance : '';
+        strip.setAttribute('data-fp', clearance);
+        console.log('Calling clearanceFromFlightPlan with following data:');
+        console.log({ info: { flightplan: clearance } });
+        clearanceFromFlightPlan(strip, true, { info: { flightplan: clearance } });
+        // clearanceFromFlightPlan(strip);
+      });
+    } */
   }
 
   authorizeUser() {
@@ -306,9 +318,13 @@ class WSManager {
   }
 
   onClose({ code }) {
+    if ([401, 409].includes(lastErrorStatusCode)) {
+      lastErrorStatusCode = null;
+      return;
+    }
     switch (code) {
       case 1011:
-        this.wss.close();
+        this.wss.close(code);
         leaveRoom();
         /* this.wss = new WebSocket(this.url); */
         /* this.#init(); */
@@ -324,7 +340,6 @@ class WSManager {
         leaveRoom();
         /* this.wss = new WebSocket(this.url); */
         /* this.#init(); */
-        console.log('1006 close');
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
@@ -357,6 +372,7 @@ class WSManager {
     let { status } = errorMessage;
     switch (status) {
       case 401: // Unauthorized
+        lastErrorStatusCode = status;
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
@@ -366,6 +382,7 @@ class WSManager {
         });
         break;
       case 409: // Already logged in with given ID
+        lastErrorStatusCode = status;
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
@@ -375,6 +392,7 @@ class WSManager {
         });
         break;
       case 500:
+        lastErrorStatusCode = status;
         notificationQueue.queue({
           title: 'Error!',
           icon: 'error',
@@ -388,8 +406,8 @@ class WSManager {
   }
 }
 let wsUrl = 'wss://api.zedruc.net/ws';
-if (window.location.hostname == 'localhost') wsUrl = 'ws://127.0.0.1:81';
-if (window.location.hostname == '127.0.0.1') wsUrl = 'ws://127.0.0.1:81';
+if (window.location.hostname == 'localhost') wsUrl = 'ws://127.0.0.1:80';
+if (window.location.hostname == '127.0.0.1') wsUrl = 'ws://127.0.0.1:80';
 console.log(wsUrl);
 window.wsManager = new WSManager(wsUrl);
 
@@ -407,7 +425,7 @@ function joinRoom() {
     html: `
     <div style="display:flex;justify-content:center;flex-direction:column;align-items:center">
     Enter the room code:<br/>
-    <input id="roomCode" type="text" placeholder="550e8400-e29b..."/>
+    <input id="roomCode" type="text" placeholder="i8V8Xn5l"/>
     </div>
     `,
     showCancelButton: true,

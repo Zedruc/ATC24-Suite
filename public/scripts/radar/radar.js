@@ -22,7 +22,6 @@ window.addEventListener('message', ev => {
   } else if (msg.type == 'runway_changes') {
     let newActiveRunways = msg.runways;
     activeRunways = newActiveRunways;
-    console.log(activeRunways);
     window.requestAnimationFrame(redrawRadarScreen);
   }
 });

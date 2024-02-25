@@ -40,7 +40,9 @@ let extractInfo = strip => {
       sidstar: strip.querySelector('#sidstar').value,
       notes: strip.querySelector('#notes').value,
       route: strip.querySelector('#route').value,
-      flightplan: strip.querySelector('#flightplan')?.value || '',
+      flightplan: strip.querySelector('#flightplan').value
+        ? strip.querySelector('#flightplan').value
+        : strip.getAttribute('data-fp'),
     },
   };
 
@@ -82,6 +84,7 @@ let saveData = (data, stripId, listId, deletion = false) => {
         listId: listId,
         deletion: true,
         roomId: window.room,
+        origin: localStorage.getItem('discord_item'),
       };
       wsManager.sendMessage(payload);
       return;
@@ -96,6 +99,7 @@ let saveData = (data, stripId, listId, deletion = false) => {
           data: strip,
           deletion: false,
           roomId: window.room,
+          origin: localStorage.getItem('discord_item'),
         };
         wsManager.sendMessage(payload);
 
@@ -158,6 +162,7 @@ class StripSaveManager {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
     let stripId = strip.id;
     if (!currentData[list.id]) {
+      console.log('Not in list, returning');
       return;
     }
     let stripToUpdateData = extractInfo(strip);

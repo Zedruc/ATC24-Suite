@@ -1,31 +1,35 @@
 async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripData) {
   // console.log(window.lastStripFPChange);
   // window.lastStripFPChange = true;
-  console.log(target);
+  // console.log(target);
+
   let rawPlan;
   if (isWebsocketUpdate) {
     rawPlan = stripData.info.flightplan;
   } else {
     rawPlan = await navigator.clipboard.readText();
   }
+  console.log(rawPlan);
 
   if (!(rawPlan.length > 80)) return;
 
   let data = {};
-  if (isWebsocketUpdate) {
+  /* if (isWebsocketUpdate) {
     data = flightPlanFromTransmittedString(rawPlan);
-  } else {
-    let rawInfo = rawPlan.startsWith('U')
-      ? rawPlan.split('\n').slice(1, 8)
-      : rawPlan.split('\r\n').slice(0, 7);
-    for (let i = 0; i < rawInfo.length; i++) {
-      let [key, value] = rawInfo[i].replace(' ', '').split(':');
+  } else { */
+  let rawInfo = rawPlan.startsWith('U')
+    ? rawPlan.split('\n').slice(1, 8)
+    : rawPlan.split('\r\n').slice(0, 7);
+  for (let i = 0; i < rawInfo.length; i++) {
+    let [key, value] = rawInfo[i].replace(' ', '').split(':');
 
-      data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
-    }
+    data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
   }
+  // }
+  console.log(data);
 
   // update strip with flight plan data
+  console.log('target:', target);
   let strip = target.parentElement.parentElement;
   if (isWebsocketUpdate) strip = target;
   let squawkField = strip.querySelector('#squawk');
@@ -57,17 +61,18 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     clearance = `CLR ${data.arriving} ${isGpsRouting ? 'GPS' : departureSid} FPL ${
       isGpsRouting ? 'CLB' : 'CVS'
     } FL${data.flightlevel} DEP [ ] ?SQ`;
+    // strip.setAttribute('data-fp', clearance);
+    strip.setAttribute('data-fp', rawPlan);
   } else if (data.flightrules.toLowerCase() == 'vfr') {
     squawkField.value = '7000';
     clearance = `VFR`;
   }
+  console.log(clearance);
   if (departureSid)
     target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
-  target.setAttribute('data-fp', clearance);
   if (Settings.get('generateClearance')) {
-    if (target.id !== 'flightplan') target.querySelector('#flightplan').value = clearance;
+    if (target.id !== 'flightplan') strip.querySelector('#flightplan').value = clearance;
     else target.value = clearance;
-    console.log(`FLP set to ${clearance}`);
   } else {
     target.remove();
   }
@@ -92,7 +97,8 @@ function detectDepartureRouting(route) {
 function validateAircraftType(givenTypeName) {
   for (let i = 0; i < planeTypes.length; i++) {
     const planeType = planeTypes[i];
-    if (planeType.typeCode.toLowerCase() == givenTypeName.toLowerCase()) return planeType.typeCode;
+    if (planeType?.typeCode?.toLowerCase() == givenTypeName?.toLowerCase())
+      return planeType.typeCode;
     else {
       for (let j = 0; j < planeType.names.length; j++) {
         const names = planeType.names[j];

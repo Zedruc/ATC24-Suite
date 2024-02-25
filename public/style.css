@@ -192,6 +192,10 @@ button:active {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+div:where(.swal2-container).swal2-center>.swal2-popup:has(h3#changelog) {
+  width: auto !important;
+}
+
 [data-no-select] {
   user-select: none;
 }
