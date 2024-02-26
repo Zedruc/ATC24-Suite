@@ -32,7 +32,7 @@ function checkChangelog() {
 function showChangelog() {
   let changelogTime = new Date(window.changelog.time);
   console.log(changelogTime);
-  let dateString = `${changelogTime.getDate()}.${changelogTime.getMonth()}.${changelogTime
+  let dateString = `${changelogTime.getDate()}.${changelogTime.getMonth() + 1}.${changelogTime
     .getFullYear()
     .toString()
     .substring(2, 4)}`;
