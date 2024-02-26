@@ -43,6 +43,9 @@ class WSManager {
     this.wss.onmessage = this.onMessage;
     this.wss.onclose = this.onClose.bind(this);
     window.onbeforeunload = function (e) {
+      e.preventDefault();
+    }; /* .bind(this); */
+    window.onunload = function (e) {
       this.sendMessage({ id: this.id, type: MessageTypes.CLOSING });
     }.bind(this);
     this.connectionAlive = true;

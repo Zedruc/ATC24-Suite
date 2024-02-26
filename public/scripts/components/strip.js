@@ -15,7 +15,6 @@ let templateStrip = document.getElementById('templateStrip');
  * @returns
  */
 function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
-  console.debug();
   let newStrip = templateStrip.cloneNode(true);
   newStrip.id = generateId(10);
   /* newStrip.querySelectorAll('.textInput').forEach(input => {
