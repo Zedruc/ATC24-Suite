@@ -23203,6 +23203,10 @@ let planeTypes = [
     names: ['skyhawk', '172'],
   },
   {
+    typeCode: 'c402',
+    names: ['cessna 402', 'cessna 402c'],
+  },
+  {
     typeCode: 'crj7',
     names: ['crj  700', 'crj700', 'crj'],
   },

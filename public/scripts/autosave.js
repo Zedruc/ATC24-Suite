@@ -112,7 +112,10 @@ let saveData = (data, stripId, listId, deletion = false) => {
 class StripSaveManager {
   // add strip to list
   static add(strip, list, shouldSave = true) {
-    let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
+    let localStorageStrips = localStorage.getItem('strips');
+    let currentData;
+    if (localStorageStrips == undefined || localStorageStrips == 'undefined') currentData = {};
+    else currentData = JSON.parse(localStorageStrips);
     if (!currentData[list.id]) currentData[list.id] = [];
     currentData[list.id].push(extractInfo(strip));
     if (shouldSave) {

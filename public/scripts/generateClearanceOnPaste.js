@@ -11,7 +11,7 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   }
   console.log(rawPlan);
 
-  if (!(rawPlan.length > 80)) return;
+  if (!(rawPlan?.length > 80)) return;
 
   let data = {};
   /* if (isWebsocketUpdate) {
@@ -101,8 +101,10 @@ function validateAircraftType(givenTypeName) {
       return planeType.typeCode;
     else {
       for (let j = 0; j < planeType.names.length; j++) {
-        const names = planeType.names[j];
-        if (names.includes(givenTypeName.toLowerCase())) return planeType.typeCode;
+        const name = planeType.names[j];
+        console.log(name);
+        if (name.includes(givenTypeName.toLowerCase())) return planeType.typeCode;
+        if (givenTypeName.toLowerCase().includes(name.toLowerCase())) return planeType.typeCode;
       }
     }
   }
