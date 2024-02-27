@@ -22,6 +22,8 @@ class NotificationQueue {
             roomId: roomCode,
           });
         }
+      } else if (notiOptions?.type == 'first_visit') {
+        if (result.isConfirmed) localStorage.setItem('firstTimeVisit', 'true');
       }
       this.notifications.shift();
       if (this.notifications.length) {
