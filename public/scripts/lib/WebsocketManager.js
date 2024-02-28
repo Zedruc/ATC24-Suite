@@ -64,6 +64,7 @@ class WSManager {
   }
 
   sendMessage(data) {
+    console.log(data);
     console.log(this.wss.readyState);
     if (this.wss.readyState !== 1) {
       notificationQueue.queue({
@@ -112,6 +113,7 @@ class WSManager {
           });
         }
         window.room = roomId;
+        console.log('room id set');
         Toastify({
           text: 'Room Created',
           duration: 5000,
@@ -358,7 +360,7 @@ class WSManager {
           type: 'error',
           title: 'Error!',
           icon: 'error',
-          html: 'The ATC2-Suite server is restarting.<br/>Please reload the page.',
+          html: 'The ATC24-Suite server is restarting to push an update.<br/>Please reload the page.',
           footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>`,
         });
         break;
@@ -457,7 +459,6 @@ function joinRoom() {
 }
 
 function leaveRoom() {
-  window.room = null;
   roomStatusText.innerText = 'Offline';
   createRoomButtonContainer.innerHTML = '';
   createRoomButtonContainer.appendChild(createRoomButtonClone);
@@ -466,6 +467,7 @@ function leaveRoom() {
     id: localStorage.getItem('discord_id'),
     roomId: window.room,
   });
+  console.log('sent');
   window.room = null;
 }
 
