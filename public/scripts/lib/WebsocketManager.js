@@ -64,18 +64,13 @@ class WSManager {
   }
 
   sendMessage(data) {
-    /* if (this.wss.readyState !== 1) {
-      this.wss = new WebSocket(this.url);
-      this.#init();
-      Toastify({
-        text: 'Reconnected to the Suite. Please try again.',
-        duration: 5000,
-        newWindow: true,
-        close: true,
-        gravity: 'bottom', // `top` or `bottom`
-        position: 'right', // `left`, `center` or `right`
-      }).showToast();
-    } */
+    console.log(this.wss.readyState);
+    if (this.wss.readyState !== 1) {
+      notificationQueue.queue({
+        title: 'Error',
+        html: "Could not connect to the ATC24-suite server.<br/><br/>Please reload and try again or use the suite in offline mode.<br/>(Offline Mode only means you won't be able to use shared rooms)",
+      });
+    }
     /**
      * EVERY message has to be JSON
      */
@@ -107,6 +102,13 @@ class WSManager {
             title: 'Error',
             icon: 'error',
             html: 'Can not create another room.',
+          });
+        }
+        if (status == 401) {
+          return notificationQueue.queue({
+            title: 'Error',
+            icon: 'error',
+            html: "Unauthorized room creation request.<br/><br/>Please make sure you've connected your Discord account and reload the page.",
           });
         }
         window.room = roomId;
@@ -188,6 +190,14 @@ class WSManager {
       }
       case MessageTypes.STRIP_DATA: {
         let { data: stripData, listId, deletion, origin } = data;
+        if (data?.status == 404) {
+          leaveRoom();
+          return notificationQueue.queue({
+            title: 'Error',
+            icon: 'error',
+            html: 'The room you tried to make a change in, does not exist.',
+          });
+        }
         if (deletion) {
           if (document.getElementById(data.stripId)) {
             StripSaveManager.remove(
@@ -268,7 +278,7 @@ class WSManager {
       default:
         if (data?.status && !data?.status.toString().startsWith('200')) {
           WSManager.handleError(data);
-          this.wss.close();
+          // this.wss.close();
         }
         break;
     }
@@ -332,6 +342,7 @@ class WSManager {
         /* this.wss = new WebSocket(this.url); */
         /* this.#init(); */
         notificationQueue.queue({
+          type: 'error',
           title: 'Error!',
           icon: 'error',
           html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try connecting again later.',
@@ -344,9 +355,10 @@ class WSManager {
         /* this.wss = new WebSocket(this.url); */
         /* this.#init(); */
         notificationQueue.queue({
+          type: 'error',
           title: 'Error!',
           icon: 'error',
-          html: 'Could not connect to ATC24-Suite<br/>Please try connecting again later.',
+          html: 'The ATC2-Suite server is restarting.<br/>Please reload the page.',
           footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>`,
         });
         break;
@@ -356,6 +368,7 @@ class WSManager {
         /* this.wss = new WebSocket(this.url); */
         /* this.#init(); */
         notificationQueue.queue({
+          type: 'error',
           title: 'Error!',
           icon: 'error',
           html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try connecting again later.',
@@ -377,31 +390,37 @@ class WSManager {
       case 401: // Unauthorized
         lastErrorStatusCode = status;
         notificationQueue.queue({
+          type: 'error',
           title: 'Error!',
           icon: 'error',
-          html: 'There was an error logging into the ATC24-Suite, please try again and reload.',
+          html: "Your client has made an unauthorized request to the ATC24-Suite.<br/><br/>Please make sure you've connected your Discord account and reload the page.",
           footer:
             'If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>',
         });
+        leaveRoom();
         break;
       case 409: // Already logged in with given ID
         lastErrorStatusCode = status;
         notificationQueue.queue({
+          type: 'error',
           title: 'Error!',
           icon: 'error',
           html: 'It seems you are already logged into the ATC24-Suite.<br/><br/>If you are sure you do not have any other windows open please make sure nobody else has access to your Discord account.',
           footer:
             'If this problem persists and you are the only one using this Discord account, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>',
         });
+        leaveRoom();
         break;
       case 500:
         lastErrorStatusCode = status;
         notificationQueue.queue({
+          type: 'error',
           title: 'Error!',
           icon: 'error',
           html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try reconnecting by reloading again later.<br/>',
           footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a><br/><br/>Server message: ${errorMessage.message}`,
         });
+        leaveRoom();
         break;
       default:
         break;
@@ -438,6 +457,7 @@ function joinRoom() {
 }
 
 function leaveRoom() {
+  window.room = null;
   roomStatusText.innerText = 'Offline';
   createRoomButtonContainer.innerHTML = '';
   createRoomButtonContainer.appendChild(createRoomButtonClone);
@@ -446,7 +466,7 @@ function leaveRoom() {
     id: localStorage.getItem('discord_id'),
     roomId: window.room,
   });
-  window.room = '';
+  window.room = null;
 }
 
 function handleStripUpdate(listId, stripId, saveData) {

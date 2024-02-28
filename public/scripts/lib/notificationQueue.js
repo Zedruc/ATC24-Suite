@@ -24,6 +24,8 @@ class NotificationQueue {
         }
       } else if (notiOptions?.type == 'first_visit') {
         if (result.isConfirmed) localStorage.setItem('firstTimeVisit', 'true');
+      } else if (notiOptions?.type == 'error') {
+        if (result.isConfirmed) location.reload();
       }
       this.notifications.shift();
       if (this.notifications.length) {
