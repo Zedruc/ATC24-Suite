@@ -40,7 +40,7 @@ let extractInfo = strip => {
       sidstar: strip.querySelector('#sidstar').value,
       notes: strip.querySelector('#notes').value,
       route: strip.querySelector('#route').value,
-      flightplan: strip.querySelector('#flightplan').value
+      flightplan: strip.querySelector('#flightplan')
         ? strip.querySelector('#flightplan').value
         : strip.getAttribute('data-fp'),
     },

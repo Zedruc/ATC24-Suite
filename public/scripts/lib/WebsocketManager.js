@@ -99,18 +99,20 @@ class WSManager {
         createRoomButtonContainer.innerHTML = `Code: ${roomId}`;
 
         if (status == 409) {
-          return notificationQueue.queue({
+          notificationQueue.queue({
             title: 'Error',
             icon: 'error',
             html: 'Can not create another room.',
           });
+          break;
         }
         if (status == 401) {
-          return notificationQueue.queue({
+          notificationQueue.queue({
             title: 'Error',
             icon: 'error',
             html: "Unauthorized room creation request.<br/><br/>Please make sure you've connected your Discord account and reload the page.",
           });
+          break;
         }
         window.room = roomId;
         console.log('room id set');
@@ -135,7 +137,7 @@ class WSManager {
         break;
       case MessageTypes.ROOM_JOIN: {
         if (data.status == 404) {
-          return Toastify({
+          Toastify({
             text: `Room with this code does not exist`,
             duration: 5000,
             newWindow: true,
@@ -143,6 +145,7 @@ class WSManager {
             gravity: 'bottom', // `top` or `bottom`
             position: 'right', // `left`, `center` or `right`
           }).showToast();
+          break;
         }
         let { ownerName, roomId, memberCount } = data;
         window.room = roomId;
@@ -194,11 +197,12 @@ class WSManager {
         let { data: stripData, listId, deletion, origin } = data;
         if (data?.status == 404) {
           leaveRoom();
-          return notificationQueue.queue({
+          notificationQueue.queue({
             title: 'Error',
             icon: 'error',
             html: 'The room you tried to make a change in, does not exist.',
           });
+          break;
         }
         if (deletion) {
           if (document.getElementById(data.stripId)) {
@@ -227,6 +231,12 @@ class WSManager {
           strip.remove();
         });
 
+        // if (newData == null) return;
+        console.log(newData);
+        if (newData == undefined) {
+          console.log('Data undefined, return');
+          break;
+        }
         localStorage.setItem('strips', JSON.stringify(newData));
         StripSaveManager.loadFromStorageAndPopulate();
 
@@ -234,7 +244,7 @@ class WSManager {
       }
       case MessageTypes.STRIP_MOVE: {
         let { stripId, listId, direction, origin } = data;
-        if (origin == localStorage.getItem('discord_id')) return;
+        if (origin == localStorage.getItem('discord_id')) break;
 
         // get keybind function to execute on client
         if (direction == 'up') {
