@@ -1,21 +1,38 @@
 let discordId = localStorage.getItem('discord_id') || undefined;
+let userToken = localStorage.getItem('suite_token');
 
 function verifyDiscord() {
-  if (discordId == undefined) {
+  if (discordId == undefined || userToken == undefined) {
     // check if we just authorized
     const urlParams = new URLSearchParams(window.location.search);
     let userId = urlParams.get('user_id');
+    let token = urlParams.get('token');
+    // let firstAuth = urlParams.get('first_auth');
     if (userId) {
+      console.log(localStorage.getItem('discord_id'));
+      /* if (firstAuth !== 'true') {
+        console.log('Not first auth, cancelling.');
+        return;
+      } */
       wsManager.setUserId(userId);
       localStorage.setItem('discord_id', userId);
-      Toastify({
-        text: 'Logged in with Discord!',
-        duration: 5000,
-        newWindow: true,
-        close: true,
-        gravity: 'bottom', // `top` or `bottom`
-        position: 'right', // `left`, `center` or `right`
-      }).showToast();
+      if (token) localStorage.setItem('suite_token', token);
+      // wsManager.sendMessage({ id: userId, type: MessageTypes.CLOSING });
+      console.log('reload');
+      // remove window reload confirmation
+      window.onbeforeunload = () => {};
+      window.onunload = () => {};
+
+      document.location =
+        window.location.hostname == 'zedruc.net'
+          ? 'https://zedruc.net/atc24-suite'
+          : 'http://127.0.0.1:5500/public';
+      /* notificationQueue.queue({
+        type: 'dc_reload',
+        title: 'Logged in with Discord!',
+        html: 'The page will now reload to finish everything up.',
+        confirmButtonText: 'Ok',
+      }); */
     } else {
       notificationQueue.queue({
         type: 'discord_auth',

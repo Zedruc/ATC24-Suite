@@ -76,6 +76,7 @@ class WSManager {
      * EVERY message has to be JSON
      */
     if (!data.id) data.id = localStorage.getItem('discord_id') || undefined;
+    if (!data.token) data.token = localStorage.getItem('suite_token') || undefined;
     data.origin = data.id;
     this.wss.send(JSON.stringify(data));
   }
@@ -86,6 +87,8 @@ class WSManager {
    */
   onMessage({ data: payload }) {
     let data = JSON.parse(payload);
+    console.log('RECEIVED:');
+    console.log(data);
 
     let { type } = data;
 
@@ -322,8 +325,16 @@ class WSManager {
   }
 
   authorizeUser() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let userToken = urlParams.get('token');
+    if (userToken) return;
     if (!this.id) return console.warn('[WsManager] Set user ID before authorizing');
-    this.sendMessage({ id: this.id, type: MessageTypes.AUTH });
+    console.log(localStorage.getItem('suite_token'));
+    this.sendMessage({
+      id: this.id,
+      token: localStorage.getItem('suite_token'),
+      type: MessageTypes.AUTH,
+    });
   }
 
   setUserId(id) {
@@ -402,7 +413,7 @@ class WSManager {
       case 401: // Unauthorized
         lastErrorStatusCode = status;
         notificationQueue.queue({
-          type: 'error',
+          type: 'auth_error',
           title: 'Error!',
           icon: 'error',
           html: "Your client has made an unauthorized request to the ATC24-Suite.<br/><br/>Please make sure you've connected your Discord account and reload the page.",
@@ -469,6 +480,13 @@ function joinRoom() {
 }
 
 function leaveRoom() {
+  /**
+   * ! this causes the server error
+   * ! "user tried leaving room that doesnt exist"
+   * ! because leaveRoom is called when errors
+   * ! occure even when not in a room.
+   */
+
   roomStatusText.innerText = 'Offline';
   createRoomButtonContainer.innerHTML = '';
   createRoomButtonContainer.appendChild(createRoomButtonClone);

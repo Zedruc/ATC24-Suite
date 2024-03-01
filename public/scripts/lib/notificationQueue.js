@@ -26,6 +26,12 @@ class NotificationQueue {
         if (result.isConfirmed) localStorage.setItem('firstTimeVisit', 'true');
       } else if (notiOptions?.type == 'error') {
         if (result.isConfirmed) location.reload();
+      } else if (notiOptions?.type == 'auth_error') {
+        if (result.isConfirmed) {
+          window.onbeforeunload = () => {};
+          window.onunload = () => {};
+          document.location = window.DISCORD_OAUTH2_URI;
+        }
       }
       this.notifications.shift();
       if (this.notifications.length) {
