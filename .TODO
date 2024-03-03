@@ -1,33 +1,10 @@
-Fertig zu machen:
-
-- ✔️ CTR Station Option
-- ✔️ Callsign muss callsign detecten, nicht Firmenname
-- ✔️ Mehrere Runways als aktiv markieren
-- ✔️ W und S strips auf/ab bewegen
-- ✔️ Strip Movement/Status Cycle Tasten zu "Help" hinzufügen
-
 Vorschläge:
-- ✔️ Aircraft Type kürzen [`if(type.toLowerCase().contains('a340')) aircraftType = 'A340'`] weil manche Leute lange Typen eingeben
-- ✔️ Text Callsign (z.B. "Lufthansa") zu ICAO umwandeln (DLH) [`if(!airlineTable.includes(filedCallsign)){textToIcao()}`]
-- Custom Strip Listen Namen bzw. Möglichkeit, Strip Listen zu erstellen und zu löschen
-- Strip Status Cyclen mit Q und E "PRE-DEP" -> "PUSH" -> "TAXI" -> "LINE-UP" -> "TAKEOFF" -> "CLIMB" -> "CRZ" -> "DESCENT" -> "APPROACH" -> "TAXI" -> "PARKED"
-
-ZU FIXEN (Von MJ)
-Flight strips clipping in APP/DEP column.
-The text beneath the callsign box should display callsign, not airline name, e.g. "speedbird"
-There's no CTR option on the station display.
-No options for multiple RWYs.
-The help section needs expanding:
-  - Tad unclear of that the copy+paste needs to be done in the notes box, took me a bit to work out.
-  - Add in that W and S move strips around.
-
-Additional:
-- "User Route" Box verstecken, wenn GPS gefiled
-- "Paste Flightplan" Box verstecken, wenn Flugplan gepasted aber "Generate IFR Clearance" Einstellung disabled
+- Discord Usernamen in Strip
+- Session chat
+- Benutzerdefinierte Listen
 
 Zukünftig:
-- Shared Rooms
-- Departure Wegpunkte auf Radar
+- Departure/Arrival Routen auf Radar
 - Ein-/Ausschaltbare Wegpunkte auf Radar
 
 Möglich:
