@@ -1,12 +1,31 @@
 let discordId = localStorage.getItem('discord_id') || undefined;
-let userToken = localStorage.getItem('suite_token');
+let userToken = localStorage.getItem('suite_token') || undefined;
 
 function verifyDiscord() {
+  const urlParams = new URLSearchParams(window.location.search);
+  let userId = urlParams.get('user_id');
+  let token = urlParams.get('token');
+  if (userId || token) {
+    if (discordId != undefined && userToken != undefined) {
+      localStorage.setItem('discord_id', userId);
+      localStorage.setItem('suite_token', token);
+      wsManager.setUserId(userId);
+
+      console.log('reload');
+      // remove window reload confirmation
+      window.onbeforeunload = () => {};
+      window.onunload = () => {};
+
+      console.log('Changing location');
+      document.location =
+        window.location.hostname == 'zedruc.net'
+          ? 'https://zedruc.net/atc24-suite'
+          : 'http://127.0.0.1:5500/public';
+    }
+  }
   if (discordId == undefined || userToken == undefined) {
     // check if we just authorized
-    const urlParams = new URLSearchParams(window.location.search);
-    let userId = urlParams.get('user_id');
-    let token = urlParams.get('token');
+
     // let firstAuth = urlParams.get('first_auth');
     if (userId) {
       console.log(localStorage.getItem('discord_id'));
@@ -16,13 +35,17 @@ function verifyDiscord() {
       } */
       wsManager.setUserId(userId);
       localStorage.setItem('discord_id', userId);
-      if (token) localStorage.setItem('suite_token', token);
+      if (token) {
+        console.log('Token set');
+        localStorage.setItem('suite_token', token);
+      }
       // wsManager.sendMessage({ id: userId, type: MessageTypes.CLOSING });
       console.log('reload');
       // remove window reload confirmation
       window.onbeforeunload = () => {};
       window.onunload = () => {};
 
+      console.log('Changing location');
       document.location =
         window.location.hostname == 'zedruc.net'
           ? 'https://zedruc.net/atc24-suite'
