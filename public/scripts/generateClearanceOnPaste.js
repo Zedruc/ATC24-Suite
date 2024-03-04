@@ -9,7 +9,6 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   } else {
     rawPlan = await navigator.clipboard.readText();
   }
-  console.log(rawPlan);
 
   if (!(rawPlan?.length > 80)) return;
 
@@ -22,14 +21,11 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     : rawPlan.split('\r\n').slice(0, 7);
   for (let i = 0; i < rawInfo.length; i++) {
     let [key, value] = rawInfo[i].replace(' ', '').split(':');
-
     data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
   }
   // }
-  console.log(data);
 
   // update strip with flight plan data
-  console.log('target:', target);
   let strip = target.parentElement.parentElement;
   if (isWebsocketUpdate) strip = target;
   let squawkField = strip.querySelector('#squawk');
@@ -67,7 +63,6 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     squawkField.value = '7000';
     clearance = `VFR`;
   }
-  console.log(clearance);
   if (departureSid)
     target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
   if (Settings.get('generateClearance')) {
@@ -102,7 +97,6 @@ function validateAircraftType(givenTypeName) {
     else {
       for (let j = 0; j < planeType.names.length; j++) {
         const name = planeType.names[j];
-        console.log(name);
         if (name.includes(givenTypeName.toLowerCase())) return planeType.typeCode;
         if (givenTypeName.toLowerCase().includes(name.toLowerCase())) return planeType.typeCode;
       }

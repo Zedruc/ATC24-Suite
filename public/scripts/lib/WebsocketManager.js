@@ -65,7 +65,6 @@ class WSManager {
 
   sendMessage(data) {
     console.log(data);
-    console.log(this.wss.readyState);
     if (this.wss.readyState !== 1) {
       notificationQueue.queue({
         title: 'Error',
@@ -118,7 +117,7 @@ class WSManager {
           break;
         }
         window.room = roomId;
-        console.log('room id set');
+
         Toastify({
           text: 'Room Created',
           duration: 5000,
@@ -198,6 +197,7 @@ class WSManager {
       }
       case MessageTypes.STRIP_DATA: {
         let { data: stripData, listId, deletion, origin } = data;
+        if (origin == localStorage.getItem('discord_id')) break;
         if (data?.status == 404) {
           leaveRoom();
           notificationQueue.queue({
@@ -235,7 +235,6 @@ class WSManager {
         });
 
         // if (newData == null) return;
-        console.log(newData);
         if (newData == undefined) {
           console.log('Data undefined, return');
           break;
@@ -275,7 +274,11 @@ class WSManager {
         break;
       }
       case MessageTypes.STRIP_SYNC: {
-        let { storage } = data;
+        let { storage, origin } = data;
+        if (origin == localStorage.getItem('discord_id')) {
+          console.log('we are the origin, ignoring');
+          break;
+        }
         // this syncs ALL clients no matter what, disregarding possible data loss
         localStorage.setItem('strips', JSON.stringify(storage));
 
@@ -283,7 +286,6 @@ class WSManager {
           const list = storage[key];
           for (let i = 0; i < list.length; i++) {
             let strip = list[i];
-            console.log(strip);
             clearanceFromFlightPlan(document.getElementById(strip.info.stripId), true, strip);
           }
         }
@@ -329,7 +331,6 @@ class WSManager {
     let userToken = urlParams.get('token');
     if (userToken) return;
     if (!this.id) return console.warn('[WsManager] Set user ID before authorizing');
-    console.log(localStorage.getItem('suite_token'));
     this.sendMessage({
       id: this.id,
       token: localStorage.getItem('suite_token'),
@@ -495,7 +496,6 @@ function leaveRoom() {
     id: localStorage.getItem('discord_id'),
     roomId: window.room,
   });
-  console.log('sent');
   window.room = null;
 }
 

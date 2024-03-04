@@ -165,7 +165,6 @@ class StripSaveManager {
     let currentData = JSON.parse(localStorage.getItem('strips') || '{}');
     let stripId = strip.id;
     if (!currentData[list.id]) {
-      console.log('Not in list, returning');
       return;
     }
     let stripToUpdateData = extractInfo(strip);
