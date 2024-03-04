@@ -30,11 +30,14 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   if (isWebsocketUpdate) strip = target;
   let squawkField = strip.querySelector('#squawk');
   let callsignField = strip.querySelector('#callsign');
+  let departingField = strip.querySelector('#departure');
   let arrivingField = strip.querySelector('#arrival');
   let aircraftField = strip.querySelector('#aircraft');
   let altitudeField = strip.querySelector('#altitude');
   let routeField = strip.querySelector('#route');
 
+  if (data?.departing?.toLowerCase() != currentAirport.icao.toLowerCase())
+    departingField = data.departing;
   callsignField.value = data.callsign;
   detectCallsign(callsignField);
   arrivingField.value = data.arriving;
@@ -69,7 +72,9 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     if (target.id !== 'flightplan') strip.querySelector('#flightplan').value = clearance;
     else target.value = clearance;
   } else {
-    target.remove();
+    console.log(target);
+    if (target.id !== 'flightplan') target.querySelector('#flightplan').remove();
+    else target.remove();
   }
   // window.lastStripFPChange = false;
   StripSaveManager.updateStrip(strip, strip.parentElement);
