@@ -24,6 +24,9 @@ function updateStationInfo(currentStation = stationSelect.value) {
   if (window.radarWindow) {
     window.radarWindow.postMessage({ type: 'runway_changes', runways: window.activeRunways });
   }
+  if (window.atisWindow) {
+    window.atisWindow.postMessage({ type: 'runway_changes', runways: window.activeRunways });
+  }
   stationType.textContent = currentStation.type;
   stationFrequency.textContent = currentStation.frequency + ' MHz';
 }

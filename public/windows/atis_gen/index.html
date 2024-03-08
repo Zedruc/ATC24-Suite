@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATC24 | ATIS Generator</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../styleguide.css" />
+    <link rel="stylesheet" href="../../globals.css" />
+    <link rel="stylesheet" href="../../css/atis_gen/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="inputContainer">
+        <span class="valueDispay" id="airport">36L, 36R</span>
+        <input type="text" id="atisID" />
+        <input type="checkbox" id="preferSidStar" name="preferSidStar" />
+        <label for="preferSidStar">SID/STARs preferred?</label>
+        <input type="number" id="maxTaxiSpeed" />
+        <input type="number" id="airSpeedRestriction" />
+        <span class="valueDispay" id="departureRunways"></span>
+        <span class="valueDispay" id="arrivalRunways"></span>
+      </div>
+      <div class="output">
+        <textarea readonly></textarea>
+      </div>
+    </div>
+  </body>
+</html>
