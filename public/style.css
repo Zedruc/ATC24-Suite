@@ -102,9 +102,18 @@
   align-items: center;
 }
 
+#info-bar-item-4 .leftNote,
+#info-bar-item-4 .rightNote {
+  width: 100%;
+}
+
 .info-bar-item:has(.content > .runwayCheckboxes) {
   overflow-y: hidden;
   grid-template-rows: 1fr 2fr;
+}
+
+.floatLeft {
+  float: left;
 }
 
 .content:has(.runwayCheckboxes) {

@@ -40,6 +40,10 @@ function executeStationSelectUpdate(island, airportName) {
           type: 'airport_change',
           airport: airport.icao.toLowerCase(),
         });
+        window.atisWindow.postMessage({
+          type: 'airport_change',
+          airport: airport.icao.toLowerCase(),
+        });
       }
 
       updateAirportInfo(airport);
