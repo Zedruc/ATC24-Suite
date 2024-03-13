@@ -14,6 +14,8 @@ class MessageTypes {
   static STRIP_DATA = 'strip_data';
   static ROOM_STRIPS = 'room_strips';
 
+  static COLUMN_CHANGE = 'column_change';
+
   static STRIP_MOVE = 'strip_move';
   static STRIP_MOVE_LIST = 'strip_move_list';
 
@@ -289,6 +291,42 @@ class WSManager {
             clearanceFromFlightPlan(document.getElementById(strip.info.stripId), true, strip);
           }
         }
+
+        break;
+      }
+      case MessageTypes.COLUMN_CHANGE: {
+        console.log('COLUMN CHANGE!!!!!!!!');
+        let { oldId, newId, origin } = data;
+        console.log(oldId, newId);
+        if (origin == localStorage.getItem('discord_id')) {
+          console.log('we are the origin, ignoring');
+          break;
+        }
+
+        // rename list in storage
+        let localStorageStrips = localStorage.getItem('strips');
+        let currentData;
+        if (localStorageStrips == undefined || localStorageStrips == 'undefined') currentData = {};
+        else currentData = JSON.parse(localStorageStrips);
+        if (!currentData[oldId]) {
+          console.log('old id dont exist man');
+          // if it doesnt exist, just create list with new id
+          currentData[newId] = [];
+          localStorage.setItem('strips', JSON.stringify(currentData));
+        } else {
+          console.log('setting replaced key');
+          // if it does, copy data to new id and delete old one
+          localStorage.setItem(
+            'strips',
+            JSON.stringify(renameObjKey({ oldObj: currentData, oldKey: oldId, newKey: newId }))
+          );
+        }
+
+        // rename list in ui
+        let list = document.getElementById(oldId);
+        let listNameInput = list.querySelector('#listNameInput');
+        listNameInput.value = newId;
+        list.id = newId;
 
         break;
       }

@@ -1,4 +1,6 @@
-const stations = ['del', 'gnd', 'twr', 'app/dep'];
+// const stations = ['del', 'gnd', 'twr', 'app/dep'];
+let listIndex = 0; // to keep created list's names unique
+let templateList = document.getElementById('templateList');
 
 const keybinds = [
   {
@@ -33,6 +35,7 @@ const keybinds = [
   {
     key: 'v',
     action: list => {
+      console.log(list);
       let newStrip = generateStrip('vfr', false, list.id);
       list.appendChild(newStrip);
       StripSaveManager.add(newStrip, list);
@@ -51,9 +54,17 @@ const keybinds = [
   {
     key: 'd',
     action: (list, strip) => {
-      let nextStripListIndex = stations.indexOf(list.id) + 1;
+      let stripContainer = document.querySelector('.stripContainer');
+      console.log(stripContainer);
+      stripContainer.childNodes.forEach(el => {
+        if (el.nodeName !== 'DIV') {
+          el.remove();
+        }
+      });
+      let stations = [...stripContainer.childNodes];
+      let nextStripListIndex = stations.indexOf(document.getElementById(list.id)) + 1;
       if (nextStripListIndex > stations.length - 1) return;
-      let nextStripList = document.getElementById(stations[nextStripListIndex]);
+      let nextStripList = document.getElementById(stations[nextStripListIndex].id);
       let stripClone = strip.cloneNode(true);
       strip.remove();
       nextStripList.appendChild(stripClone);
@@ -63,9 +74,17 @@ const keybinds = [
   {
     key: 'a',
     action: (list, strip) => {
-      let nextStripListIndex = stations.indexOf(list.id) - 1;
+      let stripContainer = document.querySelector('.stripContainer');
+      console.log(stripContainer);
+      stripContainer.childNodes.forEach(el => {
+        if (el.nodeName !== 'DIV') {
+          el.remove();
+        }
+      });
+      let stations = [...stripContainer.childNodes];
+      let nextStripListIndex = stations.indexOf(document.getElementById(list.id)) - 1;
       if (nextStripListIndex < 0) return;
-      let nextStripList = document.getElementById(stations[nextStripListIndex]);
+      let nextStripList = document.getElementById(stations[nextStripListIndex].id);
       let stripClone = strip.cloneNode(true);
       strip.remove();
       nextStripList.appendChild(stripClone);
@@ -145,6 +164,20 @@ const keybinds = [
       strip.remove();
 
       // list.childNodes = moveInArray([...list.childNodes], currentIndex, newIndex);
+    },
+  },
+  {
+    key: 'l',
+    action: (wsAction = false) => {
+      let newList = templateList.cloneNode(true);
+      let placeholderName = `new list ${++listIndex}`;
+      newList.id = placeholderName;
+      newList.value = placeholderName;
+      console.log(newList);
+
+      /**
+       * TODO: COLUMN_CREATE event client+server als auch COLUMN_CREATE receive
+       */
     },
   },
 ];
@@ -253,6 +286,11 @@ document.addEventListener('keypress', e => {
           wsManager.sendMessage(payload);
         }
       }
+      break;
+    }
+
+    case 'l': {
+      usedKeybind.action();
       break;
     }
 

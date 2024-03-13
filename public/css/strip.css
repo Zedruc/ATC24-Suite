@@ -2,9 +2,13 @@
   display: none;
 }
 
+#templateList {
+  display: none;
+}
+
 .stripContainer {
   display: grid;
-  grid-template-columns: repeat(4, 480px);
+  grid-template-columns: repeat(100, 480px);
   width: auto;
   overflow-x: scroll;
   overflow-y: scroll;
@@ -23,7 +27,8 @@
   text-align: center;
 }
 
-.stripContainer .stripList:nth-child(-n+3) {
+/* .stripContainer .stripList:nth-child(-n+3) */
+.stripContainer .stripList:not(:last-child) {
   background-image: linear-gradient(rgb(255, 255, 255) 33%, rgba(255, 255, 255, 0) 0%);
   background-position: right;
   background-size: 1px 15px;
@@ -77,6 +82,18 @@
 }
 
 .textInput {
+  text-transform: uppercase;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: text;
+  border: none;
+  color: aliceblue;
+  background-color: rgb(32, 32, 32);
+  font-family: var(--default-font);
+  outline: none;
+}
+
+.listNameTextInput {
   text-transform: uppercase;
   text-align: center;
   box-sizing: border-box;

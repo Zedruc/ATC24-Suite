@@ -3,7 +3,6 @@ let validDigits = '01234567';
 let length = 4;
 
 let stripTypes = ['inbound', 'outbound', 'vfr'];
-let stripListTypes = ['del', 'gnd', 'twr', 'app/dep'];
 
 let templateStrip = document.getElementById('templateStrip');
 
@@ -24,7 +23,7 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
   }); */
   newStrip.setAttribute('data-type', type);
   if (!stripTypes.includes(type)) return;
-  if (!stripListTypes.includes(stripListType)) return;
+  // if (!stripListTypes.includes(stripListType)) return;
 
   if (shouldGenerateRandomSquawk) {
     let squawk = generateSquawk();

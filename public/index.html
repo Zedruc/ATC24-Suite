@@ -353,9 +353,16 @@ Charts - Flightstrips - Flightplan Management"
         <img id="chart" src="./charts/IRFD/IRFD Ground Chart.png.webp" alt="CURRENT_CHART" />
       </div>
       <div class="stripContainer">
-        <div class="stripList" id="del" data-list="0">
+        <div class="stripList" id="delivery" data-list="0">
           <div class="listName" id="listName">
-            <h1>Delivery</h1>
+            <input
+              type="text"
+              id="listNameInput"
+              class="listNameTextInput callsignInput"
+              placeholder="List Name"
+              value="Delivery"
+              onblur="columnUpdate(this)"
+            />
           </div>
           <div class="strip" data-deletion-confirmed="false" id="templateStrip">
             <!--^^^^^^ oninput="StripSaveManager.updateStrip(this, this.parentElement)" -->
@@ -367,7 +374,7 @@ Charts - Flightstrips - Flightplan Management"
                 id="callsign"
                 class="textInput callsignInput"
                 placeholder="Callsign"
-                oninput="detectCallsign(this)"
+                ="detectCallsign(this)"
               />
               <p class="callsignSpoken">-</p>
               <span>
@@ -405,21 +412,54 @@ Charts - Flightstrips - Flightplan Management"
               <input class="textInput" type="text" id="notes" placeholder="Notes" />
             </div>
           </div>
-        </div>
-
-        <div class="stripList" id="gnd" data-list="1">
-          <div class="listName" id="listName">
-            <h1>Ground</h1>
+          <div class="stripList" id="templateList" data-list="1">
+            <div class="listName" id="listName">
+              <input
+                type="text"
+                id="listNameInput"
+                class="listNameTextInput callsignInput"
+                placeholder="List Name"
+                value="template"
+                onblur="columnUpdate(this)"
+              />
+            </div>
           </div>
         </div>
-        <div class="stripList" id="twr" data-list="2">
+
+        <div class="stripList" id="ground" data-list="1">
           <div class="listName" id="listName">
-            <h1>Tower</h1>
+            <input
+              type="text"
+              id="listNameInput"
+              class="listNameTextInput callsignInput"
+              placeholder="List Name"
+              value="Ground"
+              onblur="columnUpdate(this)"
+            />
+          </div>
+        </div>
+        <div class="stripList" id="tower" data-list="2">
+          <div class="listName" id="listName">
+            <input
+              type="text"
+              id="listNameInput"
+              class="listNameTextInput callsignInput"
+              placeholder="List Name"
+              value="Tower"
+              onblur="columnUpdate(this)"
+            />
           </div>
         </div>
         <div class="stripList" id="app/dep" data-list="3">
           <div class="listName" id="listName">
-            <h1>APP/DEP</h1>
+            <input
+              type="text"
+              id="listNameInput"
+              class="listNameTextInput callsignInput"
+              placeholder="List Name"
+              value="APP/DEP"
+              onblur="columnUpdate(this)"
+            />
           </div>
         </div>
       </div>
@@ -497,6 +537,7 @@ Charts - Flightstrips - Flightplan Management"
     <script src="./scripts/focusOutEvents.js"></script>
     <script src="./scripts/lib/WebsocketManager.js"></script>
     <script src="./scripts/autosave.js"></script>
+    <script src="./scripts/columnUpdate.js"></script>
     <script src="./scripts/lib/discordVerification.js"></script>
     <script src="./scripts/lib/airlineTable.js"></script>
     <script src="./scripts/lib/htmlBuilder.js"></script>
