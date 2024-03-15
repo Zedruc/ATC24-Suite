@@ -332,7 +332,7 @@ Charts - Flightstrips - Flightplan Management"
           class="leftNote"
           data-tippy=""
           data-tippy-placement="top"
-          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br />C - Cancel Deletion<br /><br />A - Move Strip to The Left<br />D - Move Strip to The Right<br />W - Move Strip Up<br />S - Move Strip Down<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
+          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br /><br />C - Cancel Deletion (Strip & List)<br />L - Create List<br />B - Delete List<br /><br />A - Move Strip to The Left<br />D - Move Strip to The Right<br />W - Move Strip Up<br />S - Move Strip Down<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
           data-no-select
           data-action
         >
@@ -352,8 +352,74 @@ Charts - Flightstrips - Flightplan Management"
         </div> -->
         <img id="chart" src="./charts/IRFD/IRFD Ground Chart.png.webp" alt="CURRENT_CHART" />
       </div>
+
+      <!-- ===========================================================================
+      | TEMPLATES
+      =========================================================================== -->
+
+      <div class="strip" data-deletion-confirmed="false" id="templateStrip">
+        <!--^^^^^^ oninput="StripSaveManager.updateStrip(this, this.parentElement)" -->
+
+        <div class="leftMain">
+          <!-- <span role="textbox" contenteditable="true" class="callsignInput"></span> -->
+          <input
+            type="text"
+            id="callsign"
+            class="textInput callsignInput"
+            placeholder="Callsign"
+            oninput="detectCallsign(this)"
+          />
+          <p class="callsignSpoken">-</p>
+          <span>
+            <label for="squawk" style="display: inline-block">SQ:</label>
+            <input
+              style="display: inline-block"
+              name="squawk"
+              type="text"
+              id="squawk"
+              class="textInput squawkInput"
+              placeholder="Squawk"
+            />
+          </span>
+        </div>
+        <div class="rightMain">
+          <input class="textInput" type="text" id="departure" placeholder="Dep" />
+          <input class="textInput" type="text" id="aircraft" placeholder="Aircraft" />
+          <input class="textInput" type="text" id="altitude" placeholder="Altitude" />
+          <input class="textInput" type="text" id="gate" placeholder="Gate" />
+          <input class="textInput" type="text" id="arrival" placeholder="Arr" />
+          <input class="textInput" type="text" id="status" placeholder="Status" />
+          <input class="textInput" type="text" id="info" placeholder="Info" />
+          <input class="textInput" type="text" id="runway" placeholder="Runway" />
+          <input class="textInput" type="text" id="sidstar" placeholder="SID/STAR" />
+        </div>
+        <div class="bottom">
+          <p id="route" class="routeText"></p>
+          <input
+            class="textInput"
+            type="text"
+            id="flightplan"
+            placeholder="Paste Flightplan"
+            onpaste="clearanceFromFlightPlan(this);"
+          />
+          <input class="textInput" type="text" id="notes" placeholder="Notes" />
+        </div>
+      </div>
+      <div class="stripList" id="templateList" data-list="1">
+        <div class="listName" id="listName">
+          <input
+            type="text"
+            id="listNameInput"
+            class="listNameTextInput callsignInput"
+            placeholder="List Name"
+            value="template"
+            onblur="columnUpdate(this)"
+          />
+        </div>
+      </div>
+
       <div class="stripContainer">
-        <div class="stripList" id="delivery" data-list="0">
+        <!-- <div class="stripList" id="delivery" data-list="0">
           <div class="listName" id="listName">
             <input
               type="text"
@@ -364,66 +430,7 @@ Charts - Flightstrips - Flightplan Management"
               onblur="columnUpdate(this)"
             />
           </div>
-          <div class="strip" data-deletion-confirmed="false" id="templateStrip">
-            <!--^^^^^^ oninput="StripSaveManager.updateStrip(this, this.parentElement)" -->
-
-            <div class="leftMain">
-              <!-- <span role="textbox" contenteditable="true" class="callsignInput"></span> -->
-              <input
-                type="text"
-                id="callsign"
-                class="textInput callsignInput"
-                placeholder="Callsign"
-                ="detectCallsign(this)"
-              />
-              <p class="callsignSpoken">-</p>
-              <span>
-                <label for="squawk" style="display: inline-block">SQ:</label>
-                <input
-                  style="display: inline-block"
-                  name="squawk"
-                  type="text"
-                  id="squawk"
-                  class="textInput squawkInput"
-                  placeholder="Squawk"
-                />
-              </span>
-            </div>
-            <div class="rightMain">
-              <input class="textInput" type="text" id="departure" placeholder="Dep" />
-              <input class="textInput" type="text" id="aircraft" placeholder="Aircraft" />
-              <input class="textInput" type="text" id="altitude" placeholder="Altitude" />
-              <input class="textInput" type="text" id="gate" placeholder="Gate" />
-              <input class="textInput" type="text" id="arrival" placeholder="Arr" />
-              <input class="textInput" type="text" id="status" placeholder="Status" />
-              <input class="textInput" type="text" id="info" placeholder="Info" />
-              <input class="textInput" type="text" id="runway" placeholder="Runway" />
-              <input class="textInput" type="text" id="sidstar" placeholder="SID/STAR" />
-            </div>
-            <div class="bottom">
-              <p id="route" class="routeText"></p>
-              <input
-                class="textInput"
-                type="text"
-                id="flightplan"
-                placeholder="Paste Flightplan"
-                onpaste="clearanceFromFlightPlan(this);"
-              />
-              <input class="textInput" type="text" id="notes" placeholder="Notes" />
-            </div>
-          </div>
-          <div class="stripList" id="templateList" data-list="1">
-            <div class="listName" id="listName">
-              <input
-                type="text"
-                id="listNameInput"
-                class="listNameTextInput callsignInput"
-                placeholder="List Name"
-                value="template"
-                onblur="columnUpdate(this)"
-              />
-            </div>
-          </div>
+          
         </div>
 
         <div class="stripList" id="ground" data-list="1">
@@ -461,7 +468,7 @@ Charts - Flightstrips - Flightplan Management"
               onblur="columnUpdate(this)"
             />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="cornerMenu" id="cornerMenu">
@@ -535,6 +542,7 @@ Charts - Flightstrips - Flightplan Management"
     <!-- Main -->
     <script src="./scripts/changeLog.js"></script>
     <script src="./scripts/focusOutEvents.js"></script>
+    <script src="./scripts/lib/populateColumns.js"></script>
     <script src="./scripts/lib/WebsocketManager.js"></script>
     <script src="./scripts/autosave.js"></script>
     <script src="./scripts/columnUpdate.js"></script>

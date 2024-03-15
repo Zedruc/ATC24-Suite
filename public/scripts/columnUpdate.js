@@ -22,6 +22,16 @@ function columnUpdate(listNameElement) {
     );
   }
 
+  let storageColumns = localStorage.getItem('columns');
+  if (storageColumns == null)
+    localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+  else {
+    storageColumns = JSON.parse(storageColumns);
+    let index = storageColumns.indexOf(oldId);
+    storageColumns[index] = newId;
+    localStorage.setItem('columns', JSON.stringify(storageColumns));
+  }
+
   if (window.room) {
     wsManager.sendMessage({
       type: 'column_change',

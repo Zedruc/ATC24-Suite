@@ -66,6 +66,15 @@ const keybinds = [
       if (nextStripListIndex > stations.length - 1) return;
       let nextStripList = document.getElementById(stations[nextStripListIndex].id);
       let stripClone = strip.cloneNode(true);
+
+      stripClone.querySelectorAll('.textInput').forEach(input => {
+        if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
+        // if (input?.id == 'flightplan') return;
+        self = input;
+        input.removeEventListener('focusout', focusOutEvent);
+        input.addEventListener('focusout', focusOutEvent);
+      });
+
       strip.remove();
       nextStripList.appendChild(stripClone);
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
@@ -86,6 +95,15 @@ const keybinds = [
       if (nextStripListIndex < 0) return;
       let nextStripList = document.getElementById(stations[nextStripListIndex].id);
       let stripClone = strip.cloneNode(true);
+
+      stripClone.querySelectorAll('.textInput').forEach(input => {
+        if (input.getAttribute('data-fp')) input.value = input.getAttribute('data-fp');
+        // if (input?.id == 'flightplan') return;
+        self = input;
+        input.removeEventListener('focusout', focusOutEvent);
+        input.addEventListener('focusout', focusOutEvent);
+      });
+
       strip.remove();
       nextStripList.appendChild(stripClone);
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
@@ -168,16 +186,66 @@ const keybinds = [
   },
   {
     key: 'l',
-    action: (wsAction = false) => {
+    action: (wsAction = false, listId) => {
       let newList = templateList.cloneNode(true);
-      let placeholderName = `new list ${++listIndex}`;
+      let placeholderName = wsAction ? listId : `new list ${++listIndex}`;
       newList.id = placeholderName;
-      newList.value = placeholderName;
+      newList.querySelector('#listNameInput').value = placeholderName;
       console.log(newList);
 
-      /**
-       * TODO: COLUMN_CREATE event client+server als auch COLUMN_CREATE receive
-       */
+      document.querySelector('.stripContainer').appendChild(newList);
+
+      let storageColumns = localStorage.getItem('columns');
+      if (storageColumns == null)
+        localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+      else {
+        storageColumns = JSON.parse(storageColumns);
+        storageColumns.push(newList.id);
+        localStorage.setItem('columns', JSON.stringify(storageColumns));
+      }
+
+      if (!wsAction && window.room) {
+        wsManager.sendMessage({
+          type: MessageTypes.COLUMN_CREATE,
+          listId: newList.id,
+          origin: localStorage.getItem('discord_id'),
+          roomId: window.room,
+        });
+      }
+    },
+  },
+  {
+    key: 'b',
+    action: (list, deletionConfirmed, wsAction = false) => {
+      console.log(deletionConfirmed);
+      if (deletionConfirmed !== 'true') {
+        if (wsAction == false) {
+          list.setAttribute('data-deletion-confirmed', 'true');
+          return;
+        }
+      }
+      let listId = list.id;
+      list.remove();
+      listIndex--;
+
+      let storageColumns = localStorage.getItem('columns');
+      if (storageColumns == null)
+        localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+      else {
+        storageColumns = JSON.parse(storageColumns);
+        let index = storageColumns.indexOf(list.id);
+        storageColumns.splice(index, 1);
+        localStorage.setItem('columns', JSON.stringify(storageColumns));
+      }
+
+      if (!wsAction && window.room) {
+        wsManager.sendMessage({
+          type: MessageTypes.COLUMN_DELETE,
+          listId: listId,
+          origin: localStorage.getItem('discord_id'),
+          roomId: window.room,
+        });
+      }
     },
   },
 ];
@@ -212,7 +280,13 @@ document.addEventListener('keypress', e => {
         if (i > 6) break;
         if (element.classList.contains('strip')) strip = element;
       }
-      if (!strip) return;
+      if (!strip) {
+        if (usedKeybind.key == 'c') {
+          // if not strip then try list deletion cancel
+          usedKeybind.action(list, list.getAttribute('data-deletion-confirmed'), list);
+          return;
+        } else return;
+      }
       usedKeybind.action(strip, strip.getAttribute('data-deletion-confirmed'), list);
       break;
     }
@@ -291,6 +365,18 @@ document.addEventListener('keypress', e => {
 
     case 'l': {
       usedKeybind.action();
+      break;
+    }
+
+    case 'b': {
+      let list;
+      for (let i = 0; i < hovered.length; i++) {
+        const element = hovered[i];
+        if (i > 7) break;
+        if (element.classList.contains('stripList')) list = element;
+      }
+      if (!list) return;
+      usedKeybind.action(list, list.getAttribute('data-deletion-confirmed'));
       break;
     }
 

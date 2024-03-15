@@ -23,6 +23,10 @@ if (!window?.navigator?.clipboard?.readText) {
 
 // check if first time visitor
 let firstTimeVisit = localStorage.getItem('firstTimeVisit');
+let columns = localStorage.getItem('columns');
+if (!columns)
+  localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+populateColumns();
 if (firstTimeVisit !== 'true') {
   if (window.appVersion.startsWith('b')) {
     notificationQueue.queue({

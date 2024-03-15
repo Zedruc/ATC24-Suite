@@ -15,6 +15,8 @@ class MessageTypes {
   static ROOM_STRIPS = 'room_strips';
 
   static COLUMN_CHANGE = 'column_change';
+  static COLUMN_CREATE = 'column_create';
+  static COLUMN_DELETE = 'column_delete';
 
   static STRIP_MOVE = 'strip_move';
   static STRIP_MOVE_LIST = 'strip_move_list';
@@ -151,11 +153,14 @@ class WSManager {
           }).showToast();
           break;
         }
-        let { ownerName, roomId, memberCount } = data;
+        let { ownerName, roomId, memberCount, columns } = data;
         window.room = roomId;
         roomStatusText.innerText = `Connected - ${memberCount} Member(s)`;
         joinRoomButton.innerText = 'Leave Room';
         joinRoomButton.setAttribute('onclick', 'leaveRoom()');
+        console.log(columns);
+        localStorage.setItem('columns', JSON.stringify(columns));
+        populateColumns();
         createRoomButtonContainer.innerHTML = `Code: ${roomId}`;
         Toastify({
           text: `Joined ${ownerName.endsWith('s') ? `${ownerName}'` : `${ownerName}'s`} Room`,
@@ -330,6 +335,59 @@ class WSManager {
 
         break;
       }
+
+      case MessageTypes.COLUMN_CREATE: {
+        let { origin, listId } = data;
+        if (origin == localStorage.getItem('discord_id')) {
+          console.log('we are the origin, ignoring');
+          break;
+        }
+
+        let localStorageStrips = localStorage.getItem('strips');
+        let currentData;
+        if (localStorageStrips == undefined || localStorageStrips == 'undefined') currentData = {};
+        else currentData = JSON.parse(localStorageStrips);
+
+        // if we dont have it for some reason, create it
+        if (!currentData[listId]) currentData[listId] = [];
+        let keybindWithAction;
+
+        for (const keybind of keybinds) {
+          if (keybind.key == 'l') {
+            // L
+            keybindWithAction = keybind;
+          }
+        }
+
+        keybindWithAction.action(true, listId);
+        break;
+      }
+      case MessageTypes.COLUMN_DELETE: {
+        let { origin, listId } = data;
+        if (origin == localStorage.getItem('discord_id')) {
+          console.log('we are the origin, ignoring');
+          break;
+        }
+
+        let localStorageStrips = localStorage.getItem('strips');
+        let currentData;
+        if (localStorageStrips == undefined || localStorageStrips == 'undefined') currentData = {};
+        else currentData = JSON.parse(localStorageStrips);
+
+        // if we dont have it for some reason, create it
+        if (currentData[listId]) delete currentData[listId];
+        let keybindWithAction;
+
+        for (const keybind of keybinds) {
+          if (keybind.key == 'b') {
+            // L
+            keybindWithAction = keybind;
+          }
+        }
+        let list = document.getElementById(listId);
+        keybindWithAction.action(list, list.getAttribute('data-deletion-confirmed'), true);
+        break;
+      }
       default:
         if (data?.status && !data?.status.toString().startsWith('200')) {
           WSManager.handleError(data);
@@ -499,6 +557,7 @@ function createRoom() {
   wsManager.sendMessage({
     type: MessageTypes.ROOM_CREATE,
     id: localStorage.getItem('discord_id'),
+    columns: JSON.parse(localStorage.getItem('columns')),
   });
 }
 

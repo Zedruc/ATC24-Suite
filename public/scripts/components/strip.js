@@ -22,6 +22,9 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
     });
   }); */
   newStrip.setAttribute('data-type', type);
+  newStrip.removeEventListener('focusout', focusOutEvent);
+  newStrip.addEventListener('focusout', focusOutEvent);
+
   if (!stripTypes.includes(type)) return;
   // if (!stripListTypes.includes(stripListType)) return;
 
