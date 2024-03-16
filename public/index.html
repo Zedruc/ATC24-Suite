@@ -332,7 +332,7 @@ Charts - Flightstrips - Flightplan Management"
           class="leftNote"
           data-tippy=""
           data-tippy-placement="top"
-          data-tippy-content="I - Inbound<br/>O - Outbound<br />V- VFR<br />X - Delete Strip<br /><br />C - Cancel Deletion (Strip & List)<br />L - Create List<br />B - Delete List<br /><br />A - Move Strip to The Left<br />D - Move Strip to The Right<br />W - Move Strip Up<br />S - Move Strip Down<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
+          data-tippy-content="I - Inbound<br/>O - Outbound<br />V - VFR<br /><br />X - Delete Strip<br />C - Cancel Deletion (Strip & List)<br /><br />L - Create List<br />B - Delete List<br /><br />A - Move Strip to The Left<br />D - Move Strip to The Right<br />W - Move Strip Up<br />S - Move Strip Down<br /><br />Q - Cycle Flight Status Back<br />E - Cycle Flight Status Forward<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
           data-no-select
           data-action
         >
@@ -388,7 +388,8 @@ Charts - Flightstrips - Flightplan Management"
           <input class="textInput" type="text" id="altitude" placeholder="Altitude" />
           <input class="textInput" type="text" id="gate" placeholder="Gate" />
           <input class="textInput" type="text" id="arrival" placeholder="Arr" />
-          <input class="textInput" type="text" id="status" placeholder="Status" />
+          <input class="textInput" type="text" id="status" placeholder="Status" disabled />
+          <!-- disabled because of q+e keybinds to change status -->
           <input class="textInput" type="text" id="info" placeholder="Info" />
           <input class="textInput" type="text" id="runway" placeholder="Runway" />
           <input class="textInput" type="text" id="sidstar" placeholder="SID/STAR" />

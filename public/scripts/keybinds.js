@@ -248,6 +248,37 @@ const keybinds = [
       }
     },
   },
+  {
+    key: 'e',
+    action: strip => {
+      let statusField = strip.querySelector('#status');
+      let currentStatus = statusField.value;
+      let stripType = strip.getAttribute('data-type');
+      let possibleStatuses = stripStatuses[stripType];
+      let nextStatusIndex = possibleStatuses.indexOf(currentStatus) + 1;
+      if (nextStatusIndex > possibleStatuses.length - 1)
+        nextStatusIndex = possibleStatuses.length - 1;
+
+      statusField.value = possibleStatuses[nextStatusIndex];
+
+      StripSaveManager.updateStrip(strip, strip.parentElement);
+    },
+  },
+  {
+    key: 'q',
+    action: strip => {
+      let statusField = strip.querySelector('#status');
+      let currentStatus = statusField.value;
+      let stripType = strip.getAttribute('data-type');
+      let possibleStatuses = stripStatuses[stripType];
+      let nextStatusIndex = possibleStatuses.indexOf(currentStatus) - 1;
+      if (nextStatusIndex < 0) nextStatusIndex = 0;
+
+      statusField.value = possibleStatuses[nextStatusIndex];
+
+      StripSaveManager.updateStrip(strip, strip.parentElement);
+    },
+  },
 ];
 
 document.addEventListener('keypress', e => {
@@ -377,6 +408,30 @@ document.addEventListener('keypress', e => {
       }
       if (!list) return;
       usedKeybind.action(list, list.getAttribute('data-deletion-confirmed'));
+      break;
+    }
+
+    case 'e': {
+      let strip;
+      for (let i = 0; i < hovered.length; i++) {
+        const element = hovered[i];
+        if (i > 6) break;
+        if (element.classList.contains('strip')) strip = element;
+      }
+      if (!strip) return;
+      usedKeybind.action(strip);
+      break;
+    }
+
+    case 'q': {
+      let strip;
+      for (let i = 0; i < hovered.length; i++) {
+        const element = hovered[i];
+        if (i > 6) break;
+        if (element.classList.contains('strip')) strip = element;
+      }
+      if (!strip) return;
+      usedKeybind.action(strip);
       break;
     }
 

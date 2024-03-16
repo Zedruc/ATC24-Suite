@@ -2,6 +2,12 @@ let squawksInUse = [];
 let validDigits = '01234567';
 let length = 4;
 
+const stripStatuses = {
+  outbound: ['SUG', 'PBG', 'TXG', 'ALU', 'DEP'],
+  inbound: ['ARR', 'IDE', 'DES', 'ILS', 'GOA', 'TXG', 'ONB'],
+  vfr: ['SUG', 'TXG', 'DEP', 'TFP'],
+};
+
 let stripTypes = ['inbound', 'outbound', 'vfr'];
 
 let templateStrip = document.getElementById('templateStrip');
