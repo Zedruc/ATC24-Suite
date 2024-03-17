@@ -84,7 +84,7 @@ let saveData = (data, stripId, listId, deletion = false) => {
         listId: listId,
         deletion: true,
         roomId: window.room,
-        origin: localStorage.getItem('discord_item'),
+        origin: localStorage.getItem('discord_id'),
       };
       wsManager.sendMessage(payload);
       return;
@@ -99,7 +99,7 @@ let saveData = (data, stripId, listId, deletion = false) => {
           data: strip,
           deletion: false,
           roomId: window.room,
-          origin: localStorage.getItem('discord_item'),
+          origin: localStorage.getItem('discord_id'),
         };
         wsManager.sendMessage(payload);
 
@@ -117,7 +117,7 @@ class StripSaveManager {
     if (localStorageStrips == undefined || localStorageStrips == 'undefined') currentData = {};
     else currentData = JSON.parse(localStorageStrips);
     if (!currentData[list.id]) currentData[list.id] = [];
-    currentData[list.id].push(extractInfo(strip));
+    currentData[list.id].unshift(extractInfo(strip));
     if (shouldSave) {
       saveData(currentData, strip.id, list.id);
     }
@@ -187,6 +187,7 @@ class StripSaveManager {
       let listElement = document.getElementById(listId);
 
       for (const strip of listData) {
+        // insertAsFirstStrip(generatePrepopulatedStrip(strip), listElement);
         listElement.appendChild(generatePrepopulatedStrip(strip));
       }
     }

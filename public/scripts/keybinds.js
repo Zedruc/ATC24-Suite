@@ -2,6 +2,38 @@
 let listIndex = 0; // to keep created list's names unique
 let templateList = document.getElementById('templateList');
 
+function getStripChildren(list) {
+  let children = [];
+  for (let i = 0; i < list.childNodes.length; i++) {
+    const node = list.childNodes[i];
+    if (node.className == 'strip') {
+      children.push(node);
+    }
+  }
+  return children;
+}
+
+/**
+ *
+ * @param {HTMLElement} strip
+ * @param {HTMLElement} list
+ */
+function insertAsFirstStrip(strip, list) {
+  console.log(getStripChildren(list));
+  let stripChildren = getStripChildren(list);
+
+  if (stripChildren.length < 1) {
+    list.appendChild(strip);
+    return;
+  }
+  let childrenArray = [...list.childNodes];
+
+  let index = childrenArray.indexOf(stripChildren[0]);
+
+  let toInsertBefore = list.childNodes[index];
+  list.insertBefore(strip, toInsertBefore);
+}
+
 const keybinds = [
   {
     key: 'x',
@@ -18,9 +50,15 @@ const keybinds = [
   },
   {
     key: 'i',
+    /**
+     *
+     * @param {HTMLElement} list
+     */
     action: list => {
       let newStrip = generateStrip('inbound', true, list.id);
-      list.appendChild(newStrip);
+      // list.appendChild(newStrip);
+      // list.prepend(newStrip);
+      insertAsFirstStrip(newStrip, list);
       StripSaveManager.add(newStrip, list);
     },
   },
@@ -28,7 +66,9 @@ const keybinds = [
     key: 'o',
     action: list => {
       let newStrip = generateStrip('outbound', true, list.id);
-      list.appendChild(newStrip);
+      // list.appendChild(newStrip);
+      // list.prepend(newStrip);
+      insertAsFirstStrip(newStrip, list);
       StripSaveManager.add(newStrip, list);
     },
   },
@@ -37,7 +77,9 @@ const keybinds = [
     action: list => {
       console.log(list);
       let newStrip = generateStrip('vfr', false, list.id);
-      list.appendChild(newStrip);
+      // list.appendChild(newStrip);
+      // list.prepend(newStrip);
+      insertAsFirstStrip(newStrip, list);
       StripSaveManager.add(newStrip, list);
     },
   },
@@ -76,7 +118,9 @@ const keybinds = [
       });
 
       strip.remove();
-      nextStripList.appendChild(stripClone);
+      // nextStripList.appendChild(stripClone);
+      // nextStripList.prepend(stripClone);
+      insertAsFirstStrip(stripClone, nextStripList);
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },
   },
@@ -105,7 +149,10 @@ const keybinds = [
       });
 
       strip.remove();
-      nextStripList.appendChild(stripClone);
+      // nextStripList.appendChild(stripClone);
+      // nextStripList.prepend(stripClone);
+      insertAsFirstStrip(stripClone, nextStripList);
+
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },
   },
@@ -175,7 +222,8 @@ const keybinds = [
       // list.insertBefore(stripClone, list.childNodes[[...list.childNodes].indexOf(strip) + 1]);
       let index = [...list.childNodes].indexOf(strip) + 2;
       if (index > list.childNodes.length) {
-        list.appendChild(stripClone);
+        // list.appendChild(stripClone);
+        list.prepend(stripClone);
       } else {
         list.insertBefore(stripClone, list.childNodes[index]);
       }

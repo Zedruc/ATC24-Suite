@@ -287,6 +287,7 @@ class WSManager {
           break;
         }
         // this syncs ALL clients no matter what, disregarding possible data loss
+        console.log(JSON.stringify(storage));
         localStorage.setItem('strips', JSON.stringify(storage));
 
         for (const key in storage) {
@@ -600,7 +601,7 @@ function handleStripUpdate(listId, stripId, saveData) {
   let strip = document.getElementById(stripId);
   if (!strip) {
     let generatedStrip = generatePrepopulatedStrip(saveData);
-    document.getElementById(listId).appendChild(generatedStrip);
+    insertAsFirstStrip(generatedStrip, document.getElementById(listId));
     return;
   }
 
