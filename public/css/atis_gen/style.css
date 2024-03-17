@@ -10,17 +10,29 @@ html {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
 }
 
 .output {
   padding: 1rem;
 }
 
+#output {
+  color: aliceblue;
+  padding: 1rem;
+}
+
 .inputContainer {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
+  grid-auto-flow: row;
+  grid-template-columns: inherit;
+  grid-template-rows: max-content;
+  padding: 1rem;
+  overflow: auto;
+  row-gap: 2rem;
+  /* grid-template-rows: auto; */
+
 }
 
 .inputContainer>* {
@@ -41,7 +53,9 @@ html {
 }
 
 input {
-  width: 4rem;
+  width: 5rem;
+  height: 1rem;
+  padding: .2rem;
   color: aliceblue;
   background-color: rgba(45, 45, 45, 1);
   outline: none;
@@ -50,4 +64,27 @@ input {
 
 input::placeholder {
   color: rgb(148, 148, 148);
+}
+
+.input {
+  width: auto;
+  width: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.inputName {
+  font-size: medium;
+}
+
+.checkboxContainer {
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+.checkboxContainer>input {
+  width: auto;
+  margin-right: 1rem;
 }

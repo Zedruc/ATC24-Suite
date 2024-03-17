@@ -11,7 +11,7 @@ function openATISWindow() {
   } catch (error) {
     notificationQueue.queue({
       title: 'Whoops!',
-      text: 'In order to use the radar screen, please allow popup windows',
+      text: 'In order to use the ATIS generator, please allow popup windows',
       icon: 'error',
     });
   }

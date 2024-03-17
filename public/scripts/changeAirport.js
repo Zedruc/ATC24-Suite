@@ -40,9 +40,11 @@ function executeStationSelectUpdate(island, airportName) {
           type: 'airport_change',
           airport: airport.icao.toLowerCase(),
         });
+      }
+
+      if (window.atisWindow) {
         window.atisWindow.postMessage({
-          type: 'airport_change',
-          airport: airport.icao.toLowerCase(),
+          type: 'airport_update',
         });
       }
 
@@ -118,6 +120,11 @@ function changeRunwayStatus(checkboxElement) {
   }
 
   window?.radarWindow?.postMessage({ type: 'runway_changes', runways: window.activeRunways });
+  if (window.atisWindow) {
+    window.atisWindow.postMessage({
+      type: 'airport_update',
+    });
+  }
 }
 
 function runwayInArray(arr, id, arrivalOrDeparture) {
