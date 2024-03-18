@@ -44,6 +44,8 @@ function getCurrentAirport() {
   return window.opener.currentAirport;
 }
 
+let lastAirport;
+
 function getAirportATISData() {
   let currentAirport = getCurrentAirport();
   for (let i = 0; i < airportATISData.length; i++) {
@@ -57,6 +59,10 @@ function getAirportATISData() {
 function populateChartPacks() {
   let chartSelect = document.getElementById('chartPack');
   let chartPacks = getAirportATISData().chartPacks;
+  if (lastAirport == getCurrentAirport()) return;
+  while (chartSelect.firstChild) {
+    chartSelect.removeChild(chartSelect.lastChild);
+  }
   for (let i = 0; i < chartPacks.length; i++) {
     const pack = chartPacks[i];
     let option = document.createElement('option');
@@ -75,6 +81,9 @@ function generateATIS() {
   let chartPackSplitInfo = document.getElementById('chartPack').value.split('°');
   let atisData = getAirportATISData();
   let currentDate = new Date();
+
+  lastAirport = getCurrentAirport();
+
   atisOutput.innerHTML = `∎ ${getCurrentAirport().toUpperCase()} ATIS Information ${
     document.getElementById('atisId').value.toUpperCase() || 'A'
   } ${currentDate.getUTCHours().toString().padStart(2, '0')}${
