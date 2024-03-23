@@ -100,14 +100,16 @@ Max Acft Size: ${atisData.maxAircraftSize}
 QNH: ${Math.round(+document.getElementById('qnh').value)}
     
 **NOTAMS:**
-Ground Acft Advise Receipt of Information ${document.getElementById('atisId').value || 'A'}${
-    atis.parkingPosition ? ', Stand Number' : ''
-  }${atis.groundAircraftType ? ', Aircraft Type' : ''} on Initial Contact.
-Airborne Acft Advise Receipt of Information ${document.getElementById('atisId').value || 'A'}${
-    atis.airAircraftType ? ', Aircraft Type' : ''
-  }${atis.altitude ? ', Altitude' : ''}${atis.airspeed ? ', Airspeed' : ''}${
-    atis.heading ? ', Heading' : ''
+Ground Acft Advise Receipt of Information ${
+    document.getElementById('atisId').value.toUpperCase() || 'A'
+  }${atis.parkingPosition ? ', Stand Number' : ''}${
+    atis.groundAircraftType ? ', Aircraft Type' : ''
   } on Initial Contact.
+Airborne Acft Advise Receipt of Information ${
+    document.getElementById('atisId').value.toUpperCase() || 'A'
+  }${atis.airAircraftType ? ', Aircraft Type' : ''}${atis.altitude ? ', Altitude' : ''}${
+    atis.airspeed ? ', Airspeed' : ''
+  }${atis.heading ? ', Heading' : ''} on Initial Contact.
 Speed ${document.getElementById('airSpeedRestriction').value || '250'}kts or below.
 VFR Acft say Direction of Flight and Intentions.
 ${atis.sidstar ? `SIDs/STARs are preferred.\n` : ''}${
@@ -117,7 +119,7 @@ ${atis.sidstar ? `SIDs/STARs are preferred.\n` : ''}${
 Chart Pack Author: ${chartPackSplitInfo[0]}
 Chart Pack Link: <${chartPackSplitInfo[1]}>
 **${''.padStart(15, '―')}**
-∎ End of ATIS Information ${document.getElementById('atisId').value || 'A'} ∎`;
+∎ End of ATIS Information ${document.getElementById('atisId').value.toUpperCase() || 'A'} ∎`;
 }
 
 generateATIS();
