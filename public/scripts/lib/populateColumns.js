@@ -2,11 +2,8 @@
 function populateColumns() {
   let columns = JSON.parse(localStorage.getItem('columns'));
   let stripContainer = document.querySelector('.stripContainer');
-  if (stripContainer.childNodes.length > 0) {
-    console.log('removing');
-    stripContainer.childNodes.forEach(e => {
-      if (e.nodeName == 'DIV') e.remove();
-    });
+  while (stripContainer.firstChild) {
+    stripContainer.removeChild(stripContainer.lastChild);
   }
   for (let i = 0; i < columns.length; i++) {
     const columnName = columns[i];

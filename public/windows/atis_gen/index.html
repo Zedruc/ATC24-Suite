@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATC24 | ATIS Generator</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../styleguide.css" />
+    <link rel="stylesheet" href="../../globals.css" />
+    <link rel="stylesheet" href="../../css/atis_gen/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="inputContainer">
+        <div class="input">
+          <span class="inputName">ATIS Identifier:</span>
+          <input type="text" id="atisId" placeholder="A (Alfa), B..." />
+        </div>
+        <div class="input">
+          <span class="inputName">ARR RWY:</span>
+          <input type="text" id="arrivalRunways" />
+        </div>
+        <div class="input">
+          <span class="inputName">DEP RWY:</span>
+          <input type="text" id="departureRunways" />
+        </div>
+        <div class="input">
+          <span class="inputName">Max Taxi Speed:</span>
+          <input type="text" id="maxTaxiSpeed" value="25" />
+        </div>
+        <div class="input">
+          <span class="inputName">QNH:</span>
+          <input type="text" id="qnh" value="1013" />
+        </div>
+        <div class="input">
+          <span class="inputName">Speed Restriction:</span>
+          <input type="text" id="airSpeedRestriction" value="250" />
+        </div>
+        <div class="input">
+          <span class="inputName">Ground Initial Contact</span>
+          <div class="checkboxContainer">
+            <input
+              type="checkbox"
+              name="parkingPosition"
+              id="parkingPosition"
+              onchange="updateCheckbox(this)"
+              checked="true"
+            />
+            <label for="parkingPosition">Parking Position</label>
+          </div>
+          <div class="checkboxContainer">
+            <input
+              type="checkbox"
+              name="groundAircraftType"
+              id="groundAircraftType"
+              onchange="updateCheckbox(this)"
+            />
+            <label for="groundAircraftType">A/C Type</label>
+          </div>
+        </div>
+        <div class="input">
+          <span class="inputName">Airborne Initial Contact</span>
+          <div class="checkboxContainer">
+            <input type="checkbox" name="airAircraftType" id="airAircraftType" />
+            <label for="airAircraftType">A/C Type</label>
+          </div>
+          <div class="checkboxContainer">
+            <input
+              type="checkbox"
+              name="altitude"
+              id="altitude"
+              onchange="updateCheckbox(this)"
+              checked="true"
+            />
+            <label for="altitude">Altitude</label>
+          </div>
+          <div class="checkboxContainer">
+            <input type="checkbox" name="airspeed" id="airspeed" onchange="updateCheckbox(this)" />
+            <label for="airspeed">Airspeed</label>
+          </div>
+          <div class="checkboxContainer">
+            <input
+              type="checkbox"
+              name="heading"
+              id="heading"
+              onchange="updateCheckbox(this)"
+              checked="true"
+            />
+            <label for="heading">Heading</label>
+          </div>
+        </div>
+        <div class="input">
+          <span class="inputName">Charts</span>
+          <select name="chartPack" id="chartPack" onchange="generateATIS()"></select>
+        </div>
+        <div class="input">
+          <span class="inputName">Emergencies</span>
+          <div class="checkboxContainer">
+            <input
+              type="checkbox"
+              name="emergencies"
+              id="emergencies"
+              onchange="updateCheckbox(this)"
+            />
+            <label for="emergencies">Allowed?</label>
+          </div>
+        </div>
+        <div class="input">
+          <span class="inputName">SIDs/STARs</span>
+          <div class="checkboxContainer">
+            <input type="checkbox" name="sidstar" id="sidstar" onchange="updateCheckbox(this)" />
+            <label for="sidstar">Preferred?</label>
+          </div>
+        </div>
+      </div>
+      <div class="output">
+        <textarea readonly id="output" wrap="hard"></textarea>
+      </div>
+    </div>
+
+    <script src="scripts/data.js"></script>
+    <script src="./scripts/fetchMainWindowData.js"></script>
+  </body>
+</html>

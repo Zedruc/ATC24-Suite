@@ -12,6 +12,9 @@ function updateAirportInfo(airport) {
   airportIcao.textContent = airport.icao;
   airportIata.textContent = airport.iata;
   currentAirport = airport;
+  /* window.controllerCallsign = `${airport.icao.toUpperCase()}_${stationType.innerHTML} (${
+    stationFrequency.innerHTML
+  })`; */
 
   $('#chart').prop('src', `./charts/${airport.icao}/${airport.icao} Ground Chart.png.webp`);
 }
@@ -24,8 +27,14 @@ function updateStationInfo(currentStation = stationSelect.value) {
   if (window.radarWindow) {
     window.radarWindow.postMessage({ type: 'runway_changes', runways: window.activeRunways });
   }
+  if (window.atisWindow) {
+    window.atisWindow.postMessage({ type: 'runway_changes', runways: window.activeRunways });
+  }
   stationType.textContent = currentStation.type;
   stationFrequency.textContent = currentStation.frequency + ' MHz';
+  window.controllerCallsign = `${airportIcao.textContent.toUpperCase()}_${
+    stationType.textContent
+  } (${stationFrequency.textContent})`;
 }
 
 /* function arrRunwayChange(target) {

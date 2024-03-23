@@ -3,13 +3,9 @@ let windowFeatures = 'width=500,height=500';
 
 function openRadarWindow() {
   try {
-    window.radarWindow = window.open('./windows/radar.html', 'radar', windowFeatures);
-    /* window.radarWindow.postMessage({
-      type: 'airport_change',
-      airport: currentAirport.icao.toLowerCase(),
-    }); */
+    window.radarWindow = window.open('./windows/radar.html', 'radar', ATISwindowFeatures);
   } catch (error) {
-    swal({
+    notificationQueue.queue({
       title: 'Whoops!',
       text: 'In order to use the radar screen, please allow popup windows',
       icon: 'error',

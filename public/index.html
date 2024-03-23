@@ -325,7 +325,10 @@ Charts - Flightstrips - Flightplan Management"
           Radar Screen
         </div>
         <div class="infoName"></div>
-        <div class="content"></div>
+        <div class="content">
+          <div class="leftNote" data-no-select data-action onclick="openATISWindow()">ATIS</div>
+          <!-- <div class="rightNote" data-no-select data-action onclick="openATISWindow()">ATIS2</div> -->
+        </div>
       </div>
       <div class="info-bar-item" id="info-bar-item-5">
         <div
@@ -550,6 +553,7 @@ Charts - Flightstrips - Flightplan Management"
     <script src="./scripts/lib/discordVerification.js"></script>
     <script src="./scripts/lib/airlineTable.js"></script>
     <script src="./scripts/lib/htmlBuilder.js"></script>
+    <script src="./scripts/atis_gen/atis_gen.js"></script>
     <script src="./scripts/radarWindow.js"></script>
     <script src="./scripts/infoUpdater.js"></script>
     <script src="./scripts/changeStation.js"></script>
