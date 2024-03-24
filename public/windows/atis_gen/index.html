@@ -61,7 +61,7 @@
         <div class="input">
           <span class="inputName">Airborne Initial Contact</span>
           <div class="checkboxContainer">
-            <input type="checkbox" name="airAircraftType" id="airAircraftType" />
+            <input type="checkbox" name="airAircraftType" id="airAircraftType" checked="true" />
             <label for="airAircraftType">A/C Type</label>
           </div>
           <div class="checkboxContainer">
@@ -111,6 +111,10 @@
             <input type="checkbox" name="sidstar" id="sidstar" onchange="updateCheckbox(this)" />
             <label for="sidstar">Preferred?</label>
           </div>
+        </div>
+        <div class="input">
+          <span class="inputName">Additional NOTAMs</span>
+          <textarea oninput="generateATIS()" id="notams" rows="10" cols="30"></textarea>
         </div>
       </div>
       <div class="output">

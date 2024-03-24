@@ -81,6 +81,7 @@ function generateATIS() {
   let chartPackSplitInfo = document.getElementById('chartPack').value.split('°');
   let atisData = getAirportATISData();
   let currentDate = new Date();
+  let additionalNotams = document.getElementById('notams').value;
 
   lastAirport = getCurrentAirport();
 
@@ -114,7 +115,7 @@ Speed ${document.getElementById('airSpeedRestriction').value || '250'}kts or bel
 VFR Acft say Direction of Flight and Intentions.
 ${atis.sidstar ? `SIDs/STARs are preferred.\n` : ''}${
     atis.emergencies ? 'Emergencies Allowed.' : 'No Emergencies.' /* After this custom notams */
-  }\n
+  }\n${additionalNotams}\n
 **Charts:**
 Chart Pack Author: ${chartPackSplitInfo[0]}
 Chart Pack Link: <${chartPackSplitInfo[1]}>

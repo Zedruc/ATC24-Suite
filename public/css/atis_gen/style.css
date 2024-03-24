@@ -22,6 +22,10 @@ html {
   padding: 1rem;
 }
 
+#atisId {
+  text-transform: uppercase;
+}
+
 .inputContainer {
   width: 100%;
   display: grid;
@@ -30,7 +34,7 @@ html {
   grid-template-rows: max-content;
   padding: 1rem;
   overflow: auto;
-  row-gap: 2rem;
+  row-gap: 1rem;
   /* grid-template-rows: auto; */
 
 }
@@ -66,12 +70,21 @@ input::placeholder {
   color: rgb(148, 148, 148);
 }
 
+#notams {
+  outline: none;
+  border: 1px solid rgba(45, 45, 45, 1);
+  background-color: rgba(0, 0, 0, 0);
+  resize: none;
+  color: aliceblue;
+  text-wrap: nowrap;
+}
+
 .input {
-  width: auto;
   width: auto;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
+  max-height: fit-content;
 }
 
 .inputName {
