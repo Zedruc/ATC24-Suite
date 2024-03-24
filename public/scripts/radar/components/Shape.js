@@ -1,5 +1,5 @@
 class Shape {
-  static draw(points, dashed) {
+  static draw(points, dashed, color = runwayColor) {
     let firstPoint = Vec.multiply(new Vec(points[0].x, points[0].y), resolutionScale);
     // we need to connect last and first in the end
     let lastPoint = Vec.multiply(
@@ -13,10 +13,10 @@ class Shape {
       const nextPoint = Vec.multiply(new Vec(points[i + 1].x, points[i + 1].y), resolutionScale);
       /* const point = points[i];
       const nextPoint = points[i + 1]; */
-      if (dashed) Line.drawDashed(point, nextPoint, runwayColor, 1);
-      else Line.draw(point, nextPoint, runwayColor, 1);
+      if (dashed) Line.drawDashed(point, nextPoint, color, 1);
+      else Line.draw(point, nextPoint, color, 1);
     }
-    if (dashed) Line.drawDashed(lastPoint, firstPoint, runwayColor, 1);
-    else Line.draw(lastPoint, firstPoint, runwayColor, 1);
+    if (dashed) Line.drawDashed(lastPoint, firstPoint, color, 1);
+    else Line.draw(lastPoint, firstPoint, color, 1);
   }
 }

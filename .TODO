@@ -1,21 +1,8 @@
 Vorschläge:
-- Discord Usernamen in Strip
 - Session chat ?
-- Benutzerdefinierte Listen
 
 WICHTIG:
-Wenn Callsign in "Heavy" endet, das mit "/H" ersetzen
 CONTROLLER DATA LINK
 
 Zukünftig:
-- Departure/Arrival Routen auf Radar
-- Ein-/Ausschaltbare Wegpunkte auf Radar
-
-Möglich:
-- Liste von In/Out Flügen in der Ecke vom Radar
-
-<!-- -== ATC24 Ticket Message ==-
-Hello there, good day.
-I've developed a very handy program called ["ATC24-Suite"](https://zedruc.net/atc24-suite), which is now in public beta, allowing controllers on the network to have an all-in-one tool to control traffic on ATC24, which I wanted to show to you as I hope we could work together on enhancing the program and adding it to the software list in <#1107345207529328641>.
-An insight on the development roadmap is available [here](https://github.com/Zedruc/ATC24-Suite-Feedback?tab=readme-ov-file#roadmap).
-As you can see, there are features that would require working together with ATC24 developers to enable me to realise them (Items M5 and M6), and I'm really hoping that such a project would be possible! -->
+- Departure/Arrival Routen auf Radar?

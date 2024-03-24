@@ -8,7 +8,7 @@ let activeRunways = window.opener.activeRunways;
 window.resizeBy(windowSize - window.innerWidth, windowSize - window.innerHeight);
 
 // let mainColor = '#8bf688';
-let mainColor = 'white';
+// let mainColor = 'white';
 
 window.addEventListener('message', ev => {
   let msg = ev.data;

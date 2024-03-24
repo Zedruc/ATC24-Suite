@@ -14,6 +14,7 @@ function redrawRadarScreen() {
     5 * resolutionScale,
     5 * resolutionScale
   );
+
   // draw at mouse and PAY ATTENTION TO ORDER
   // first line, then circle
   // Line.draw(canvasSize / 2, canvasSize / 2, lastMousePos.x, lastMousePos.y);
@@ -105,6 +106,29 @@ function redrawRadarScreen() {
         terrainMefColor
       );
     }
+  }
+
+  let waypoints = getWaypoints(radarAirport);
+  if (waypoints) {
+    waypoints.forEach(waypoint => {
+      switch (waypoint.type) {
+        case 'rnav':
+          new RNAV(new Vec(waypoint.x, waypoint.y), waypoint.name).draw();
+          break;
+        case 'vor':
+          new VOR(new Vec(waypoint.x, waypoint.y), waypoint.name).draw();
+          break;
+        case 'vortac':
+          new VORTAC(new Vec(waypoint.x, waypoint.y), waypoint.name).draw();
+          break;
+        case 'vordme':
+          new VORDME(new Vec(waypoint.x, waypoint.y), waypoint.name).draw();
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }
 
@@ -250,6 +274,22 @@ function getTerrain(icao) {
     }
   }
   return mefs;
+}
+
+function getWaypoints(icao) {
+  let waypoints = [];
+  for (const country in airports) {
+    for (const airport of airports[country]) {
+      if (airport.icao.toLowerCase() == icao) {
+        if (!airport?.waypoints) return;
+        for (let i = 0; i < airport.waypoints.length; i++) {
+          waypoints.push(airport.waypoints[i]);
+        }
+        break;
+      }
+    }
+  }
+  return waypoints;
 }
 
 function getActiveRunways(arrivalOrDeparture) {

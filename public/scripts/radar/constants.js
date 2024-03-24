@@ -18,6 +18,7 @@ const dashDivider = 9;
 const ilsDashSequence = [nmToPixel(3) / dashDivider, nmToPixel(3) / dashDivider];
 
 const terrainMefColor = '#acacac';
+let mainColor = 'white';
 
 // 1nm = 6076.125ft
 
