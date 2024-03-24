@@ -37,7 +37,7 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   let routeField = strip.querySelector('#route');
 
   if (data?.departing?.toLowerCase() != currentAirport.icao.toLowerCase())
-    departingField = data.departing;
+    departingField.value = data.departing;
   callsignField.value = data.callsign;
   detectCallsign(callsignField);
   arrivingField.value = data.arriving;
