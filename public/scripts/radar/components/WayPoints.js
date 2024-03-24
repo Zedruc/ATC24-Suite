@@ -1,3 +1,11 @@
+// preload images
+let vorIcon = new Image();
+vorIcon.src = '../scripts/radar/icons/vor.svg';
+let vorDmeIcon = new Image();
+vorDmeIcon.src = '../scripts/radar/icons/vordme.svg';
+let vorTacIcon = new Image();
+vorTacIcon.src = '../scripts/radar/icons/vortac.svg';
+
 class RNAV {
   constructor(xyVector, name) {
     this.xyVector = xyVector;
@@ -33,15 +41,12 @@ class VOR {
 
   draw() {
     let iconDimensions = 30;
-    var img = new Image();
-    img.onload = function () {
-      ctx.drawImage(
-        img,
-        (this.xyVector.x - iconDimensions / 4) * resolutionScale,
-        (this.xyVector.y + iconDimensions / 4) * resolutionScale
-      );
-    }.bind(this);
-    img.src = '../scripts/radar/icons/vor.svg';
+
+    ctx.drawImage(
+      vorIcon,
+      (this.xyVector.x - iconDimensions / 4) * resolutionScale,
+      (this.xyVector.y + iconDimensions / 4) * resolutionScale
+    );
 
     Text.draw(
       this.name,
@@ -62,15 +67,11 @@ class VORTAC {
 
   draw() {
     let iconDimensions = 30;
-    var img = new Image();
-    img.onload = function () {
-      ctx.drawImage(
-        img,
-        (this.xyVector.x - iconDimensions / 4) * resolutionScale,
-        (this.xyVector.y + iconDimensions / 4) * resolutionScale
-      );
-    }.bind(this);
-    img.src = '../scripts/radar/icons/vortac.svg';
+    ctx.drawImage(
+      vorTacIcon,
+      (this.xyVector.x - iconDimensions / 4) * resolutionScale,
+      (this.xyVector.y + iconDimensions / 4) * resolutionScale
+    );
 
     Text.draw(
       this.name,
@@ -91,15 +92,12 @@ class VORDME {
 
   draw() {
     let iconDimensions = 30;
-    var img = new Image();
-    img.onload = function () {
-      ctx.drawImage(
-        img,
-        (this.xyVector.x - iconDimensions / 4) * resolutionScale,
-        (this.xyVector.y + iconDimensions / 4) * resolutionScale
-      );
-    }.bind(this);
-    img.src = '../scripts/radar/icons/vordme.svg';
+
+    ctx.drawImage(
+      vorDmeIcon,
+      (this.xyVector.x - iconDimensions / 4) * resolutionScale,
+      (this.xyVector.y + iconDimensions / 4) * resolutionScale
+    );
 
     Text.draw(
       this.name,
