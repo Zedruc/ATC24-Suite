@@ -4,6 +4,8 @@ html {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  color: aliceblue;
+  font-family: var(--default-font-family);
 }
 
 canvas {
@@ -16,4 +18,36 @@ canvas {
   background-position-x: center;
   background-position-y: center;
   background-repeat: no-repeat;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+}
+
+.sidebar {
+  height: 100%;
+  width: 100px;
+  border-left: 1px solid gray;
+  padding: 2px;
+  font-size: 12px;
+  font-weight: 100;
+}
+
+p {
+  margin: 0;
+}
+
+#sidebar {
+  margin-left: 5px;
+}
+
+#templateItem {
+  display: none;
+}
+
+#sector {
+  margin: 0 0 20px 5px;
+  user-select: none;
 }

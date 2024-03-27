@@ -10,7 +10,16 @@
     <script src="../scripts/airportData.js"></script>
   </head>
   <body>
-    <canvas id="radar"></canvas>
+    <div id="templateItem">
+      <p id="name"></p>
+      <p id="callsignAndFrequency">I</p>
+      <p id="hdg"></p>
+    </div>
+    <div class="container">
+      <canvas id="radar"></canvas>
+      <div class="sidebar" id="sidebar"></div>
+    </div>
+
     <script src="../scripts/lib/vector.js"></script>
     <script src="../scripts/radar/constants.js"></script>
     <script src="../scripts/lib/settings.js"></script>

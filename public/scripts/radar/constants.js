@@ -1,5 +1,6 @@
 const radarCanvas = document.getElementById('radar');
 const windowSize = 500;
+const windowWidth = 600;
 const resolutionScale = 2;
 const canvasSize = windowSize * resolutionScale;
 const defaultLineWidth = 2 * resolutionScale;
@@ -60,3 +61,46 @@ function getRunwayIdentifier(hdg) {
 function flipHeading(hdg) {
   return hdg <= 180 ? hdg + 180 : hdg - 180;
 }
+
+const sectors = {
+  isau: {
+    name: 'Brighton',
+    callsign: 'ISAU_CTR',
+    frequency: '127.820',
+  },
+  irfd: {
+    name: 'Chicago',
+    callsign: 'IRFD_CTR',
+    frequency: '124.850',
+  },
+  ilar: {
+    name: 'Lazarus',
+    callsign: 'ILAR_CTR',
+    frequency: '126.300',
+  },
+  izol: {
+    name: 'Norsom',
+    callsign: 'IZOL_CTR',
+    frequency: '124.640',
+  },
+  ibth: {
+    name: 'Sotaf',
+    callsign: 'IBTH_CTR',
+    frequency: '128.600',
+  },
+  igrv: {
+    name: 'Keplavik',
+    callsign: 'IGRV_CTR',
+    frequency: '126.750',
+  },
+  itko: {
+    name: 'Tokyo',
+    callsign: 'ITKO_CTR',
+    frequency: '132.300',
+  },
+  ipph: {
+    name: 'Perth',
+    callsign: 'IPPH_CTR',
+    frequency: '135.250',
+  },
+};

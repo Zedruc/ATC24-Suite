@@ -1,1 +1,1 @@
-window.appVersion = 'b-2.7.1';
+window.appVersion = 'b-2.8.0';

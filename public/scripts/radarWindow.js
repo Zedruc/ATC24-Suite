@@ -1,5 +1,5 @@
 // let radarWindow = window.open('', 'radar'); // try to get handle on exisiting window in case of reload
-let windowFeatures = 'width=500,height=500';
+let windowFeatures = 'width=600,height=500';
 
 function openRadarWindow() {
   try {

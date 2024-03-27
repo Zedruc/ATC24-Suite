@@ -441,6 +441,16 @@ const airports = {
           type: 'vortac',
         },
       ],
+      vectors: [
+        {
+          to: 'irfd',
+          hdg: '300',
+        },
+        {
+          to: 'izol',
+          hdg: '040',
+        },
+      ],
     },
     {
       name: 'Paphos',
@@ -668,6 +678,24 @@ const airports = {
           type: 'rnav',
         },
       ],
+      vectors: [
+        {
+          to: 'itko',
+          hdg: '030',
+        },
+        {
+          to: 'ibth',
+          hdg: '080',
+        },
+        {
+          to: 'irfd',
+          hdg: '120',
+        },
+        {
+          to: 'isau',
+          hdg: '180',
+        },
+      ],
     },
   ],
   izolirani: [
@@ -885,6 +913,20 @@ const airports = {
           type: 'rnav',
         },
       ],
+      vectors: [
+        {
+          to: 'ilar',
+          hdg: '190',
+        },
+        {
+          to: 'ibth',
+          hdg: '280',
+        },
+        {
+          to: 'ipph',
+          hdg: '340',
+        },
+      ],
     },
     {
       name: 'Najaf',
@@ -1072,6 +1114,20 @@ const airports = {
           y: 49,
           name: 'SHIBA',
           type: 'rnav',
+        },
+      ],
+      vectors: [
+        {
+          to: 'igrv',
+          hdg: '230',
+        },
+        {
+          to: 'ibth',
+          hdg: '180',
+        },
+        {
+          to: 'ipph',
+          hdg: '110',
         },
       ],
     },
@@ -1410,6 +1466,20 @@ const airports = {
           y: 278,
           name: 'STRAX',
           type: 'rnav',
+        },
+      ],
+      vectors: [
+        {
+          to: 'itko',
+          hdg: '300',
+        },
+        {
+          to: 'ibth',
+          hdg: '230',
+        },
+        {
+          to: 'izol',
+          hdg: '160',
         },
       ],
     },
@@ -1893,6 +1963,24 @@ const airports = {
           type: 'vordme',
         },
       ],
+      vectors: [
+        {
+          to: 'ibth',
+          hdg: '360',
+        },
+        {
+          to: 'ilar',
+          hdg: '110',
+        },
+        {
+          to: 'isau',
+          hdg: '250',
+        },
+        {
+          to: 'igrv',
+          hdg: '320',
+        },
+      ],
     },
     {
       name: 'Mellor',
@@ -2028,6 +2116,28 @@ const airports = {
               y: 271,
             },
           ],
+        },
+      ],
+      vectors: [
+        {
+          to: 'itko',
+          hdg: '350',
+        },
+        {
+          to: 'ipph',
+          hdg: '050',
+        },
+        {
+          to: 'izol',
+          hdg: '090',
+        },
+        {
+          to: 'irfd',
+          hdg: '230',
+        },
+        {
+          to: 'igrv',
+          hdg: '280',
         },
       ],
     },
@@ -2277,6 +2387,16 @@ const airports = {
           y: 347,
           name: 'HECKS',
           type: 'rnav',
+        },
+      ],
+      vectors: [
+        {
+          to: 'irfd',
+          hdg: '090',
+        },
+        {
+          to: 'igrv',
+          hdg: '360',
         },
       ],
     },
