@@ -336,7 +336,7 @@ document.addEventListener('keypress', e => {
   let usedKeybind;
 
   for (const keybind of keybinds) {
-    if (keybind.key == e.key) {
+    if (keybind.key == e.key.toLowerCase()) {
       usedKeybind = keybind;
     }
   }
