@@ -27,6 +27,7 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
 
   // update strip with flight plan data
   let strip = target.parentElement.parentElement;
+  let stripType = strip.getAttribute('data-type');
   if (isWebsocketUpdate) strip = target;
   let squawkField = strip.querySelector('#squawk');
   let callsignField = strip.querySelector('#callsign');
@@ -68,7 +69,7 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   }
   if (departureSid)
     target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
-  if (Settings.get('generateClearance')) {
+  if (Settings.get('generateClearance') && stripType == 'outbound') {
     if (target.id !== 'flightplan') strip.querySelector('#flightplan').value = clearance;
     else target.value = clearance;
   } else {
