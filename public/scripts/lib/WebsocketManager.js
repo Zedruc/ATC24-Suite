@@ -27,6 +27,16 @@ class MessageTypes {
   static USER_JOINED = 'user_joined';
 
   static OWNER_CHANGE = 'owner_change';
+
+  // Datalink message
+  static DATALINK_REGISTER = 'register';
+  static DATALINK_SEND_STRIP = 'send_strip';
+  static DATALINK_ACCEPT_STRIP = 'accept_strip';
+  static DATALINK_REJECT_STRIP = 'reject_strip';
+  static DATALINK_LOGOUT = 'logout';
+
+  // Live flightplan import messages
+  static FPL_RECEIVED = 'fpl_received';
 }
 
 const joinRoomButton = document.getElementById('joinButton');
@@ -130,6 +140,7 @@ class WSManager {
           gravity: 'bottom', // `top` or `bottom`
           position: 'right', // `left`, `center` or `right`
         }).showToast();
+        window.isRoomOwner = true;
         roomStatusText.innerText = `Connected - 1 Member(s)`;
         joinRoomButton.innerText = 'Leave Room';
         joinRoomButton.setAttribute('onclick', 'leaveRoom()');
@@ -173,6 +184,7 @@ class WSManager {
         break;
       }
       case MessageTypes.ROOM_LEAVE:
+        window.isRoomOwner = false;
         joinRoomButton.innerText = 'Join Room';
         joinRoomButton.setAttribute('onclick', 'joinRoom()');
         Toastify({
@@ -192,6 +204,7 @@ class WSManager {
         break;
       }
       case MessageTypes.OWNER_CHANGE: {
+        window.isRoomOwner = true;
         Toastify({
           text: 'You are now the room owner',
           duration: 5000,
@@ -389,6 +402,12 @@ class WSManager {
         keybindWithAction.action(list, list.getAttribute('data-deletion-confirmed'), true);
         break;
       }
+      case MessageTypes.FPL_RECEIVED: {
+        let { flightplan } = data;
+        if (window.isRoomOwner !== true) break;
+        else handleFlightplan(flightplan);
+        break;
+      }
       default:
         if (data?.status && !data?.status.toString().startsWith('200')) {
           WSManager.handleError(data);
@@ -501,6 +520,7 @@ class WSManager {
   }
 
   static handleError(errorMessage) {
+    window.isRoomOwner = false;
     roomStatusText.innerText = 'offline';
     joinRoomButton.innerText = 'Join Room';
     joinRoomButton.setAttribute('onclick', 'joinRoom()');
@@ -585,7 +605,7 @@ function leaveRoom() {
    * ! because leaveRoom is called when errors
    * ! occure even when not in a room.
    */
-
+  window.isRoomOwner = false;
   roomStatusText.innerText = 'Offline';
   createRoomButtonContainer.innerHTML = '';
   createRoomButtonContainer.appendChild(createRoomButtonClone);

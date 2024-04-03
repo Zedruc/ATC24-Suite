@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../globals.css" />
+    <link rel="stylesheet" href="../../styleguide.css" />
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <title>ATC24 Suite | Help</title>
+  </head>
+  <body>
+    <div class="container">
+      <main id="content"></main>
+    </div>
+    <script src="https://unpkg.com/commonmark@0.29.3/dist/commonmark.js"></script>
+    <script>
+      var reader = new commonmark.Parser();
+      var writer = new commonmark.HtmlRenderer();
+
+      fetch('./phraseology.md').then(content => {
+        content.text().then(txt => {
+          var parsed = reader.parse(txt); // parsed is a 'Node' tree
+          // transform parsed if you like...
+          var result = writer.render(parsed); // result is a String
+          document.getElementById('content').innerHTML = result;
+        });
+      });
+    </script>
+  </body>
+</html>

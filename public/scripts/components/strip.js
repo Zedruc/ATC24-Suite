@@ -89,6 +89,40 @@ function generatePrepopulatedStrip(saveData) {
   return newStrip;
 }
 
+function generateStripFromLiveFlightplan(fpl, type) {
+  let newStrip = templateStrip.cloneNode(true);
+  newStrip.id = generateId(10);
+  newStrip.setAttribute('data-type', type);
+
+  newStrip.querySelectorAll('.textInput').forEach(input => {
+    // genNewStrip = newStrip;
+    input.removeEventListener('focusout', generateFocusOutEvent);
+    input.addEventListener('focusout', generateFocusOutEvent);
+  });
+
+  if (!stripTypes.includes(type)) return;
+
+  newStrip.style.backgroundColor = `var(--${type}-bg)`;
+  newStrip.style.border = `2px solid var(--${type}-border)`;
+  console.log(fpl);
+  /* let callsignField = */ newStrip.querySelector('#callsign').value = fpl.callsign;
+  /* let squawkField = */ newStrip.querySelector('#squawk').value = generateSquawk();
+  /* let departingField = */ newStrip.querySelector('#departure').value = fpl.departing;
+  /* let arrivingField = */ newStrip.querySelector('#arrival').value = fpl.arriving;
+  /* let aircraftField = */ newStrip.querySelector('#aircraft').value = fpl.aircraft;
+  /* let altitudeField = */ newStrip.querySelector('#altitude').value = fpl.altitude;
+  // /* let gateField = */ newStrip.querySelector('#gate').value = fpl.gate;
+  // /* let statusField = */ newStrip.querySelector('#status').value = fpl.status;
+  // /* let infoField = */ newStrip.querySelector('#info').value = fpl.info;
+  // /* let runwayField = */ newStrip.querySelector('#runway').value = fpl.runway;
+  // /* let sidstarField = */ newStrip.querySelector('#sidstar').value = fpl.sidstar;
+  // /* let freeTextField = */ newStrip.querySelector('#notes').value = fpl.notes;
+  /* let freeTextField = */ newStrip.querySelector('#route').value = fpl.route;
+  // /* let freeTextField = */ newStrip.querySelector('#flightplan').value = fpl.flightplan;
+
+  return newStrip;
+}
+
 function generateSquawk() {
   let squawk = '';
   for (let i = 0; i < length; i++) {
