@@ -18,7 +18,7 @@ function getStripChildren(list) {
  * @param {HTMLElement} strip
  * @param {HTMLElement} list
  */
-function insertAsFirstStrip(strip, list) {
+function insertAsFirstChild(strip, list) {
   console.log(getStripChildren(list));
   let stripChildren = getStripChildren(list);
 
@@ -58,7 +58,7 @@ const keybinds = [
       let newStrip = generateStrip('inbound', true, list.id);
       // list.appendChild(newStrip);
       // list.prepend(newStrip);
-      insertAsFirstStrip(newStrip, list);
+      insertAsFirstChild(newStrip, list);
       StripSaveManager.add(newStrip, list);
     },
   },
@@ -68,7 +68,7 @@ const keybinds = [
       let newStrip = generateStrip('outbound', true, list.id);
       // list.appendChild(newStrip);
       // list.prepend(newStrip);
-      insertAsFirstStrip(newStrip, list);
+      insertAsFirstChild(newStrip, list);
       StripSaveManager.add(newStrip, list);
     },
   },
@@ -79,7 +79,7 @@ const keybinds = [
       let newStrip = generateStrip('vfr', false, list.id);
       // list.appendChild(newStrip);
       // list.prepend(newStrip);
-      insertAsFirstStrip(newStrip, list);
+      insertAsFirstChild(newStrip, list);
       StripSaveManager.add(newStrip, list);
     },
   },
@@ -120,7 +120,7 @@ const keybinds = [
       strip.remove();
       // nextStripList.appendChild(stripClone);
       // nextStripList.prepend(stripClone);
-      insertAsFirstStrip(stripClone, nextStripList);
+      insertAsFirstChild(stripClone, nextStripList);
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },
   },
@@ -151,7 +151,7 @@ const keybinds = [
       strip.remove();
       // nextStripList.appendChild(stripClone);
       // nextStripList.prepend(stripClone);
-      insertAsFirstStrip(stripClone, nextStripList);
+      insertAsFirstChild(stripClone, nextStripList);
 
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },

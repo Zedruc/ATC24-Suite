@@ -5,7 +5,7 @@ In case of questions that aren't answered here, join [the Discord!](https://disc
 
 ## How to Handle and Manage Strips
 
-Strips can be created/mamaged using following shortcuts:  
+Strips can be created/managed using following shortcuts:  
 
 #### Creating/Deleting
 
@@ -41,7 +41,7 @@ To do so simply use following shortcuts:
 Once you've created a list, you can simply rename it by clicking the name on top.
 Lists will be synchronized for users joining your Room (More on Rooms under "Working with Others")
 
-You can check all these keybinds anytime by *hovering* over "Help" in the top right.
+You can check all these keybinds anytime by *clicking* "Help" in the top right.
 
 ## Flight Statuses
 
@@ -99,7 +99,7 @@ The built-in ATIS Generator uses the official ATC24 ATIS Format so you can simpl
 The built-in Radar screen helps you keep track of aircraft in your airspace and most importantly makes vectoring way easier.  
 The radar displays all important waypoints in your airspace so you can immediately tell where an aicraft is headed when reporting an inbound waypoint.  
 
-In addition, the radar has a list to the right displaying all neighbouring sectors with
+In addition, the radar has a list to the right displaying all neighboring sectors with
 
 - The Name + Frequency
 - An approximate initial heading which will lead aircraft to the sector  
@@ -123,7 +123,7 @@ The Suite gives you a handful of options to personalize it:
   - If enabled, generates an IFR clearance for outbound flights
   - May look something like this: `CLR ILAR ALDER1J FPL CVS FL 050 DEP [ ] ?SQ`
 
-- `Automatically import flightplans from ATC24` (Recommended)
+- `Automatically import flight plans from ATC24` (Recommended)
   - Automatically imports flight plans from the `#flight-plans` channel when departing or arriving from your airport (Requires you to be in a room)
   
 ## Authors

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATC24 | Arrivals</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="../../globals.css" />
+    <link rel="stylesheet" href="../../styleguide.css" />
+  </head>
+  <body>
+    <div class="arrival-container">
+      <div class="full-width table-names table-row grid-5-columns">
+        <p>RWY</p>
+        <p>C/S</p>
+        <p>TYPE</p>
+        <p>ETA</p>
+        <p>STAND</p>
+      </div>
+      <div class="item-container" id="item-container">
+        <div class="full-width table-items table-row grid-5-columns" id="template-item">
+          <p id="rwy">36R</p>
+          <p id="cs">DLH2014</p>
+          <p id="type">A380</p>
+          <p id="eta">12:08</p>
+          <p id="stand">8</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/arrivalManager.js"></script>
+  </body>
+</html>

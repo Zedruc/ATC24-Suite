@@ -87,6 +87,15 @@ Charts - Flightstrips - Flightplan Management"
             />
             <p>Automatically import flightplans from ATC24 (Requires user to be in a room)</p>
           </div>
+          <!-- <div class="settingContainer">
+            <input
+              type="checkbox"
+              id="holdArrivalsInList"
+              data-setting
+              onchange="Settings.set(this.id, this.checked)"
+            />
+            <p>Hold Arrivals in Arrival List</p>
+          </div> -->
           <div class="settingContainer">
             <input
               type="checkbox"
@@ -311,25 +320,24 @@ Charts - Flightstrips - Flightplan Management"
         <div class="infoName"></div>
         <div class="content">
           <div class="leftNote" data-no-select data-action onclick="openATISWindow()">ATIS</div>
-          <!-- <div class="rightNote" data-no-select data-action onclick="openATISWindow()">ATIS2</div> -->
+          <div class="rightNote" data-no-select data-action onclick="openArrivalWindow()">
+            Arrivals
+          </div>
         </div>
       </div>
       <div class="info-bar-item" id="info-bar-item-5">
-        <div
-          class="leftNote"
-          data-tippy=""
-          data-tippy-placement="top"
-          data-tippy-content="I - Inbound<br/>O - Outbound<br />V - VFR<br /><br />X - Delete Strip<br />C - Cancel Deletion (Strip & List)<br /><br />L - Create List<br />B - Delete List<br /><br />A - Move Strip to The Left<br />D - Move Strip to The Right<br />W - Move Strip Up<br />S - Move Strip Down<br /><br />Q - Cycle Flight Status Back<br />E - Cycle Flight Status Forward<br /><br />Right Click Discord Message in #flight-plans > Copy and Paste Content into 'PASTE FLIGHTPLAN' For Automatic Strip Fill-in"
-          data-no-select
-          data-action
-        >
+        <div class="leftNote" data-no-select data-action>
           <a href="./help" target="_blank">Help</a>
         </div>
         <div class="rightNote" id="toggleChart" data-is-hidden="false" data-no-select data-action>
           Toggle Chart
         </div>
         <div class="infoName"></div>
-        <div class="content"></div>
+        <div class="content">
+          <div class="leftNote" data-no-select data-action>
+            <a href="./help/phraseology" target="_blank">Phraseology</a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="main">
@@ -538,6 +546,7 @@ Charts - Flightstrips - Flightplan Management"
     <script src="./scripts/lib/discordVerification.js"></script>
     <script src="./scripts/lib/airlineTable.js"></script>
     <script src="./scripts/lib/htmlBuilder.js"></script>
+    <script src="./scripts/arrival_list/arrivalList.js"></script>
     <script src="./scripts/atis_gen/atis_gen.js"></script>
     <script src="./scripts/radarWindow.js"></script>
     <script src="./scripts/infoUpdater.js"></script>

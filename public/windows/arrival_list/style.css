@@ -1,0 +1,35 @@
+* {
+  overflow-x: hidden;
+  user-select: none;
+}
+
+.arrival-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.grid-5-columns {
+  display: grid;
+  grid-template-columns: 1fr 2fr .7fr 1fr 1fr;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.table-row {
+  height: 1.5rem;
+  padding-left: .3rem;
+}
+
+.table-names {
+  border-bottom: 1px solid gray;
+}
+
+p {
+  margin: 0;
+}
+
+#template-item {
+  display: none;
+}

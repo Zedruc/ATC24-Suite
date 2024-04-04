@@ -103,7 +103,9 @@
 }
 
 #info-bar-item-4 .leftNote,
-#info-bar-item-4 .rightNote {
+#info-bar-item-4 .rightNote,
+#info-bar-item-5 .leftNote,
+#info-bar-item-5 .rightNote {
   width: 100%;
 }
 

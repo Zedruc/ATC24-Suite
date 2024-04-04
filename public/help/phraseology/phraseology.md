@@ -54,7 +54,7 @@ To tell the pilot how he should proceed after the SID, we say
 ### Initial Climb
 
 This tells the pilot how high he's allowed to climb without further instructions.  
-If the SID he is on doesn't neither a Speed Restriction *nor* a Altitude Restriction (Or Vectored Departure), we simply say `Climb Flight Level 020`  
+If the SID he is on doesn't have either a Speed Restriction *nor* an Altitude Restriction (Or Vectored Departure), we simply say `Climb Flight Level 020`  
 *Otherwise* we say `Climb **via SID** Flight Level 020`  
 SID is pronounced as one word, not S-I-D.
 
