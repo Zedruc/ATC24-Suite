@@ -470,7 +470,7 @@ let airportATISData = [
       },
       {
         author: 'sanderli25',
-        link: 'https://github.com/Treelon/ptfs-charts/tree/main/Izolirani/Izolirani',
+        link: 'https://drive.google.com/file/d/1V2_sDjyRx5mUNO_ANm_VMWf7phbvLLz2/view',
       },
       {
         author: 'userwastaken',
