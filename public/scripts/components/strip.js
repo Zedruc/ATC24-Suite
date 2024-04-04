@@ -117,7 +117,7 @@ function generateStripFromLiveFlightplan(fpl, type) {
   // /* let runwayField = */ newStrip.querySelector('#runway').value = fpl.runway;
   // /* let sidstarField = */ newStrip.querySelector('#sidstar').value = fpl.sidstar;
   // /* let freeTextField = */ newStrip.querySelector('#notes').value = fpl.notes;
-  /* let freeTextField = */ newStrip.querySelector('#route').value = fpl.route;
+  /* let freeTextField = */ newStrip.querySelector('#route').innerText = fpl.route;
   // /* let freeTextField = */ newStrip.querySelector('#flightplan').value = fpl.flightplan;
 
   return newStrip;
