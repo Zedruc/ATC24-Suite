@@ -5,14 +5,14 @@ const airports = {
       icao: 'ILAR',
       iata: 'LCA',
       stations: [
-        /*         {
+        {
           type: 'CTR',
           frequency: '126.300',
-        }, */
-        {
+        },
+        /* {
           type: 'DEP',
           frequency: '130.200',
-        },
+        }, */
         {
           type: 'TWR',
           frequency: '121.200',

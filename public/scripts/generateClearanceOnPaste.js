@@ -2,6 +2,7 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   // console.log(window.lastStripFPChange);
   // window.lastStripFPChange = true;
   // console.log(target);
+  let hasToBeParsed = true;
 
   let rawPlan;
   if (isWebsocketUpdate) {
@@ -10,23 +11,46 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     rawPlan = await navigator.clipboard.readText();
   }
 
-  if (!(rawPlan?.length > 80)) return;
-
   let data = {};
+  if (!(rawPlan?.length > 80)) {
+    if (stripData?.info?.importRoute) {
+      stripData.info.route = stripData.info.importRoute;
+      hasToBeParsed = false;
+      if (stripData.type.toLowerCase() !== 'vfr') stripData.info.flightrules = 'ifr';
+    } else {
+      return;
+    }
+  }
+
   /* if (isWebsocketUpdate) {
     data = flightPlanFromTransmittedString(rawPlan);
   } else { */
-  let rawInfo = rawPlan.startsWith('U')
-    ? rawPlan.split('\n').slice(1, 8)
-    : rawPlan.split('\r\n').slice(0, 7);
-  for (let i = 0; i < rawInfo.length; i++) {
-    let [key, value] = rawInfo[i].replace(' ', '').split(':');
-    data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
+  if (hasToBeParsed) {
+    let rawInfo = rawPlan.startsWith('U')
+      ? rawPlan.split('\n').slice(1, 8)
+      : rawPlan.split('\r\n').slice(0, 7);
+    for (let i = 0; i < rawInfo.length; i++) {
+      let [key, value] = rawInfo[i].replace(' ', '').split(':');
+      data[key.toLowerCase()] = key.toLowerCase() == 'flightrules' ? value.replace(' ', '') : value;
+    }
+  } else {
+    data = stripData.info;
+    data.departing = data.departure;
+    data.arriving = data.arrival;
+    data.flightlevel = data.altitude;
   }
+  console.log('dump');
+  console.log(data);
+  console.log(stripData);
   // }
+
+  console.log(data);
+  console.log('thats it rigfht there');
 
   // update strip with flight plan data
   let strip = target.parentElement.parentElement;
+  // if (!hasToBeParsed) strip = target;
+
   let stripType = strip.getAttribute('data-type');
   if (isWebsocketUpdate) strip = target;
   let squawkField = strip.querySelector('#squawk');
@@ -51,6 +75,7 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
   if (!isGpsRouting) {
     departureSid = detectDepartureRouting(data.route);
     routeField.innerText = data.route;
+    if (data?.importRoute) routeField.innerText = data.importRoute;
     // routeField.setAttribute('disabled', 'true');
   } else {
     departureSid = 'GPS';
@@ -78,7 +103,8 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     else target.remove();
   }
   // window.lastStripFPChange = false;
-  StripSaveManager.updateStrip(strip, strip.parentElement);
+
+  if (hasToBeParsed) StripSaveManager.updateStrip(strip, strip.parentElement);
 }
 
 function detectDepartureRouting(route) {
@@ -154,4 +180,64 @@ function flightPlanFromTransmittedString(str) {
     plan[keys[i]] = value;
   }
   return plan;
+}
+
+function clearanceFromAutomaticImport(stripElement, fpl) {
+  // update strip with flight plan data from automatic import
+  /**
+   * Separate function since automatic imports
+   * have their data transmitted as JSON from the ATC24 Bot
+   * and not as string
+   */
+  let stripType = stripElement.dataset.type;
+  let squawkField = stripElement.querySelector('#squawk');
+  let callsignField = stripElement.querySelector('#callsign');
+  let departingField = stripElement.querySelector('#departure');
+  let arrivingField = stripElement.querySelector('#arrival');
+  let aircraftField = stripElement.querySelector('#aircraft');
+  let altitudeField = stripElement.querySelector('#altitude');
+  let routeField = stripElement.querySelector('#route');
+
+  if (fpl?.departing?.toLowerCase() != currentAirport.icao.toLowerCase())
+    departingField.value = fpl.departing;
+  callsignField.value = fpl.callsign;
+  detectCallsign(callsignField);
+  arrivingField.value = fpl.arriving;
+  aircraftField.value = validateAircraftType(fpl.aircraft);
+  altitudeField.value = fpl.altitude;
+  let clearance;
+  let isGpsRouting =
+    fpl.route.toLowerCase().includes('gps') ||
+    fpl.route.toLowerCase().includes('n/a') ||
+    fpl.route.toLowerCase().includes('vector');
+  let departureSid;
+  if (!isGpsRouting) {
+    departureSid = detectDepartureRouting(fpl.route);
+    routeField.innerText = fpl.route;
+    // routeField.setAttribute('disabled', 'true');
+  } else {
+    departureSid = 'GPS';
+    routeField.innerText = 'GPS Direct';
+  }
+
+  if (fpl.flightrules.toLowerCase() == 'ifr') {
+    clearance = `CLR ${fpl.arriving} ${isGpsRouting ? 'GPS' : departureSid} FPL ${
+      isGpsRouting ? 'CLB' : 'CVS'
+    } FL${fpl.altitude} DEP [ ] ?SQ`;
+    // strip.setAttribute('data-fp', clearance);
+    // stripElement.setAttribute('data-fp', rawPlan);
+    stripElement.dataset.route = fpl.route;
+  } else if (fpl.flightrules.toLowerCase() == 'vfr') {
+    squawkField.value = '7000';
+    clearance = '';
+  }
+  if (departureSid)
+    target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
+  if (Settings.get('generateClearance') == 'true' && stripType == 'outbound') {
+    stripElement.querySelector('#flightplan').value = clearance;
+  } else {
+    stripElement.querySelector('#flightplan').remove();
+  }
+  // window.lastStripFPChange = false;
+  StripSaveManager.updateStrip(stripElement, stripElement.parentElement);
 }

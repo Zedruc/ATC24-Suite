@@ -240,8 +240,11 @@ class WSManager {
         }
 
         let stripId = stripData.info.stripId;
+        console.log(stripData);
+        console.log('DWAOIUIHD');
 
         // if (!document.getElementById(stripId)) {
+        // if (stripData.info.importRoute) return;
         handleStripUpdate(listId, stripId, stripData);
         // }
         break;
@@ -621,7 +624,14 @@ function handleStripUpdate(listId, stripId, saveData) {
   let strip = document.getElementById(stripId);
   if (!strip) {
     let generatedStrip = generatePrepopulatedStrip(saveData);
-    insertAsFirstStrip(generatedStrip, document.getElementById(listId));
+    insertAsFirstChild(generatedStrip, document.getElementById(listId));
+    return;
+  }
+
+  let isAutoImport = saveData?.info?.importRoute;
+  console.log(`isAutoImport: ${isAutoImport}`);
+
+  if (isAutoImport) {
     return;
   }
 

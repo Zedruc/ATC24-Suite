@@ -10,8 +10,8 @@ function handleFlightplan(fpl, overrideHold = false) {
     let list = document.querySelector('.stripContainer').firstChild;
     let generatedStrip = generateStripFromLiveFlightplan(fpl, 'outbound');
     list.appendChild(generatedStrip);
-    clearanceFromFlightPlan(generatedStrip, true, fpl);
-    StripSaveManager.add(generatedStrip, list);
+    clearanceFromAutomaticImport(generatedStrip, fpl);
+    StripSaveManager.add(generatedStrip, list, true, true);
     return;
   }
 
@@ -24,8 +24,13 @@ function handleFlightplan(fpl, overrideHold = false) {
     let list = document.querySelector('.stripContainer').lastChild;
     let generatedStrip = generateStripFromLiveFlightplan(fpl, 'inbound');
     list.appendChild(generatedStrip);
-    clearanceFromFlightPlan(generatedStrip, true, { info: { flightplan: fpl } });
-    StripSaveManager.add(generatedStrip, list);
+    clearanceFromAutomaticImport(generatedStrip, fpl);
+
+    // =========================================================================
+    //
+    // =========================================================================
+
+    StripSaveManager.add(generatedStrip, list, true, true);
     // }
 
     // add strip to arrival list

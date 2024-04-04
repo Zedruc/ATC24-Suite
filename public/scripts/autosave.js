@@ -102,23 +102,24 @@ let saveData = (data, stripId, listId, deletion = false) => {
           origin: localStorage.getItem('discord_id'),
         };
         wsManager.sendMessage(payload);
-
-        // stripData = strip;
-        break;
       }
     }
   }
 };
 class StripSaveManager {
   // add strip to list
-  static add(strip, list, shouldSave = true) {
+  static add(strip, list, shouldSave = true, isAutoImport = false) {
     let localStorageStrips = localStorage.getItem('strips');
     let currentData;
     if (localStorageStrips == undefined || localStorageStrips == 'undefined') currentData = {};
     else currentData = JSON.parse(localStorageStrips);
     if (!currentData[list.id]) currentData[list.id] = [];
-    currentData[list.id].unshift(extractInfo(strip));
+    let data = extractInfo(strip);
+    if (isAutoImport) data.info.importRoute = strip.dataset.route;
+    currentData[list.id].unshift(data);
     if (shouldSave) {
+      console.log('Modified??');
+      console.log(data);
       saveData(currentData, strip.id, list.id);
     }
   }
@@ -187,7 +188,7 @@ class StripSaveManager {
       let listElement = document.getElementById(listId);
 
       for (const strip of listData) {
-        // insertAsFirstStrip(generatePrepopulatedStrip(strip), listElement);
+        // insertAsFirstChild(generatePrepopulatedStrip(strip), listElement);
         listElement.appendChild(generatePrepopulatedStrip(strip));
       }
     }
