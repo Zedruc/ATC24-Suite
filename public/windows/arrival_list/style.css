@@ -33,3 +33,23 @@ p {
 #template-item {
   display: none;
 }
+
+#rwy,
+#cs,
+#type,
+#eta,
+#stand {
+  pointer-events: none;
+}
+
+.new-item-alert {
+  box-sizing: border-box;
+  animation: alert .8s;
+  animation-iteration-count: 3;
+}
+
+@keyframes alert {
+  50% {
+    border: 1px solid #00ff37;
+  }
+}

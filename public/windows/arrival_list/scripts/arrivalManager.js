@@ -34,7 +34,13 @@ let list = document.getElementById('item-container');
 function addArrivalToList(arrival) {
   let newItem = document.getElementById('template-item').cloneNode(true);
   newItem.id = arrival.stripId;
-
+  newItem.addEventListener('click', e => {
+    e.target.remove();
+    window.opener.postMessage({
+      type: 'arrival_accepted',
+      callsign: e.target.id,
+    });
+  });
   newItem.querySelector('#rwy').innerText = arrival.rwy;
   newItem.querySelector('#cs').innerText = arrival.cs;
   newItem.querySelector('#type').innerText = arrival.type;
