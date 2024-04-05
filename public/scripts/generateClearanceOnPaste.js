@@ -78,8 +78,8 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     if (data?.importRoute) routeField.innerText = data.importRoute;
     // routeField.setAttribute('disabled', 'true');
   } else {
-    departureSid = 'GPS';
-    routeField.innerText = 'GPS Direct';
+    departureSid = '';
+    routeField.innerText = data.route;
   }
 
   if (data.flightrules.toLowerCase() == 'ifr') {
@@ -197,6 +197,9 @@ function clearanceFromAutomaticImport(stripElement, fpl) {
   let aircraftField = stripElement.querySelector('#aircraft');
   let altitudeField = stripElement.querySelector('#altitude');
   let routeField = stripElement.querySelector('#route');
+  let runwayField = stripElement.querySelector('#runway');
+
+  runwayField.value = findFirstActiveRunway();
 
   if (fpl?.departing?.toLowerCase() != currentAirport.icao.toLowerCase())
     departingField.value = fpl.departing;
@@ -216,8 +219,8 @@ function clearanceFromAutomaticImport(stripElement, fpl) {
     routeField.innerText = fpl.route;
     // routeField.setAttribute('disabled', 'true');
   } else {
-    departureSid = 'GPS';
-    routeField.innerText = 'GPS Direct';
+    departureSid = '';
+    routeField.innerText = fpl.route;
   }
 
   if (fpl.flightrules.toLowerCase() == 'ifr') {
@@ -231,9 +234,9 @@ function clearanceFromAutomaticImport(stripElement, fpl) {
     squawkField.value = '7000';
     clearance = '';
   }
-  if (departureSid)
-    target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
-  if (Settings.get('generateClearance') == 'true' && stripType == 'outbound') {
+  if (departureSid) stripElement.querySelector('#sidstar').value = departureSid;
+
+  if (Settings.get('generateClearance') && stripType == 'outbound') {
     stripElement.querySelector('#flightplan').value = clearance;
   } else {
     stripElement.querySelector('#flightplan').remove();

@@ -1,8 +1,11 @@
 function handleFlightplan(fpl, overrideHold = false) {
   if (!Settings.get('autoImportFlightplans')) return;
-  let { departing, arriving } = fpl;
+  let { departing, arriving, flightrules } = fpl;
   console.log(fpl);
-  if (departing.toLowerCase() == currentAirport.icao.toLowerCase()) {
+  if (
+    departing.toLowerCase() == currentAirport.icao.toLowerCase() &&
+    flightrules.toLowerCase() == 'ifr'
+  ) {
     /**
      * Add strip to left-most column as that is
      * the default delivery column
@@ -13,9 +16,10 @@ function handleFlightplan(fpl, overrideHold = false) {
     clearanceFromAutomaticImport(generatedStrip, fpl);
     StripSaveManager.add(generatedStrip, list, true, true);
     return;
-  }
-
-  if (arriving.toLowerCase() == currentAirport.icao.toLowerCase()) {
+  } else if (
+    arriving.toLowerCase() == currentAirport.icao.toLowerCase() &&
+    flightrules.toLowerCase() == 'ifr'
+  ) {
     /**
      * Add strip to right-most column as that is
      * the default app/dep column
@@ -56,6 +60,21 @@ function handleFlightplan(fpl, overrideHold = false) {
       },
     });
 
+    return;
+  } else if (
+    (departing.toLowerCase() == currentAirport.icao.toLowerCase() ||
+      arriving.toLowerCase() == currentAirport.icao.toLowerCase()) &&
+    flightrules.toLowerCase() == 'vfr'
+  ) {
+    /**
+     * Add strip to left-most column as that is
+     * the default delivery column
+     */
+    let list = document.querySelector('.stripContainer').firstChild;
+    let generatedStrip = generateStripFromLiveFlightplan(fpl, 'vfr');
+    list.appendChild(generatedStrip);
+    clearanceFromAutomaticImport(generatedStrip, fpl);
+    StripSaveManager.add(generatedStrip, list, true, true);
     return;
   }
 }

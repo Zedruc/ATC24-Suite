@@ -102,6 +102,10 @@
   align-items: center;
 }
 
+#room-status {
+  font-size: calc(.5vh + .5vw);
+}
+
 #info-bar-item-4 .leftNote,
 #info-bar-item-4 .rightNote,
 #info-bar-item-5 .leftNote,
