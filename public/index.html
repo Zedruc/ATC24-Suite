@@ -364,18 +364,20 @@ Charts - Flightstrips - Flightplan Management"
             placeholder="Callsign"
             oninput="detectCallsign(this)"
           />
-          <p class="callsignSpoken">-</p>
-          <span>
-            <label for="squawk" style="display: inline-block">SQ:</label>
-            <input
-              style="display: inline-block"
-              name="squawk"
-              type="text"
-              id="squawk"
-              class="textInput squawkInput"
-              placeholder="Squawk"
-            />
-          </span>
+          <div>
+            <p class="callsignSpoken">-</p>
+            <span>
+              <label for="squawk" style="display: inline-block">SQ:</label>
+              <input
+                style="display: inline-block"
+                name="squawk"
+                type="text"
+                id="squawk"
+                class="textInput squawkInput"
+                placeholder="Squawk"
+              />
+            </span>
+          </div>
         </div>
         <div class="rightMain">
           <input class="textInput" type="text" id="departure" placeholder="Dep" />
@@ -387,7 +389,7 @@ Charts - Flightstrips - Flightplan Management"
           <!-- disabled because of q+e keybinds to change status -->
           <input class="textInput" type="text" id="info" placeholder="Info" />
           <input class="textInput" type="text" id="runway" placeholder="Runway" />
-          <input class="textInput" type="text" id="sidstar" placeholder="SID/STAR" />
+          <!-- <input class="textInput" type="text" id="sidstar" placeholder="SID/STAR" /> -->
         </div>
         <div class="bottom">
           <p id="route" class="routeText"></p>

@@ -92,8 +92,8 @@ async function clearanceFromFlightPlan(target, isWebsocketUpdate = false, stripD
     squawkField.value = '7000';
     clearance = `VFR`;
   }
-  if (departureSid)
-    target.parentElement.parentElement.querySelector('#sidstar').value = departureSid;
+  /* if (departureSid)
+    target.parentElement.parentElement.querySelector('#sidstar').value = departureSid; */
   if (Settings.get('generateClearance') && stripType == 'outbound') {
     if (target.id !== 'flightplan') strip.querySelector('#flightplan').value = clearance;
     else target.value = clearance;
@@ -234,7 +234,7 @@ function clearanceFromAutomaticImport(stripElement, fpl) {
     squawkField.value = '7000';
     clearance = '';
   }
-  if (departureSid) stripElement.querySelector('#sidstar').value = departureSid;
+  // if (departureSid) stripElement.querySelector('#sidstar').value = departureSid;
 
   if (Settings.get('generateClearance') && stripType == 'outbound') {
     stripElement.querySelector('#flightplan').value = clearance;

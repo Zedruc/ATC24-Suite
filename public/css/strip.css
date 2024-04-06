@@ -44,7 +44,7 @@
   background-color: var(--strip-color);
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: 3fr 1fr;
+  grid-template-rows: 2fr 1fr;
   height: fit-content;
   max-height: 180px;
   min-height: 125px;
@@ -60,7 +60,9 @@
   grid-column: 1/4;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-gap: 5px;
+  height: min-content;
 }
 
 .rightMain {
@@ -68,7 +70,7 @@
   grid-column: 4/9;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 }
 
 .strip>.bottom {

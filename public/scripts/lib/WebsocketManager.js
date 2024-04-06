@@ -667,10 +667,10 @@ function handleStripUpdate(listId, stripId, saveData) {
     strip.querySelector('#info').value = saveData?.info ? saveData.info.info : saveData.info;
   if (strip.querySelector('#runway'))
     strip.querySelector('#runway').value = saveData?.info ? saveData.info.runway : saveData.runway;
-  if (strip.querySelector('#sidstar'))
+  /* if (strip.querySelector('#sidstar'))
     strip.querySelector('#sidstar').value = saveData?.info
       ? saveData.info.sidstar
-      : saveData.sidstar;
+      : saveData.sidstar; */
   if (strip.querySelector('#notes'))
     strip.querySelector('#notes').value = saveData?.info ? saveData.info.notes : saveData.notes;
   if (strip.querySelector('#route'))

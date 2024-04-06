@@ -37,7 +37,7 @@ let extractInfo = strip => {
       status: strip.querySelector('#status').value,
       info: strip.querySelector('#info').value,
       runway: strip.querySelector('#runway').value,
-      sidstar: strip.querySelector('#sidstar').value,
+      // sidstar: strip.querySelector('#sidstar').value,
       notes: strip.querySelector('#notes').value,
       route: strip.querySelector('#route').value,
       flightplan: strip.querySelector('#flightplan')
