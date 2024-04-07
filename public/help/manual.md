@@ -125,6 +125,9 @@ The Suite gives you a handful of options to personalize it:
 
 - `Automatically import flight plans from ATC24` (Recommended)
   - Automatically imports flight plans from the `#flight-plans` channel when departing or arriving from your airport (Requires you to be in a room)
+
+- `Hold Arrivals in Arrival List`  
+  - If enabled, flights arriving at your airport will be held in this list and don't get a strip until you click to accept them
   
 ## Authors
 
