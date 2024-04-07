@@ -13,7 +13,7 @@ function handleFlightplan(fpl, overrideHold = false) {
    */
   console.log(isArriving);
   console.log(Settings.get('holdArrivalsInList'));
-  if (isArriving && Settings.get('holdArrivalsInList') && !overrideHold) {
+  if (isArriving && isIFR && Settings.get('holdArrivalsInList') && !overrideHold) {
     // add strip to arrival list
     let arrivalTime = new Date();
     let arrivalHour = arrivalTime.getUTCHours();

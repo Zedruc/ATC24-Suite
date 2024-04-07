@@ -31,13 +31,22 @@ function checkChangelog() {
 
 function showChangelog() {
   let changelogTime = new Date(window.changelog.time);
-  console.log(changelogTime);
+
   let dateString = `${changelogTime.getDate()}.${changelogTime.getMonth() + 1}.${changelogTime
     .getFullYear()
     .toString()
     .substring(2, 4)}`;
-  notificationQueue.queue({
-    title: `🚀 Update ${window.appVersion} (${dateString})`,
-    html: window.changelog.message,
-  });
+  var reader = new commonmark.Parser();
+  var writer = new commonmark.HtmlRenderer();
+  fetch('./changelog.md')
+    .then(res => res.text())
+    .then(txt => {
+      var parsed = reader.parse(txt); // parsed is a 'Node' tree
+      // transform parsed if you like...
+      var result = writer.render(parsed); // result is a String
+      notificationQueue.queue({
+        title: `🚀 Update ${window.appVersion} (${dateString})`,
+        html: result,
+      });
+    });
 }
