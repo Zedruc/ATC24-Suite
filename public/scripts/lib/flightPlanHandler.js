@@ -6,13 +6,13 @@ function handleFlightplan(fpl, overrideHold = false) {
 
   let isArriving = arriving.toLowerCase() == currentAirport.icao.toLowerCase();
   let isDeparting = departing.toLowerCase() == currentAirport.icao.toLowerCase();
+  let isCenterController = stationSelect.value.split('/')[0].toLowerCase() == 'ctr';
   let isIFR = flightrules.toLowerCase() == 'ifr';
 
   /**
    * If overrideHold is true, this is ignored and the strip is placed anyway
    */
-  console.log(isArriving);
-  console.log(Settings.get('holdArrivalsInList'));
+
   if (isArriving && isIFR && Settings.get('holdArrivalsInList') && !overrideHold) {
     // add strip to arrival list
     let arrivalTime = new Date();
@@ -85,6 +85,22 @@ function handleFlightplan(fpl, overrideHold = false) {
     list.appendChild(generatedStrip);
     clearanceFromAutomaticImport(generatedStrip, fpl);
     StripSaveManager.add(generatedStrip, list, true, true);
+  } else if (isCenterController && !isArriving && !isDeparting) {
+    console.log('enroute');
+    // SOTAF_CTR needs all flights crossing the airspace
+    let flightIsCrossingAirspace = checkIfFlightIsCrossingAirspace(
+      currentAirport.icao.toLowerCase(),
+      fpl
+    );
+
+    if (flightIsCrossingAirspace) {
+      let list = document.querySelector('.stripContainer').lastChild;
+      let generatedStrip = generateStripFromLiveFlightplan(fpl, 'inbound');
+      list.appendChild(generatedStrip);
+      fpl.route = `[ENROUTE] ${fpl.route}`;
+      clearanceFromAutomaticImport(generatedStrip, fpl);
+      StripSaveManager.add(generatedStrip, list, true, true);
+    }
   }
 }
 
@@ -111,4 +127,27 @@ function acceptArrival(callsign) {
    * True to override the settings check so we dont loop back into the arrivals list
    */
   handleFlightplan(arrival, true);
+}
+
+function checkIfFlightIsCrossingAirspace(currentAirportIcao, fpl) {
+  let waypointsInAirspace = getWaypoints(currentAirportIcao);
+  if (!waypointsInAirspace) return;
+  let route = fpl.route.toLowerCase();
+  console.log(route);
+  for (let i = 0; i < waypointsInAirspace.length; i++) {
+    const wpt = waypointsInAirspace[i].name;
+    if (route.includes(wpt.toLowerCase())) return true;
+  }
+  return false;
+}
+
+function getWaypoints(icao) {
+  for (const country in airports) {
+    for (const airport of airports[country]) {
+      console.log(airport);
+      if (airport.icao.toLowerCase() !== icao.toLowerCase()) continue;
+      if (!airport?.waypoints) return;
+      return airport.waypoints;
+    }
+  }
 }
