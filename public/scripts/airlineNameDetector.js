@@ -1,6 +1,12 @@
+/**
+ * maybe use this to remove unnecessary additions
+ * atc24 players add into their callsigns for no reason
+ */
+const stringInBracketsRegex = / ?\([\s\S]*?\)/g;
+
 function detectCallsign(triggeredElement) {
   let firstWordRegex = /^([A-Z a-z]*)/g;
-  let firstWord = firstWordRegex.exec(triggeredElement.value)[0];
+  let firstWord = firstWordRegex.exec(triggeredElement.value)[0].trim();
   let callsign;
   if (firstWord.length > 3) {
     // reverse search

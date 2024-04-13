@@ -117,7 +117,7 @@
 }
 
 .callsignSpoken {
-  margin: .1rem 0 .1rem 0;
+  margin: 1px 0;
   text-transform: uppercase;
 }
 
@@ -137,6 +137,19 @@
   margin: .1rem 0;
   width: 100%;
   text-align: center;
+}
+
+.pdcButton {
+  background-color: rgba(112, 112, 112, 0.5);
+  border: 1px solid gray;
+  margin: 0 0 5px;
+  max-height: 20px;
+  width: fit-content;
+}
+
+[data-type="inbound"] .pdcButtonContainer,
+[data-type="vfr"] .pdcButtonContainer {
+  display: none;
 }
 
 /* Strip parts spacing */

@@ -1,13 +1,15 @@
 <div id="changelog"></div>
 
-# CTR Support
+# PDC Clearances
 
-**🔧 Additions**  
+**🚀 Additions**  
 
-* If you have automatic flight imports enabled and are controlling a CTR station (make sure you have selected the station type in the top left),  
-  flights with routes including a waypoint in your airspace will now be imported and displayed with `[ENROUTE]` at the beginning of the route  
+* Added a button to copy a Pre Departure Clearance to outbound IFR flightstrips
+* Added a "CPDLC" option to the ATIS generator
 
-* Added waypoints to the Saint Barthélemy Radar  
+**🔧 Changes**  
+
+* Fixed callsigns not being recognised properly because of spaces
 
 
 Happy Controlling  

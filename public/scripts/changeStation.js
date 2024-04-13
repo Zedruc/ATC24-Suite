@@ -17,6 +17,6 @@ function changeStation(e) {
 
 function findStation(type) {
   for (const station of currentAirport.stations) {
-    if (station.type == type) return station;
+    if (station.type.toLowerCase() == type.toLowerCase()) return station;
   }
 }

@@ -56,6 +56,23 @@ html {
   border: none;
 }
 
+.credit {
+  height: 30px;
+  position: fixed;
+  bottom: 0;
+  margin-left: 10px;
+  color: grey;
+  user-select: none;
+}
+
+.credit>p {
+  margin: 0;
+}
+
+.credit a {
+  color: rgb(189, 189, 189);
+}
+
 input {
   width: 5rem;
   height: 1rem;

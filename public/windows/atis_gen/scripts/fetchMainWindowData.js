@@ -3,7 +3,6 @@ let checkBoxes = [...document.querySelectorAll('input')].filter(
   e => e.getAttribute('type') == 'checkbox'
 );
 checkBoxes.forEach(e => (window.atis[e.id] = e.checked));
-console.log(window.atis);
 
 document.querySelectorAll('input').forEach(e =>
   e.addEventListener('input', () => {
@@ -85,6 +84,8 @@ function generateATIS() {
 
   lastAirport = getCurrentAirport();
 
+  window.opener.currentAtis = document.getElementById('atisId').value.toUpperCase() || 'A';
+
   atisOutput.innerHTML = `∎ ${getCurrentAirport().toUpperCase()} ATIS Information ${
     document.getElementById('atisId').value.toUpperCase() || 'A'
   } ${currentDate.getUTCHours().toString().padStart(2, '0')}${
@@ -115,7 +116,9 @@ Speed ${document.getElementById('airSpeedRestriction').value || '250'}kts or bel
 VFR Acft say Direction of Flight and Intentions.
 ${atis.sidstar ? `SIDs/STARs are preferred.\n` : ''}${
     atis.emergencies ? 'Emergencies Allowed.' : 'No Emergencies.' /* After this custom notams */
-  }\n${additionalNotams}\n
+  }\n${atis.cpdlc ? 'CPDLC Avail. Through DMs.\n' : ''}${
+    additionalNotams.length > 0 ? `${additionalNotams}\n` : ''
+  }
 **Charts:**
 Chart Pack Author: ${chartPackSplitInfo[0]}
 Chart Pack Link: <${chartPackSplitInfo[1]}>

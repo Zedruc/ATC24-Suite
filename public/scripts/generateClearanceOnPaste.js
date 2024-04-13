@@ -244,3 +244,88 @@ function clearanceFromAutomaticImport(stripElement, fpl) {
   // window.lastStripFPChange = false;
   StripSaveManager.updateStrip(stripElement, stripElement.parentElement);
 }
+
+function copyPDC(element) {
+  let stripElement = element.parentElement.parentElement.parentElement.parentElement;
+
+  let squawkField = stripElement.querySelector('#squawk');
+  let callsignField = stripElement.querySelector('#callsign');
+  let departingField = stripElement.querySelector('#departure');
+  let arrivingField = stripElement.querySelector('#arrival');
+  let aircraftField = stripElement.querySelector('#aircraft');
+  let altitudeField = stripElement.querySelector('#altitude');
+  let routeField = stripElement.querySelector('#route');
+
+  let route = routeField.innerText;
+
+  /**
+   * CLR EDDL RWY 08L DEP GIVMI6Q INIT CLB FL070 SQUAWK 2325 WHEN RDY CALL FREQ 121.700 IF UNABLE CALL VOICE
+   */
+  let clearance;
+
+  let isGpsRouting =
+    route.toLowerCase().includes('gps') ||
+    route.toLowerCase().includes('n/a') ||
+    route.toLowerCase().includes('vector');
+  let departureSid;
+  if (!isGpsRouting) {
+    departureSid = detectDepartureRouting(route);
+    // routeField.setAttribute('disabled', 'true');
+  } else {
+    departureSid = '';
+  }
+
+  if (stripElement.dataset.type.toLowerCase() !== 'vfr') {
+    let pdcTime = new Date();
+    let day = pdcTime.getDate().toString().padStart(2, '0');
+    let hour = pdcTime.getUTCHours().toString().padStart(2, '0');
+    let minute = pdcTime.getUTCMinutes().toString().padStart(2, '0');
+
+    clearance = `\`PDC GENERATED ${day}${hour}${minute}Z\nCLR ${
+      arrivingField.value
+    } RWY ${findFirstActiveRunway()} DEP ${isGpsRouting ? 'GPS' : departureSid} INIT CLB FL${
+      altitudeField.value
+    } SQUAWK ${squawkField.value} WHEN RDY CALL FREQ ${
+      findStation('gnd').frequency
+    } IF UNABLE CALL VOICE\``;
+    // strip.setAttribute('data-fp', clearance);
+    // stripElement.setAttribute('data-fp', rawPlan);
+  } else {
+    Toastify({
+      text: `PDC for VFR Flights N/A`,
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: 'bottom', // `top` or `bottom`
+      position: 'right', // `left`, `center` or `right`
+    }).showToast();
+    return;
+  }
+  // if (departureSid) stripElement.querySelector('#sidstar').value = departureSid;
+
+  navigator.clipboard
+    .writeText(clearance)
+    .then(_ => {
+      Toastify({
+        text: `PDC for ${callsignField.value} copied to clipboard`,
+        duration: 5000,
+        newWindow: true,
+        close: true,
+        gravity: 'bottom', // `top` or `bottom`
+        position: 'right', // `left`, `center` or `right`
+      }).showToast();
+    })
+    .catch(_ => {
+      notificationQueue.queue({
+        title: 'Error',
+        html: "Could not copy pre departure clearance.<br/>Are you sure the website has access to your clipboard and/or you aren't using Firefox?",
+        icon: 'error',
+      });
+    });
+}
+
+/* function findStation(type) {
+  for (const station of currentAirport.stations) {
+    if (station.type == type) return station;
+  }
+} */
