@@ -86,13 +86,13 @@ Using the Aerodrome Panel at the top of the Suite you can set up the Airport con
 - Which runways are active for arrival
 - Which runways are active for departure
 
-![`Panel Image`](http://localhost:5500/public/help/images/aerodrome_panel.png)  
+![`Panel Image`](https://zedruc.net/atc24-suite/help/images/aerodrome_panel.png)  
 
 ## ATIS Generator
 
 The built-in ATIS Generator uses the official ATC24 ATIS Format so you can simply copy and paste the generated ATIS without having to worry about it being deleted.  
 
-![`Panel Image`](http://localhost:5500/public/help/images/atis_gen.png)  
+![`Panel Image`](https://zedruc.net/atc24-suite/help/images/atis_gen.png)  
 
 ## Radar Screen
 
@@ -104,7 +104,20 @@ In addition, the radar has a list to the right displaying all neighboring sector
 - The Name + Frequency
 - An approximate initial heading which will lead aircraft to the sector  
 
-![`Panel Image`](http://localhost:5500/public/help/images/radar.png)  
+![`Panel Image`](https://zedruc.net/atc24-suite/help/images/radar.png)  
+
+## Arrival List
+
+The Arrival List, if enabled, helps you declutter the main working area of the suite by holding all arriving flights in that list until you *click* them to accept them.  
+Only then will a strip be created for the clicked flight.  
+
+Keybinds:
+* X (Twice): Delete Arrival
+* C (After pressing X once -> Red Border) Cancel Deletion
+* Click: Accept arrival
+
+
+![`Panel Image`](https://zedruc.net/atc24-suite/help/images/arrival_list.png)  
 
 ## Settings
 
@@ -112,6 +125,12 @@ The Suite gives you a handful of options to personalize it:
 
 - `Load strips from last session upon startup`
   - If enabled, saves strips when closing the suite and loads them when opening it the next time
+
+- `Automatically import flight plans from ATC24` (Recommended)
+  - Automatically imports flight plans from the `#flight-plans` channel when departing or arriving from your airport (Requires you to be in a room)
+
+- `Hold Arrivals in Arrival List`  
+  - If enabled, flights arriving at your airport will be held in this list and don't get a strip until you click to accept them
 
 - `Snap radar heading vector to next standard heading` (Recommended)
   - This rounds headings to a factor of 5, e.g. 241 -> 240, 237 -> 235
@@ -123,11 +142,12 @@ The Suite gives you a handful of options to personalize it:
   - If enabled, generates an IFR clearance for outbound flights
   - May look something like this: `CLR ILAR ALDER1J FPL CVS FL 050 DEP [ ] ?SQ`
 
-- `Automatically import flight plans from ATC24` (Recommended)
-  - Automatically imports flight plans from the `#flight-plans` channel when departing or arriving from your airport (Requires you to be in a room)
+- `Display ground charts in dark mode`
+  - Switched integrated ground charts to dark mode
 
-- `Hold Arrivals in Arrival List`  
-  - If enabled, flights arriving at your airport will be held in this list and don't get a strip until you click to accept them
+- `Only receive flightplans from the event flightplans channel` (Required for Event ATCs) (NOT RECOMMENDED FOR NORMAL USAGE)
+  - If enabled, you will be able to use the suite as usual but ONLY event flight plans will be imported
+
   
 ## Authors
 

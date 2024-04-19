@@ -248,7 +248,7 @@ a {
   padding: .8rem .1rem;
   margin: 0 1rem 0 0;
   width: 8rem;
-  color: aliceblue;
+  color: rgb(129, 129, 129);
   background-color: var(--disabled);
   border-radius: 5px;
 }

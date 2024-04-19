@@ -15,8 +15,11 @@ function updateAirportInfo(airport) {
   /* window.controllerCallsign = `${airport.icao.toUpperCase()}_${stationType.innerHTML} (${
     stationFrequency.innerHTML
   })`; */
-
-  $('#chart').prop('src', `./charts/${airport.icao}/${airport.icao} Ground Chart.png.webp`);
+  let chartMode = Settings.get('chartDarkMode') ? 'dark' : 'light';
+  $('#chart').prop(
+    'src',
+    `https://ptfs.xyz/charts/${chartMode}/${airport.icao}%20ground%20chart.png`
+  );
 }
 
 function updateStationInfo(currentStation = stationSelect.value) {

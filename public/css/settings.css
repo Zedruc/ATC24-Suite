@@ -15,8 +15,8 @@
 }
 
 .settingsContainer {
-  width: 45rem;
-  height: 30rem;
+  width: 80%;
+  height: 80%;
   background-color: var(--background);
   border-radius: 11px;
 
@@ -91,4 +91,22 @@
 
 .settingContainer:not(:last-child) {
   border-bottom: 1px solid var(--strip-border);
+}
+
+.settingsMenuButton {
+  height: auto;
+  padding: .8rem .1rem;
+  margin: 0 1rem 0 0;
+  width: 8rem;
+  color: aliceblue;
+  background-color: hsl(0, 0%, 71%);
+  border-radius: 5px;
+}
+
+.settingsMenuButton:hover {
+  background-color: hsl(0, 0%, 58%);
+}
+
+.settingsMenuButton:active {
+  background-color: hsl(0, 0%, 28%);
 }

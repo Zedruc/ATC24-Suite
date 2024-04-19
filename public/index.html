@@ -123,15 +123,28 @@ Charts - Flightstrips - Flightplan Management"
             />
             <p>Generate IFR clearance shorthand when loading flightplan</p>
           </div>
-          <!-- <div class="settingContainer">
+          <div class="settingContainer">
             <input
               type="checkbox"
-              id="loadRadarChart"
+              id="chartDarkMode"
+              data-setting
+              onchange="Settings.set(this.id, this.checked);updateAirportInfo(currentAirport)"
+              checked="true"
+            />
+            <p>Display ground charts in dark mode</p>
+          </div>
+          <div class="settingContainer">
+            <input
+              type="checkbox"
+              id="eventFlightPlans"
               data-setting
               onchange="Settings.set(this.id, this.checked)"
+              checked="true"
             />
-            <p>[WIP] Set respective aerodrome chart as radar background</p>
-          </div> -->
+            <p>
+              Only receive flightplans from the event flightplans channel (Required for Event ATCs)
+            </p>
+          </div>
           <div class="settingContainer">
             <div>
               <button id="connectDiscord" class="discordButton" onclick="verifyDiscord()">
@@ -139,6 +152,18 @@ Charts - Flightstrips - Flightplan Management"
               </button>
             </div>
             <p id="discordConnectionStatus">Connect to use automatic flight plan management</p>
+          </div>
+          <div class="settingContainer">
+            <div>
+              <button
+                id="resetLists"
+                class="settingsMenuButton"
+                onclick="localStorage.removeItem('columns');localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));populateColumns();"
+              >
+                Reset Lists
+              </button>
+            </div>
+            <p>Press to reset lists to default configuration DEL/GND/TWR/APPDEP</p>
           </div>
         </div>
         <div class="settingsFooter">
@@ -345,7 +370,11 @@ Charts - Flightstrips - Flightplan Management"
         <!-- <div style="position: relative; left: calc(50% - 16px)">
           <div class="loader-4 center"><span></span></div>
         </div> -->
-        <img id="chart" src="./charts/IRFD/IRFD Ground Chart.png.webp" alt="CURRENT_CHART" />
+        <img
+          id="chart"
+          src="https://ptfs.xyz/charts/light/IRFD%20ground%20chart.png"
+          alt="CURRENT_CHART"
+        />
       </div>
 
       <!-- ===========================================================================

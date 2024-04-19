@@ -42,6 +42,10 @@ p {
   pointer-events: none;
 }
 
+[data-deletion-confirmed='true'] {
+  border: 1px solid red !important;
+}
+
 .new-item-alert {
   box-sizing: border-box;
   animation: alert .8s;

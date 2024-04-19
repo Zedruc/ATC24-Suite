@@ -1,15 +1,16 @@
 <div id="changelog"></div>
 
-# PDC Clearances
+# Event Flightplans and little QOL improvements
 
 **🚀 Additions**  
 
-* Added a button to copy a Pre Departure Clearance to outbound IFR flightstrips
-* Added a "CPDLC" option to the ATIS generator
+* Added an option "Only receive flightplans from the event flightplans channel" which does precisely what it's called
+* Added a button at the bottom of the settings menu allowing you to reset the lists to the default configuration (DEL/GND/TWR/APPDEP)
 
 **🔧 Changes**  
 
-* Fixed callsigns not being recognised properly because of spaces
+* Added X and C keybinds to the Arrival List to delete/cancel the deletion of arrivals
+* Increased size of Settings Menu in dependance of screen size
 
 
 Happy Controlling  
