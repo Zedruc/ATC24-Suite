@@ -1,11 +1,11 @@
 <div id="changelog"></div>
 
-# Hotfix
+# Arrival List Improvements
 
 **🔧 Changes**  
 
-* Fixed flightplans being ignored because of the "Only Event Flightplans" option not being initialized when opening the Suite after update b-3.4.0
-* Made it impossible for strips to generate squawks 7700, 7600, 7500 and 7000
+* Callsigns are now parsed their ICAO codes in more cases
+* Aircraft Types in the Arrival List are now shortened to their ICAO codes
 
 
 Happy Controlling  

@@ -42,6 +42,11 @@ p {
   pointer-events: none;
 }
 
+#cs,
+#type {
+  text-transform: uppercase;
+}
+
 [data-deletion-confirmed='true'] {
   border: 1px solid red !important;
 }

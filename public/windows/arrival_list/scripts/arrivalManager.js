@@ -42,8 +42,8 @@ function addArrivalToList(arrival) {
     });
   });
   newItem.querySelector('#rwy').innerText = arrival.rwy;
-  newItem.querySelector('#cs').innerText = arrival.cs;
-  newItem.querySelector('#type').innerText = arrival.type;
+  newItem.querySelector('#cs').innerText = detectCallsign(arrival.cs);
+  newItem.querySelector('#type').innerText = validateAircraftType(arrival.type);
   newItem.querySelector('#eta').innerText = arrival.eta;
   newItem.querySelector('#stand').innerText = arrival.stand;
 
