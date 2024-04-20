@@ -129,7 +129,7 @@ function generateSquawk() {
     squawk += validDigits[Math.floor(Math.random() * validDigits.length)];
   }
   if (squawksInUse.includes(squawk)) return generateSquawk();
-  if (squawk == '7000') return generateSquawk();
+  if (['7700', '7600', '7500', '7000'].includes(squawk)) return generateSquawk();
   return squawk;
 }
 
