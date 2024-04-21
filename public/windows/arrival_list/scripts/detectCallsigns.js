@@ -25,7 +25,7 @@ function detectCallsign(callsignString) {
       }
     }
   }
-  if (currentCallsign[3] !== '-') {
+  if (callsign[3] !== '-') {
     if (callsign[3] == ' ') {
       callsign = callsign.replace(' ', '-');
     } else {

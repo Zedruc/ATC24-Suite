@@ -43,7 +43,7 @@ function handleFlightplan(fpl, overrideHold = false) {
        * @type {Arrival} arrival
        */
       arrival: {
-        rwy: findFirstActiveRunway(),
+        rwy: findFirstActiveRunway('arr'),
         cs: fpl.callsign,
         type: fpl.aircraft,
         eta: `${arrivalHour}:${arrivalMinute.toString().padStart(2, '0')}`,
@@ -114,10 +114,10 @@ function handleFlightplan(fpl, overrideHold = false) {
   }
 }
 
-function findFirstActiveRunway() {
+function findFirstActiveRunway(appOrDep) {
   for (let i = 0; i < window.activeRunways.length; i++) {
     const rwy = window.activeRunways[i];
-    if (rwy.active && rwy.arrivalOrDeparture == 'arr') return rwy.rwyId;
+    if (rwy.active && rwy.arrivalOrDeparture == appOrDep) return rwy.rwyId;
   }
 }
 

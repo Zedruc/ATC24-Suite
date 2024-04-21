@@ -40,7 +40,7 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
   }
 
   if (type !== 'vfr') {
-    newStrip.querySelector('#runway').value = getDepartureRunway();
+    newStrip.querySelector('#runway').value = getDepartureRunway(type);
     newStrip.querySelector('#departure').value = currentAirport.icao || '';
   }
 
@@ -133,10 +133,11 @@ function generateSquawk() {
   return squawk;
 }
 
-function getDepartureRunway() {
+function getDepartureRunway(type) {
   for (let i = 0; i < window.activeRunways.length; i++) {
     const rwy = window.activeRunways[i];
-    if (rwy.arrivalOrDeparture == 'dep' && rwy.active) return rwy.rwyId;
+    if (rwy.arrivalOrDeparture == (type == 'inbound' ? 'arr' : 'dep') && rwy.active)
+      return rwy.rwyId;
   }
   return '';
 }

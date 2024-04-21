@@ -1,6 +1,6 @@
 Vorschläge:
   - Session chat
-  
+
 WICHTIG:
   1. IFR Clearances von automatischen imports generieren lassen
   2. Wasser Umriss auf Radar
@@ -8,6 +8,11 @@ WICHTIG:
   - CONTROLLER DATA LINK
   3. Namen in Strips (Treelon fragen)
   4. Arrival list Suchleiste
+
+
+ANDERE RUNWAYS AUF RADAR FÜR TOPDOWN
+CALLSIGNS NOT UPDATING
+ROOM SPECIFIC SETTINGS (GENERATE IFR, EVENT FPS)
 
 Zukünftig:
   - Departure/Arrival Routen auf Radar?
