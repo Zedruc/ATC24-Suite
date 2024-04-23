@@ -1,11 +1,10 @@
 <div id="changelog"></div>
 
-# Arrival List Improvements
+# Hotfix
 
 **🔧 Changes**  
 
-* Callsigns are now parsed their ICAO codes in more cases
-* Aircraft Types in the Arrival List are now shortened to their ICAO codes
+* Arrival list works again, an issue with callsign parsing prevented flights from showing up
 
 
 Happy Controlling  
