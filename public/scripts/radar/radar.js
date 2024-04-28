@@ -48,17 +48,19 @@ function updateSidebar(icao) {
 
   let adjacentSectors = getAdjacentSectors(icao);
   console.log(adjacentSectors);
-  for (let i = 0; i < adjacentSectors.length; i++) {
-    const sector = adjacentSectors[i];
-    let newSector = sectorElementTemplate.cloneNode(true);
-    newSector.id = 'sector';
-    newSector.querySelector('#name').innerText = sector.name;
-    newSector.querySelector(
-      '#callsignAndFrequency'
-    ).innerText = `${sector.callsign} ${sector.frequency}`;
-    newSector.querySelector('#hdg').innerText = `HDG ${sector.hdg}`;
+  if (adjacentSectors) {
+    for (let i = 0; i < adjacentSectors.length; i++) {
+      const sector = adjacentSectors[i];
+      let newSector = sectorElementTemplate.cloneNode(true);
+      newSector.id = 'sector';
+      newSector.querySelector('#name').innerText = sector.name;
+      newSector.querySelector(
+        '#callsignAndFrequency'
+      ).innerText = `${sector.callsign} ${sector.frequency}`;
+      newSector.querySelector('#hdg').innerText = `HDG ${sector.hdg}`;
 
-    sidebar.appendChild(newSector);
+      sidebar.appendChild(newSector);
+    }
   }
 }
 

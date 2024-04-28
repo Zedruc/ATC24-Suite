@@ -4,7 +4,7 @@
 
 **🔧 Changes**  
 
-* Arrival list works again, an issue with callsign parsing prevented flights from showing up
+* Fixed radar sector list not rendering properly sometimes
 
 
 Happy Controlling  

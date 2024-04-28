@@ -517,6 +517,12 @@ const airports = {
           y: 439,
         },
       ],
+      vectors: [
+        {
+          to: 'ilar',
+          hdg: 'DEP FRQ',
+        },
+      ],
     },
     {
       name: 'Barra',
