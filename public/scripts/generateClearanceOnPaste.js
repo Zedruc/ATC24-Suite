@@ -286,7 +286,7 @@ function copyPDC(element) {
     } RWY ${findFirstActiveRunway()} DEP ${isGpsRouting ? 'GPS' : departureSid} INIT CLB FL${
       altitudeField.value
     } SQUAWK ${squawkField.value} WHEN RDY CALL FREQ ${
-      findStation('gnd').frequency
+      findStation('gnd')?.frequency || stationSelect.value.split('/')[1]
     } IF UNABLE CALL VOICE\``;
     // strip.setAttribute('data-fp', clearance);
     // stripElement.setAttribute('data-fp', rawPlan);

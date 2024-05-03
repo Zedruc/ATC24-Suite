@@ -4,7 +4,8 @@
 
 **🔧 Changes**  
 
-* Fixed radar sector list not rendering properly sometimes
+* Fixed PDC clearance failing when no GND station is available
+* Fixed IFR clearances being generated sometimes when option is disabled
 
 
 Happy Controlling  

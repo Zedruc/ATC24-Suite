@@ -115,7 +115,12 @@ class StripSaveManager {
     else currentData = JSON.parse(localStorageStrips);
     if (!currentData[list.id]) currentData[list.id] = [];
     let data = extractInfo(strip);
-    if (isAutoImport) data.info.importRoute = strip.dataset.route;
+    if (isAutoImport) {
+      data.info.importRoute = strip.dataset.route;
+      //TODO Test
+      data.info.route = strip.dataset.route;
+      data.info.flightplan = strip.dataset.route;
+    }
     currentData[list.id].unshift(data);
     if (shouldSave) {
       console.log('Modified??');

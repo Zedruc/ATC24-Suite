@@ -231,7 +231,8 @@ class WSManager {
           if (document.getElementById(data.stripId)) {
             StripSaveManager.remove(
               document.getElementById(data.stripId),
-              document.getElementById(listId)
+              document.getElementById(listId),
+              false
             );
             document.getElementById(data.stripId).remove();
             break;
@@ -310,7 +311,8 @@ class WSManager {
           const list = storage[key];
           for (let i = 0; i < list.length; i++) {
             let strip = list[i];
-            clearanceFromFlightPlan(document.getElementById(strip.info.stripId), true, strip);
+            if (Settings.get('generateClearance'))
+              clearanceFromFlightPlan(document.getElementById(strip.info.stripId), true, strip);
           }
         }
 
