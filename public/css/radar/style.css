@@ -20,6 +20,10 @@ canvas {
   background-repeat: no-repeat;
 }
 
+canvas[data-water="true"] {
+  background-color: #4d7ba3;
+}
+
 .container {
   display: grid;
   grid-template-columns: auto;

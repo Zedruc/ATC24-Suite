@@ -117,6 +117,15 @@ Charts - Flightstrips - Flightplan Management"
           <div class="settingContainer">
             <input
               type="checkbox"
+              id="radarWaterBackground"
+              data-setting
+              onchange="Settings.set(this.id, this.checked); if (window.radarWindow) {window.radarWindow.postMessage({ type: 'radar_water_update' });}"
+            />
+            <p>Show ocean in addition to island outline</p>
+          </div>
+          <div class="settingContainer">
+            <input
+              type="checkbox"
               id="generateClearance"
               data-setting
               onchange="Settings.set(this.id, this.checked)"

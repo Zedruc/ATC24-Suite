@@ -17,8 +17,12 @@ class Settings {
     let settingElements = document.querySelectorAll('[data-setting]');
     settingElements.forEach(el => {
       defaultOptions[el.id] = false;
+      if (this.get(el.id) == null) this.set(el.id, false);
       let value = this.get(el.id);
       el.checked = value;
+      if (window.radarWindow) {
+        window.radarWindow.postMessage({ type: 'radar_water_update' });
+      }
     });
   }
 }
@@ -36,3 +40,5 @@ if (document.body.id == 'main') {
     });
   });
 }
+
+window.Settings = Settings;

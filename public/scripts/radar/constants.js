@@ -12,7 +12,7 @@ const nmPerPixel = radarWidth / canvasSize;
 const ftPerNm = 6076.125;
 
 const ilsDistance = 9; // nautical miles
-const ilsColor = '#00D2FF';
+const ilsColor = '#fff';
 const threeMileMarkerWidth = 0.25; // nautical miles
 const threeMileMarkerThickness = 4;
 const dashDivider = 9;

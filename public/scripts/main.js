@@ -53,10 +53,11 @@ for (const island in airports) {
   airportSelect.appendChild(group);
 }
 
-airportSelect.selectedIndex = 10;
+airportSelect.selectedIndex = document.querySelector('option[value="rockford/Rockford"]').index;
 
 airportSelect.addEventListener('change', changeAirport);
 stationSelect.addEventListener('change', changeStation);
+// stationSelect.value = 'rockford/Rockford';
 
 executeStationSelectUpdate('rockford', 'Rockford');
 

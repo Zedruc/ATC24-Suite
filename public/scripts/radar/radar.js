@@ -7,6 +7,13 @@ let activeRunways = window.opener.activeRunways;
 // make window fit content
 window.resizeBy(windowWidth - window.innerWidth, windowSize - window.innerHeight);
 
+window.addEventListener('message', ({ data: { type } }) => {
+  console.log(type);
+  if (type == 'radar_water_update') {
+    radarCanvas.dataset.water = window.opener.Settings.get('radarWaterBackground');
+  }
+});
+
 const sidebar = document.getElementById('sidebar');
 const sectorElementTemplate = document.getElementById('templateItem');
 

@@ -20,6 +20,7 @@ function changeAirport(e, ...airportName) {
 }
 
 function executeStationSelectUpdate(island, airportName) {
+  console.log(airportName);
   while (stationSelect.firstChild) {
     stationSelect.removeChild(stationSelect.lastChild);
   }

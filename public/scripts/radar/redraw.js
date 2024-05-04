@@ -5,6 +5,26 @@ let lastMousePos = {
 
 function redrawRadarScreen() {
   ctx.clearRect(0, 0, canvasSize, canvasSize);
+  /**
+   * Island outline first because they cover large surfaces
+   */
+  let islandOutline = getIslandOutline(radarAirport);
+  if (islandOutline) {
+    for (let i = 0; i < islandOutline.length; i++) {
+      Island.draw(islandOutline[i], false);
+    }
+  }
+
+  /**
+   * Water bodies second because they cover large surfaces
+   * but ON terrain
+   */
+  let waterBodies = getWaterbodies(radarAirport);
+  if (waterBodies) {
+    for (let i = 0; i < waterBodies.length; i++) {
+      Water.draw(waterBodies[i], true);
+    }
+  }
   // draw debug and radar circle
   // DebugLines.draw();
   RadarCircle.draw(lastMousePos);
@@ -258,6 +278,37 @@ function getCities(icao) {
     }
   }
   return cities;
+}
+
+function getWaterbodies(icao) {
+  let waterBodies = [];
+  for (const country in airports) {
+    for (const airport of airports[country]) {
+      if (airport.icao.toLowerCase() == icao) {
+        if (!airport?.waterBodies) return;
+        for (let i = 0; i < airport.waterBodies.length; i++) {
+          waterBodies.push(airport.waterBodies[i]);
+        }
+        break;
+      }
+    }
+  }
+  return waterBodies;
+}
+function getIslandOutline(icao) {
+  let outline = [];
+  for (const country in airports) {
+    for (const airport of airports[country]) {
+      if (airport.icao.toLowerCase() == icao) {
+        if (!airport?.islandOutline) return;
+        for (let i = 0; i < airport.islandOutline.length; i++) {
+          outline.push(airport.islandOutline[i]);
+        }
+        break;
+      }
+    }
+  }
+  return outline;
 }
 
 function getTerrain(icao) {
