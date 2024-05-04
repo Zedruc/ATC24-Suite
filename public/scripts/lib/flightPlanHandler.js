@@ -114,10 +114,10 @@ function handleFlightplan(fpl, overrideHold = false) {
   }
 }
 
-function findFirstActiveRunway() {
+function findFirstActiveRunway(type = 'arr') {
   for (let i = 0; i < window.activeRunways.length; i++) {
     const rwy = window.activeRunways[i];
-    if (rwy.active && rwy.arrivalOrDeparture == 'arr') return rwy.rwyId;
+    if (rwy.active && rwy.arrivalOrDeparture == type) return rwy.rwyId;
   }
 }
 

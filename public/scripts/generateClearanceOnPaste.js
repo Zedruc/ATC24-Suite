@@ -199,7 +199,7 @@ function clearanceFromAutomaticImport(stripElement, fpl) {
   let routeField = stripElement.querySelector('#route');
   let runwayField = stripElement.querySelector('#runway');
 
-  runwayField.value = findFirstActiveRunway();
+  runwayField.value = findFirstActiveRunway(stripType == 'inbound' ? 'arr' : 'dep');
 
   if (fpl?.departing?.toLowerCase() != currentAirport.icao.toLowerCase())
     departingField.value = fpl.departing;
@@ -283,7 +283,7 @@ function copyPDC(element) {
 
     clearance = `\`PDC GENERATED ${day}${hour}${minute}Z\nCLR ${
       arrivingField.value
-    } RWY ${findFirstActiveRunway()} DEP ${isGpsRouting ? 'GPS' : departureSid} INIT CLB FL${
+    } RWY ${findFirstActiveRunway('dep')} DEP ${isGpsRouting ? 'GPS' : departureSid} INIT CLB FL${
       altitudeField.value
     } SQUAWK ${squawkField.value} WHEN RDY CALL FREQ ${
       findStation('gnd')?.frequency || stationSelect.value.split('/')[1]
