@@ -118,7 +118,7 @@ function detectDepartureRouting(route) {
   let result2 = sidOnlyRegex.exec(route);
   if (result2) return result2[1];
 
-  return false;
+  return 'GPS';
 }
 
 function validateAircraftType(givenTypeName) {
