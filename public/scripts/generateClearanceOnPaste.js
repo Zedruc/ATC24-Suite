@@ -281,7 +281,7 @@ function copyPDC(element) {
     let hour = pdcTime.getUTCHours().toString().padStart(2, '0');
     let minute = pdcTime.getUTCMinutes().toString().padStart(2, '0');
 
-    clearance = `\`PDC GENERATED ${day}${hour}${minute}Z\nCLR ${
+    clearance = `\`PDC FOR ${callsignField.value}/GENERATED ${day}${hour}${minute}Z\nCLR ${
       arrivingField.value
     } RWY ${findFirstActiveRunway('dep')} DEP ${isGpsRouting ? 'GPS' : departureSid} INIT CLB FL${
       altitudeField.value
