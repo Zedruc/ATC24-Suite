@@ -64,7 +64,7 @@ function flipHeading(hdg) {
 
 const sectors = {
   isau: {
-    name: 'Brighton',
+    name: 'Sauthemptona',
     callsign: 'ISAU_CTR',
     frequency: '127.820',
   },
@@ -74,22 +74,22 @@ const sectors = {
     frequency: '124.850',
   },
   ilar: {
-    name: 'Lazarus',
+    name: 'Larnaca',
     callsign: 'ILAR_CTR',
     frequency: '126.300',
   },
   izol: {
-    name: 'Norsom',
+    name: 'Izolirani',
     callsign: 'IZOL_CTR',
     frequency: '124.640',
   },
   ibth: {
-    name: 'Sotaf',
+    name: 'Barthélemy',
     callsign: 'IBTH_CTR',
     frequency: '128.600',
   },
   igrv: {
-    name: 'Keplavik',
+    name: 'Grindavik',
     callsign: 'IGRV_CTR',
     frequency: '126.750',
   },

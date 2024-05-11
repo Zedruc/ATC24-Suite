@@ -939,6 +939,12 @@ const airports = {
         },
       ],
       runways: ['SAND'],
+      vectors: [
+        {
+          to: 'ilar',
+          hdg: 'DEP FRQ',
+        },
+      ],
     },
     {
       name: 'McConnell AFB',
@@ -1036,6 +1042,12 @@ const airports = {
             y: 339,
           },
         ],
+      ],
+      vectors: [
+        {
+          to: 'ilar',
+          hdg: 'DEP FRQ',
+        },
       ],
     },
   ],
@@ -1784,6 +1796,12 @@ const airports = {
           },
         ],
       ],
+      vectors: [
+        {
+          to: 'izol',
+          hdg: 'DEP FRQ',
+        },
+      ],
     },
   ],
   orenji: [
@@ -2479,6 +2497,12 @@ const airports = {
           },
         ],
       ],
+      vectors: [
+        {
+          to: 'itko',
+          hdg: 'DEP FRQ',
+        },
+      ],
     },
   ],
   perth: [
@@ -3144,6 +3168,12 @@ const airports = {
             y: 394,
           },
         ],
+      ],
+      vectors: [
+        {
+          to: 'ipph',
+          hdg: 'DEP FRQ',
+        },
       ],
     },
   ],
@@ -3916,6 +3946,12 @@ const airports = {
           },
         ],
       ],
+      vectors: [
+        {
+          to: 'irfd',
+          hdg: 'DEP FRQ',
+        },
+      ],
     },
     {
       name: 'Air Base Garry',
@@ -4107,6 +4143,12 @@ const airports = {
             y: 296,
           },
         ],
+      ],
+      vectors: [
+        {
+          to: 'irfd',
+          hdg: 'DEP FRQ',
+        },
       ],
     },
   ],
