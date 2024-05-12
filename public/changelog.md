@@ -1,11 +1,11 @@
 <div id="changelog"></div>
 
-# Departure Frequencies
+# Stations
 
-**🌱 Additions**  
+**🔧 Changes**  
 
-* Added departure frequencies to all minor airports
-* Updated all center names
+* Changed "Info" stations to Tower to comply with ATC24 Callsign rules
+* Removed some stations from minor airports for the same reason
 
 Happy Controlling  
 \- Zedruc

@@ -706,20 +706,8 @@ const airports = {
       iata: 'PFO',
       stations: [
         {
-          type: 'CTR',
-          frequency: '119.900',
-        },
-        {
-          type: 'DEP',
-          frequency: '130.635',
-        },
-        {
           type: 'TWR',
           frequency: '119.900',
-        },
-        {
-          type: 'GND',
-          frequency: '120.800',
         },
       ],
       runways: ['35', '17'],
@@ -934,7 +922,7 @@ const airports = {
       iata: 'BRR',
       stations: [
         {
-          type: 'INFO',
+          type: 'TWR',
           frequency: '118.080',
         },
       ],
@@ -2220,7 +2208,7 @@ const airports = {
       iata: 'SAB',
       stations: [
         {
-          type: 'INFO',
+          type: 'TWR',
           frequency: '118.250',
         },
       ],
@@ -3012,7 +3000,7 @@ const airports = {
       iata: 'LUA',
       stations: [
         {
-          type: 'INFO',
+          type: 'TWR',
           frequency: '120.150',
         },
       ],
@@ -4167,7 +4155,7 @@ const airports = {
           frequency: '128.600',
         },
         {
-          type: 'INFO',
+          type: 'TWR',
           frequency: '118.450',
         },
       ],
