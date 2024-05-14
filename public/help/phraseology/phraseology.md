@@ -9,7 +9,7 @@ Both standards have their pros and cons, although - **personal opinion** -  I fi
 If you find any mistakes in this document that need to be corrected, please contact me through following options:
 
 - [Discord Server](https://discord.com/invite/EHxWfKEbrq)
-- [GitHub issue](https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose)
+- [GitHub issue](https://github.com/Zedruc/ATC24-Suite/issues/new/choose)
 
 ## Delivery
 

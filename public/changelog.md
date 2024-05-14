@@ -1,11 +1,10 @@
 <div id="changelog"></div>
 
-# Stations
+# Open Source
 
 **🔧 Changes**  
 
-* Changed "Info" stations to Tower to comply with ATC24 Callsign rules
-* Removed some stations from minor airports for the same reason
+* Updated links to [new main repo](https://github.com/Zedruc/ATC24-Suite)
 
 Happy Controlling  
 \- Zedruc

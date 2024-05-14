@@ -491,7 +491,7 @@ class WSManager {
           title: 'Error!',
           icon: 'error',
           html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try connecting again later.',
-          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>`,
+          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite/issues/new/choose" target="_blank">file a bug report here</a>`,
         });
         break;
       case 1006:
@@ -504,7 +504,7 @@ class WSManager {
           title: 'Error!',
           icon: 'error',
           html: 'The ATC24-Suite server is restarting to push an update.<br/>Please reload the page.',
-          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>`,
+          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite/issues/new/choose" target="_blank">file a bug report here</a>`,
         });
         break;
       default:
@@ -517,7 +517,7 @@ class WSManager {
           title: 'Error!',
           icon: 'error',
           html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try connecting again later.',
-          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>`,
+          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite/issues/new/choose" target="_blank">file a bug report here</a>`,
         });
         break;
     }
@@ -541,7 +541,7 @@ class WSManager {
           icon: 'error',
           html: "Your client has made an unauthorized request to the ATC24-Suite.<br/><br/>Please make sure you've connected your Discord account and reload the page.",
           footer:
-            'If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>',
+            'If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite/issues/new/choose" target="_blank">file a bug report here</a>',
         });
         leaveRoom();
         break;
@@ -553,7 +553,7 @@ class WSManager {
           icon: 'error',
           html: 'It seems you are already logged into the ATC24-Suite.<br/><br/>If you are sure you do not have any other windows open please make sure nobody else has access to your Discord account.',
           footer:
-            'If this problem persists and you are the only one using this Discord account, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a>',
+            'If this problem persists and you are the only one using this Discord account, please <a href="https://github.com/Zedruc/ATC24-Suite/issues/new/choose" target="_blank">file a bug report here</a>',
         });
         leaveRoom();
         break;
@@ -564,7 +564,7 @@ class WSManager {
           title: 'Error!',
           icon: 'error',
           html: 'The ATC24-Suite has unexpectedly closed the connection.<br/>This is an issue caused by ATC24-Suite, please try reconnecting by reloading again later.<br/>',
-          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite-Feedback/issues/new/choose" target="_blank">file a bug report here</a><br/><br/>Server message: ${errorMessage.message}`,
+          footer: `If this problem persists, please <a href="https://github.com/Zedruc/ATC24-Suite/issues/new/choose" target="_blank">file a bug report here</a><br/><br/>Server message: ${errorMessage.message}`,
         });
         leaveRoom();
         break;
