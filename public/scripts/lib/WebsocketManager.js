@@ -574,6 +574,7 @@ class WSManager {
   }
 }
 let wsUrl = 'wss://api.zedruc.net/ws';
+// dev
 if (window.location.hostname == 'localhost') wsUrl = 'ws://127.0.0.1:80';
 if (window.location.hostname == '127.0.0.1') wsUrl = 'ws://127.0.0.1:80';
 console.log(wsUrl);

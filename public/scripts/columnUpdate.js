@@ -1,4 +1,3 @@
-//TODO: Implement columnUpdate function
 function columnUpdate(listNameElement) {
   let newId = listNameElement.value;
   let oldId = listNameElement.parentElement.parentElement.id;
