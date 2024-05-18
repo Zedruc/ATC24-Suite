@@ -31,8 +31,8 @@ function redrawRadarScreen() {
   Square.draw(
     circleCenterAndRadius - 2.5 * resolutionScale,
     circleCenterAndRadius - 2.5 * resolutionScale,
-    5 * resolutionScale,
-    5 * resolutionScale
+    2 * resolutionScale,
+    2 * resolutionScale
   );
 
   // draw at mouse and PAY ATTENTION TO ORDER

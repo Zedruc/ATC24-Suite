@@ -12,12 +12,14 @@ class Runway {
       topRight: movePointAlongAngle(topMiddle, width / 2, rwyHeading + 90),
     };
 
-    Line.draw(bottomMiddle, corners.bottomLeft, runwayColor);
+    /* Line.draw(bottomMiddle, corners.bottomLeft, runwayColor);
     Line.draw(bottomMiddle, corners.bottomRight, runwayColor);
     Line.draw(topMiddle, corners.topLeft, runwayColor);
     Line.draw(topMiddle, corners.topRight, runwayColor);
     Line.draw(corners.topLeft, corners.bottomLeft, runwayColor);
-    Line.draw(corners.topRight, corners.bottomRight, runwayColor);
+    Line.draw(corners.topRight, corners.bottomRight, runwayColor); */
+
+    Line.draw(bottomMiddle, topMiddle, runwayColor, 8);
 
     /* if (hasILS) {
       // check active runway side
