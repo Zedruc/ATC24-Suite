@@ -180,7 +180,7 @@ button:active {
   background-color: var(--background);
 
   display: grid;
-  grid-template-columns: minmax(0, 3fr) 4fr;
+  grid-template-columns: minmax(0, 1.5fr) 4fr;
   grid-template-rows: 1fr;
 
   z-index: -1;
