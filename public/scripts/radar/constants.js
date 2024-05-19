@@ -69,7 +69,7 @@ const sectors = {
     frequency: '127.820',
   },
   irfd: {
-    name: 'Chicago',
+    name: 'Rockford',
     callsign: 'IRFD_CTR',
     frequency: '124.850',
   },

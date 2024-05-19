@@ -93,14 +93,14 @@ Example: `Lufthansa 201, give way to British Airways A320 crossing left to right
 **Tower on ATC24 takes over Ground if Ground is not online**  
 The ATC24 Tower also takes the Center position at the following major airports:
 
-- Rockford (Chicago Center)
-- Larnaca (Lazarus Center)
-- Izolirani (Norsom Center)
-- Saint Barthélemy (Sotaf Center)
+- Rockford (Rockford Center)
+- Larnaca (Larnaca Center)
+- Izolirani (Izolirani Center)
+- Saint Barthélemy (Barthélemy Center)
 - Perth (Perth Center)
 - Tokyo (Tokyo Center)
-- Grindavik (Keplavik Center)
-- Sauthemptona (Brighton)
+- Grindavik (Grindavik Center)
+- Sauthemptona (Sauthemptona Center)
 
 The Tower is responsible for giving takeoff clearances and landing clearances.  
 Furthermore the Tower is responsible for choosing the Airport configuration, so which runways are used for arrival/departure.
