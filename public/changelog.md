@@ -1,11 +1,10 @@
 <div id="changelog"></div>
 
-# Change Center name
+# Radar Font
 
 **🔧 Changes**  
 
-* Chicago CTR renamed to Rockford CTR
-* Updated Center names in the phraseology guide
+* Hopefully fixed the radar font not loading for some platforms (No, it was never supposed to be this weird standard old looking font)
 
 Happy Controlling
 \- Zedruc

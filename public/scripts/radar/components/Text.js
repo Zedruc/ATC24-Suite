@@ -9,7 +9,7 @@ class Text {
     color = mainColor
   ) {
     ctx.lineWidth = defaultLineWidth;
-    ctx.font = `${size * resolutionScale}px JetBrains Mono`;
+    ctx.font = `${size * resolutionScale}px "JetBrains Mono"`;
     ctx.fillStyle = color;
     let textMeasurements = ctx.measureText(content);
     if (shouldStroke) {
