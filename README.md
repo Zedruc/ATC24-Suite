@@ -89,7 +89,7 @@ In the full version of the suite, it is planned to have a sort of CPDLC simulate
 To contribute you can either tackle one of the roadmap items or do your own thing. Code will be reviewed by me (Zedruc) before accepting it.  
 General Guideline:
 
-1. **Do NOT** reformat a whole file and push that, as it makes code review harder, which will 100% read to rejection of pull requests.
+1. **Do NOT** reformat a whole file and push that, as it makes code review harder, which will 100% lead to rejection of pull requests.
 
 * Default indent tab = 2 spaces
 
