@@ -1,10 +1,10 @@
 <div id="changelog"></div>
 
-# Radar Font
+# Room Setting
 
 **🔧 Changes**  
 
-* Hopefully fixed the radar font not loading for some platforms (No, it was never supposed to be this weird standard old looking font)
+* Certain settings are now copied from the room creator and locked for the duration of being in the room to prevent client desync issues
 
 Happy Controlling
 \- Zedruc

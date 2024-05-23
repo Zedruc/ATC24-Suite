@@ -164,13 +164,16 @@ class WSManager {
           }).showToast();
           break;
         }
-        let { ownerName, roomId, memberCount, columns } = data;
+        let { ownerName, roomId, memberCount, columns, settings } = data;
         window.room = roomId;
         roomStatusText.innerText = `Connected - ${memberCount} Member(s)`;
         joinRoomButton.innerText = 'Leave Room';
         joinRoomButton.setAttribute('onclick', 'leaveRoom()');
         console.log(columns);
         localStorage.setItem('columns', JSON.stringify(columns));
+        localStorage.setItem('original_settings', localStorage.getItem('settings'));
+        localStorage.setItem('settings', JSON.stringify(settings));
+        disableSettings();
         populateColumns();
         createRoomButtonContainer.innerHTML = `Code: ${roomId}`;
         Toastify({
@@ -187,6 +190,8 @@ class WSManager {
         window.isRoomOwner = false;
         joinRoomButton.innerText = 'Join Room';
         joinRoomButton.setAttribute('onclick', 'joinRoom()');
+        localStorage.setItem('settings', localStorage.getItem('original_settings'));
+        enableSettings();
         Toastify({
           text: 'Left Room',
           duration: 5000,
@@ -581,10 +586,12 @@ console.log(wsUrl);
 window.wsManager = new WSManager(wsUrl);
 
 function createRoom() {
+  console.log(JSON.parse(localStorage.getItem('settings')));
   wsManager.sendMessage({
     type: MessageTypes.ROOM_CREATE,
     id: localStorage.getItem('discord_id'),
     columns: JSON.parse(localStorage.getItem('columns')),
+    settings: JSON.parse(localStorage.getItem('settings')),
   });
 }
 
@@ -682,4 +689,16 @@ function handleStripUpdate(listId, stripId, saveData) {
     strip.querySelector('#flightplan').value = saveData?.info
       ? saveData.info.flightplan
       : saveData.flightplan;
+}
+
+function disableSettings() {
+  document.querySelectorAll('[data-room-setting]').forEach(el => {
+    el.disabled = true;
+  });
+}
+
+function enableSettings() {
+  document.querySelectorAll('[data-room-setting]').forEach(el => {
+    el.disabled = false;
+  });
 }

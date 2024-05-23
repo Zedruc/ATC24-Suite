@@ -74,6 +74,7 @@ Charts - Flightstrips - Flightplan Management"
               type="checkbox"
               id="loadStripsOnStart"
               data-setting
+              data-room-setting
               onchange="Settings.set(this.id, this.checked)"
             />
             <p>Load strips from last session upon startup</p>
@@ -83,6 +84,7 @@ Charts - Flightstrips - Flightplan Management"
               type="checkbox"
               id="autoImportFlightplans"
               data-setting
+              data-room-setting
               onchange="Settings.set(this.id, this.checked)"
             />
             <p>Automatically import flightplans from ATC24 (Requires user to be in a room)</p>
@@ -92,6 +94,7 @@ Charts - Flightstrips - Flightplan Management"
               type="checkbox"
               id="holdArrivalsInList"
               data-setting
+              data-room-setting
               onchange="Settings.set(this.id, this.checked)"
             />
             <p>Hold Arrivals in Arrival List</p>
@@ -128,6 +131,7 @@ Charts - Flightstrips - Flightplan Management"
               type="checkbox"
               id="generateClearance"
               data-setting
+              data-room-setting
               onchange="Settings.set(this.id, this.checked)"
             />
             <p>Generate IFR clearance shorthand when loading flightplan</p>
@@ -147,6 +151,7 @@ Charts - Flightstrips - Flightplan Management"
               type="checkbox"
               id="eventFlightPlans"
               data-setting
+              data-room-setting
               onchange="Settings.set(this.id, this.checked)"
               checked="true"
             />
