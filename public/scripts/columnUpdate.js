@@ -1,6 +1,8 @@
 function columnUpdate(listNameElement) {
-  let newId = listNameElement.value;
-  let oldId = listNameElement.parentElement.parentElement.id;
+  let newId = listNameElement.value.toUpperCase();
+  console.log(newId);
+  let oldId = listNameElement.parentElement.parentElement.id.toUpperCase();
+  console.log(oldId);
   if (document.getElementById(newId)) return;
   listNameElement.parentElement.parentElement.id = newId;
 
@@ -23,7 +25,7 @@ function columnUpdate(listNameElement) {
 
   let storageColumns = localStorage.getItem('columns');
   if (storageColumns == null)
-    localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+    localStorage.setItem('columns', JSON.stringify(['DELIVERY', 'GROUND', 'TOWER', 'APP/DEP']));
   else {
     storageColumns = JSON.parse(storageColumns);
     let index = storageColumns.indexOf(oldId);
@@ -34,8 +36,8 @@ function columnUpdate(listNameElement) {
   if (window.room) {
     wsManager.sendMessage({
       type: 'column_change',
-      oldId: oldId.toLowerCase(),
-      newId: newId.toLowerCase(),
+      oldId: oldId.toUpperCase(),
+      newId: newId.toUpperCase(),
       roomId: window.room,
       origin: localStorage.getItem('discord_id'),
     });

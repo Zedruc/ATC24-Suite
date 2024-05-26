@@ -170,7 +170,7 @@ class WSManager {
         joinRoomButton.innerText = 'Leave Room';
         joinRoomButton.setAttribute('onclick', 'leaveRoom()');
         console.log(columns);
-        localStorage.setItem('columns', JSON.stringify(columns));
+        localStorage.setItem('columns', JSON.stringify(columns.map(list => list.toUpperCase())));
         localStorage.setItem('original_settings', localStorage.getItem('settings'));
         localStorage.setItem('settings', JSON.stringify(settings));
         disableSettings();
@@ -362,6 +362,8 @@ class WSManager {
 
       case MessageTypes.COLUMN_CREATE: {
         let { origin, listId } = data;
+        console.log('COLUMN_CREATE WS!!!!');
+        console.log(listId);
         if (origin == localStorage.getItem('discord_id')) {
           console.log('we are the origin, ignoring');
           break;

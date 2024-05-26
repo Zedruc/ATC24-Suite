@@ -236,8 +236,8 @@ const keybinds = [
     key: 'l',
     action: (wsAction = false, listId) => {
       let newList = templateList.cloneNode(true);
-      let placeholderName = wsAction ? listId : `new list ${++listIndex}`;
-      newList.id = placeholderName;
+      let placeholderName = wsAction ? listId : `NEW LIST ${++listIndex}`;
+      newList.id = placeholderName.toUpperCase();
       newList.querySelector('#listNameInput').value = placeholderName;
       console.log(newList);
 
@@ -245,17 +245,17 @@ const keybinds = [
 
       let storageColumns = localStorage.getItem('columns');
       if (storageColumns == null)
-        localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+        localStorage.setItem('columns', JSON.stringify(['DELIVERY', 'GROUND', 'TOWER', 'APP/DEP']));
       else {
         storageColumns = JSON.parse(storageColumns);
-        storageColumns.push(newList.id);
+        storageColumns.push(newList.id.toUpperCase());
         localStorage.setItem('columns', JSON.stringify(storageColumns));
       }
 
       if (!wsAction && window.room) {
         wsManager.sendMessage({
           type: MessageTypes.COLUMN_CREATE,
-          listId: newList.id,
+          listId: newList.id.toUpperCase(),
           origin: localStorage.getItem('discord_id'),
           roomId: window.room,
         });
@@ -278,7 +278,7 @@ const keybinds = [
 
       let storageColumns = localStorage.getItem('columns');
       if (storageColumns == null)
-        localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+        localStorage.setItem('columns', JSON.stringify(['DELIVERY', 'GROUND', 'TOWER', 'APP/DEP']));
       else {
         storageColumns = JSON.parse(storageColumns);
         let index = storageColumns.indexOf(list.id);

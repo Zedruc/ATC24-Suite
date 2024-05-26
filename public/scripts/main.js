@@ -25,7 +25,7 @@ if (!window?.navigator?.clipboard?.readText) {
 let firstTimeVisit = localStorage.getItem('firstTimeVisit');
 let columns = localStorage.getItem('columns');
 if (!columns)
-  localStorage.setItem('columns', JSON.stringify(['delivery', 'ground', 'tower', 'app/dep']));
+  localStorage.setItem('columns', JSON.stringify(['DELIVERY', 'GROUND', 'TOWER', 'APP/DEP']));
 populateColumns();
 if (firstTimeVisit !== 'true') {
   notificationQueue.queue({

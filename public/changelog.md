@@ -1,10 +1,10 @@
 <div id="changelog"></div>
 
-# Room Setting
+# Bug Fix
 
 **🔧 Changes**  
 
-* Certain settings are now copied from the room creator and locked for the duration of being in the room to prevent client desync issues
+* Hopefully fixed some lists being duplicated on the server leading to strips disappearing
 
 Happy Controlling
 \- Zedruc
