@@ -18,7 +18,7 @@ function updateAirportInfo(airport) {
   let chartMode = Settings.get('chartDarkMode') ? 'dark' : 'light';
   $('#chart').prop(
     'src',
-    `https://ptfs.xyz/charts/${chartMode}/${airport.icao}%20ground%20chart.png`
+    `https://ptfs.xyz/charts/${chartMode}/${airport.icao}%20Ground%20Chart.png`
   );
 }
 
