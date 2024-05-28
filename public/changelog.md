@@ -4,7 +4,9 @@
 
 **🔧 Changes**  
 
-* Hopefully fixed some lists being duplicated on the server leading to strips disappearing
+* Fixed some list ID formatting issues causing trouble in the server
+
+## It is highly recommended to RESET your lists once in the settings
 
 Happy Controlling
 \- Zedruc

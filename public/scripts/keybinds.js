@@ -428,7 +428,7 @@ document.addEventListener('keypress', e => {
           id: localStorage.getItem('discord_id'),
           type: 'strip_move',
           stripId: strip.id,
-          listId: list.id,
+          listId: list.id.toUpperCase(),
           roomId: window.room,
         };
         if (usedKeybind.key.toLowerCase() == 'w') {
