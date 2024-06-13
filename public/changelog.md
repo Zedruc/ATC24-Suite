@@ -1,12 +1,11 @@
 <div id="changelog"></div>
 
-# Bug Fix
+# Charts
 
 **🔧 Changes**  
 
-* Fixed some list ID formatting issues causing trouble in the server
-
-## It is highly recommended to RESET your lists once in the settings
+* Added new and improved charts for Rockford
+* Added Azul Airlines `AZU` to callsign parsing
 
 Happy Controlling
 \- Zedruc

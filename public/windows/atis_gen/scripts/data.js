@@ -124,6 +124,11 @@ let airportATISData = [
     maxAircraftSize: 'N/A',
     chartPacks: [
       {
+        author: 'sweet_kid, midwestavgeek, nova_av, poppys_journal',
+        link: 'https://drive.google.com/file/d/1a8ZqQjxqUC99J5oSskeH6dmsBeDTRUb9/view',
+        sids: [],
+      },
+      {
         author: 'EzyDubbs',
         link: 'https://drive.google.com/file/d/1MOI1puAwf733QynAkhTGVuPrP-gbwz7m/view',
         sids: [],

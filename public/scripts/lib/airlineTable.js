@@ -22145,7 +22145,7 @@ let airlineTable = {
   },
   AZU: {
     name: 'Azul',
-    callsign: '',
+    callsign: 'Azul',
   },
   LOO: {
     name: 'LSM Airlines',
