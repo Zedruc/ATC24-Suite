@@ -116,7 +116,7 @@ Speed ${document.getElementById('airSpeedRestriction').value || '250'}kts or bel
 VFR Acft say Direction of Flight and Intentions.
 ${atis.sidstar ? `SIDs/STARs are preferred.\n` : ''}${
     atis.emergencies ? 'Emergencies Allowed.' : 'No Emergencies.' /* After this custom notams */
-  }\n${atis.cpdlc ? 'CPDLC Avail. Through DMs.\n' : ''}${
+  }\n${atis.cpdlc ? 'PDC Avail. Through DMs.\n' : ''}${
     additionalNotams.length > 0 ? `${additionalNotams}\n` : ''
   }
 **Charts:**

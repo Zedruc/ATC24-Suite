@@ -1,11 +1,10 @@
 <div id="changelog"></div>
 
-# Charts
+# ATIS PDC Formulation Change
 
 **🔧 Changes**  
 
-* Added new and improved charts for Rockford
-* Added Azul Airlines `AZU` to callsign parsing
+* Changed the ATIS from saying "CPDLC" to "PDC"
 
 Happy Controlling
 \- Zedruc
