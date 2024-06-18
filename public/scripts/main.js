@@ -13,10 +13,10 @@ if (window.location.hostname == 'zedruc.net') {
   console.warn = noOp;
 } */
 
-if (!window?.navigator?.clipboard?.readText) {
+if (window?.navigator?.userAgent.toLowerCase().includes('firefox')) {
   notificationQueue.queue({
     title: 'Important!',
-    html: `It seems you are using a browser like Firefox, which doesn't support features required for this program to function properly.<br/>Consider using Chrome, as this is what the ATC24-Suite was developed for.`,
+    html: `It seems you are using a browser like Firefox, which doesn't support features required for this program to function properly.<br/><b>Firefox uses may increasingly experience issues with the suite thinking you are still logged in because of Firefox not closing connections properly.</b><br/> Consider using Chrome, as this is what the ATC24-Suite was developed for.`,
     icon: 'info',
   });
 }
