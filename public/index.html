@@ -160,6 +160,20 @@ Charts - Flightstrips - Flightplan Management"
             </p>
           </div>
           <div class="settingContainer">
+            <input
+              type="checkbox"
+              id="rockfordEnroute"
+              data-setting
+              data-room-setting
+              onchange="Settings.set(this.id, this.checked)"
+              checked="true"
+            />
+            <p>
+              Show all flights as enroute when controlling Rockford (Should only be used by Event
+              ATCs)
+            </p>
+          </div>
+          <div class="settingContainer">
             <div>
               <button id="connectDiscord" class="discordButton" onclick="verifyDiscord()">
                 Connect Discord

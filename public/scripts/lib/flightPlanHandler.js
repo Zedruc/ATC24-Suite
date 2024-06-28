@@ -111,6 +111,14 @@ function handleFlightplan(fpl, overrideHold = false) {
       clearanceFromAutomaticImport(generatedStrip, fpl);
       StripSaveManager.add(generatedStrip, list, true, true);
     }
+    if (Settings.get('rockfordEnroute') && currentAirport.icao.toLowerCase() == 'irfd') {
+      let list = document.querySelector('.stripContainer').lastChild;
+      let generatedStrip = generateStripFromLiveFlightplan(fpl, 'inbound');
+      list.appendChild(generatedStrip);
+      fpl.route = `[ENROUTE] ${fpl.route}`;
+      clearanceFromAutomaticImport(generatedStrip, fpl);
+      StripSaveManager.add(generatedStrip, list, true, true);
+    }
   }
 }
 
