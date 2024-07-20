@@ -129,8 +129,18 @@ let airportATISData = [
         sids: [],
       },
       {
+        author: 'FormicAcid',
+        link: 'https://drive.google.com/file/d/12rwTgSjcOXxvZ6z8o8y5GRV1lNnt-h4D/view',
+        sids: [],
+      },
+      {
         author: 'EzyDubbs',
         link: 'https://drive.google.com/file/d/1MOI1puAwf733QynAkhTGVuPrP-gbwz7m/view',
+        sids: [],
+      },
+      {
+        author: 'p1anes',
+        link: 'https://docs.google.com/document/d/1eB-ADQqrQhbFQA6Xub2uLQKJOUsi5DUitTDE0Ej2F6g/edit',
         sids: [],
       },
     ],
@@ -272,20 +282,8 @@ let airportATISData = [
     maxAircraftSize: 'B787/A350/MD11',
     chartPacks: [
       {
-        author: 'Official',
-        link: 'https://github.com/Treelon/ptfs-charts/tree/main/Rockford/Mellor',
-      },
-      {
-        author: 'EzyDubbs',
-        link: 'https://drive.google.com/file/d/1u0f6131yt_nA83RYKm5cy6f1SzfOOxTu/view',
-      },
-      {
-        author: 'DarthD3NN15',
-        link: 'https://docs.google.com/presentation/d/1s72z-fRBtVsDE4fGcTyIMWNbrVF7_i9ja8K4PDA1MWc/edit#slide=id.p',
-      },
-      {
-        author: 'SQD_Yeet, sanderli25',
-        link: 'https://docs.google.com/presentation/d/1OVEz2Zq1MzEr9_kDXYxo_t82d-bHchD_MJXi38d8IWk/edit#slide=id.gc6f90357f_0_0',
+        author: "Willek10, VilleTheDude",
+        link: "https://drive.google.com/file/d/1kFz3l__nWp8TIL9TpKmVKTpzjBUIWgj3/view?usp=drive_link"
       },
       {
         author: 'Jeffersen',
