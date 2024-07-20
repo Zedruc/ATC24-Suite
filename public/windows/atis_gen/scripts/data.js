@@ -150,12 +150,12 @@ let airportATISData = [
     maxAircraftSize: 'B787/A350/MD11',
     chartPacks: [
       {
-        author: 'AeroNav',
-        link: 'https://drive.google.com/file/d/1ogNKjFsaa3mk77WbMO_xP-Us8JFOJ-Q7/view',
-      },
-      {
         author: 'Official',
         link: 'https://github.com/Treelon/ptfs-charts/tree/main/Grindavik/Grindavik',
+      },
+      {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1ogNKjFsaa3mk77WbMO_xP-Us8JFOJ-Q7/view',
       },
       {
         author: 'sander25',
@@ -296,12 +296,12 @@ let airportATISData = [
     maxAircraftSize: 'B787/A350/MD11',
     chartPacks: [
       {
-        author: 'AeroNav',
-        link: 'https://drive.google.com/file/d/1Ckwrvr93OBZxEfpSwTzc75ALkCmjqsqr/view',
-      },
-      {
         author: 'Official',
         link: 'https://github.com/Treelon/ptfs-charts/tree/main/Cyprus/Paphos',
+      },
+      {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1Ckwrvr93OBZxEfpSwTzc75ALkCmjqsqr/view',
       },
       {
         author: 'sanderli25',
@@ -318,12 +318,12 @@ let airportATISData = [
     maxAircraftSize: 'N/A',
     chartPacks: [
       {
-        author: 'AeroNav',
-        link: 'https://drive.google.com/file/d/1Qhg6zRsIBAjeC_iidsy39FVt5UZhdi5o/view'
-      },
-      {
         author: 'Official',
         link: 'https://github.com/Treelon/ptfs-charts/tree/main/Perth/Perth',
+      },
+      {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1Qhg6zRsIBAjeC_iidsy39FVt5UZhdi5o/view'
       },
       {
         author: 'Natto, userwastaken, Nikita39Gamer',
@@ -400,12 +400,12 @@ let airportATISData = [
     maxAircraftSize: 'CRJ7/Q400',
     chartPacks: [
       {
-        author: 'AeroNav',
-        link: 'https://drive.google.com/file/d/1OSWgKHBnu8ch3sP68erv8_nVcAFIY7CQ/view',
-      },
-      {
         author: 'Official',
         link: 'https://github.com/Treelon/ptfs-charts',
+      },
+      {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1OSWgKHBnu8ch3sP68erv8_nVcAFIY7CQ/view',
       },
       {
         author: 'playevator',
