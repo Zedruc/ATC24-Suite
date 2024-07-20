@@ -1,10 +1,16 @@
 <div id="changelog"></div>
 
-# Event ATC Option
+# Charts
 
 **🔧 Changes**  
 
-* Added an option to display all flights as enroute when controlling rockford
+* Added AeroNav charts to following airports:
+  * IRFD
+  * IPPH
+  * IPAP
+  * IIAB
+  * IGRV
+  * IBTH
 
 Happy Controlling
 \- Zedruc

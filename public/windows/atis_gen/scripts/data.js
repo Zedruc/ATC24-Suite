@@ -124,7 +124,7 @@ let airportATISData = [
     maxAircraftSize: 'N/A',
     chartPacks: [
       {
-        author: 'sweet_kid, midwestavgeek, nova_av, poppys_journal',
+        author: 'AeroNav',
         link: 'https://drive.google.com/file/d/1a8ZqQjxqUC99J5oSskeH6dmsBeDTRUb9/view',
         sids: [],
       },
@@ -139,6 +139,10 @@ let airportATISData = [
     icaoCode: 'IGRV',
     maxAircraftSize: 'B787/A350/MD11',
     chartPacks: [
+      {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1ogNKjFsaa3mk77WbMO_xP-Us8JFOJ-Q7/view',
+      },
       {
         author: 'Official',
         link: 'https://github.com/Treelon/ptfs-charts/tree/main/Grindavik/Grindavik',
@@ -294,6 +298,10 @@ let airportATISData = [
     maxAircraftSize: 'B787/A350/MD11',
     chartPacks: [
       {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1Ckwrvr93OBZxEfpSwTzc75ALkCmjqsqr/view',
+      },
+      {
         author: 'Official',
         link: 'https://github.com/Treelon/ptfs-charts/tree/main/Cyprus/Paphos',
       },
@@ -305,16 +313,16 @@ let airportATISData = [
         author: 'playevator',
         link: 'https://docs.google.com/presentation/d/1OTeilcBnK6c5MJuhMTcBu03cauV5dKokGkAsrGdD3sg/edit#slide=id.g23c6c35c134_1_0',
       },
-      {
-        author: 'sweet_kid',
-        link: 'https://drive.google.com/file/d/1Ckwrvr93OBZxEfpSwTzc75ALkCmjqsqr/view',
-      },
     ],
   },
   {
     icaoCode: 'IPPH',
     maxAircraftSize: 'N/A',
     chartPacks: [
+      {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1Qhg6zRsIBAjeC_iidsy39FVt5UZhdi5o/view'
+      },
       {
         author: 'Official',
         link: 'https://github.com/Treelon/ptfs-charts/tree/main/Perth/Perth',
@@ -394,12 +402,12 @@ let airportATISData = [
     maxAircraftSize: 'CRJ7/Q400',
     chartPacks: [
       {
-        author: 'Official',
-        link: 'https://github.com/Treelon/ptfs-charts',
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1OSWgKHBnu8ch3sP68erv8_nVcAFIY7CQ/view',
       },
       {
-        author: 'sweet_kid',
-        link: 'https://drive.google.com/file/d/1OSWgKHBnu8ch3sP68erv8_nVcAFIY7CQ/view',
+        author: 'Official',
+        link: 'https://github.com/Treelon/ptfs-charts',
       },
       {
         author: 'playevator',
