@@ -4,13 +4,7 @@
 
 **🔧 Changes**  
 
-* Added AeroNav charts to following airports:
-  * IRFD
-  * IPPH
-  * IPAP
-  * IIAB
-  * IGRV
-  * IBTH
+* Made OFFICIAL charts show before AeroNav charts for ease of use
 
 Happy Controlling
 \- Zedruc
