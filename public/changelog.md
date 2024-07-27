@@ -1,6 +1,6 @@
 <div id="changelog"></div>
 
-# Charts
+# List Desync
 
 **🔧 Changes**  
 
