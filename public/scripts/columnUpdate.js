@@ -3,7 +3,21 @@ function columnUpdate(listNameElement) {
   console.log(newId);
   let oldId = listNameElement.parentElement.parentElement.id.toUpperCase();
   console.log(oldId);
-  if (document.getElementById(newId)) return;
+  if(oldId.toUpperCase() == newId.toUpperCase()) return;
+  if (document.getElementById(newId)) {
+    listNameElement.value = oldId; // Keep old name to not desync
+
+    Toastify({
+      text: `Cannot have two lists with same name.`,
+      duration: 5000,
+      newWindow: true,
+      close: true,
+      gravity: 'bottom', // `top` or `bottom`
+      position: 'right', // `left`, `center` or `right`
+    }).showToast();
+
+    return;
+  };
   listNameElement.parentElement.parentElement.id = newId;
 
   // rename list in storage
