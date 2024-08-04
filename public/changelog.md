@@ -1,10 +1,10 @@
 <div id="changelog"></div>
 
-# List Desync
+# Remove Firefox Warning
 
 **🔧 Changes**  
 
-* Fixed a bug where lists could have the same name for the user changing the name, but the change not being synced to other users in the room. This will now display an error message.
+* Removed the Firefox warning (for now) in the hope that with automatic flightplan imports most Firefox issues are sorted
 
 Happy Controlling
 \- Zedruc
