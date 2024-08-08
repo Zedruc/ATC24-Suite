@@ -1099,11 +1099,7 @@ const airports = {
       name: 'Mellor',
       icao: 'IMLR',
       iata: 'MEL',
-      stations: [
-        {
-          type: 'CTR',
-          frequency: '125.650',
-        },
+      station: [
         {
           type: 'TWR',
           frequency: '133.850',
