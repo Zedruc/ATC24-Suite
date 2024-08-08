@@ -1,10 +1,10 @@
 <div id="changelog"></div>
 
-# Remove Firefox Warning
+# Remove Mellor CTR
 
 **🔧 Changes**  
 
-* Removed the Firefox warning (for now) in the hope that with automatic flightplan imports most Firefox issues are sorted
+* Removed IMLR_CTR because people kept getting an ass whooping over their ATIS. [Cross' PR](https://github.com/Zedruc/ATC24-Suite/pull/58)
 
 Happy Controlling
 \- Zedruc
