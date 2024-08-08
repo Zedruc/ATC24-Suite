@@ -3611,10 +3611,6 @@ const airports = {
       iata: 'MEL',
       stations: [
         {
-          type: 'CTR',
-          frequency: '125.650',
-        },
-        {
           type: 'TWR',
           frequency: '133.850',
         },
