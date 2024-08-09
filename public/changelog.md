@@ -1,10 +1,14 @@
 <div id="changelog"></div>
 
-# Remove Mellor CTR
+# ATC24 Rules Change
 
 **🔧 Changes**  
 
-* Removed IMLR_CTR because people kept getting an ass whooping over their ATIS. [Cross' PR](https://github.com/Zedruc/ATC24-Suite/pull/58)
+* Removed "Allow Emergencies" checkbox from ATIS generator  
+  -> **Emergencies are not allowed on ATC24 anymore**
+
+* Removed Speed Restriction input from ATIS generator  
+  -> **Speed restriction of max. 250kts now applies to all aircraft flying under 3000ft**
 
 Happy Controlling
 \- Zedruc

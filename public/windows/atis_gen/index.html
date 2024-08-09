@@ -32,10 +32,10 @@
           <span class="inputName">QNH:</span>
           <input type="text" id="qnh" value="1013" />
         </div>
-        <div class="input">
+        <!-- <div class="input">
           <span class="inputName">Speed Restriction:</span>
           <input type="text" id="airSpeedRestriction" value="250" />
-        </div>
+        </div> -->
         <div class="input">
           <span class="inputName">Ground Initial Contact</span>
           <div class="checkboxContainer">
@@ -92,27 +92,14 @@
         <div class="input">
           <span class="inputName">Charts</span>
           <select name="chartPack" id="chartPack" onchange="generateATIS()"></select>
-        </div>
-        <div class="input">
-          <span class="inputName">Emergencies</span>
-          <div class="checkboxContainer">
-            <input
-              type="checkbox"
-              name="emergencies"
-              id="emergencies"
-              onchange="updateCheckbox(this)"
-            />
-            <label for="emergencies">Allowed?</label>
-          </div>
-        </div>
-        <div class="input">
+          <br />
           <span class="inputName">SIDs/STARs</span>
           <div class="checkboxContainer">
             <input type="checkbox" name="sidstar" id="sidstar" onchange="updateCheckbox(this)" />
             <label for="sidstar">Preferred?</label>
           </div>
           <br />
-          <span class="inputName">CPDLC</span>
+          <span class="inputName">PDC</span>
           <div class="checkboxContainer">
             <input type="checkbox" name="cpdlc" id="cpdlc" onchange="updateCheckbox(this)" />
             <label for="cpdlc">Available?</label>
@@ -122,6 +109,9 @@
           <span class="inputName">Additional NOTAMs</span>
           <textarea oninput="generateATIS()" id="notams" rows="10" cols="30"></textarea>
         </div>
+        <!-- <div class="input">
+          
+        </div> -->
       </div>
       <div class="output">
         <textarea readonly id="output" wrap="hard"></textarea>

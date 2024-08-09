@@ -112,13 +112,9 @@ Airborne Acft Advise Receipt of Information ${
   }${atis.airAircraftType ? ', Aircraft Type' : ''}${atis.altitude ? ', Altitude' : ''}${
     atis.airspeed ? ', Airspeed' : ''
   }${atis.heading ? ', Heading' : ''} on Initial Contact.
-Speed ${document.getElementById('airSpeedRestriction').value || '250'}kts or below.
 VFR Acft say Direction of Flight and Intentions.
-${atis.sidstar ? `SIDs/STARs are preferred.\n` : ''}${
-    atis.emergencies ? 'Emergencies Allowed.' : 'No Emergencies.' /* After this custom notams */
-  }\n${atis.cpdlc ? 'PDC Avail. Through DMs.\n' : ''}${
-    additionalNotams.length > 0 ? `${additionalNotams}\n` : ''
-  }
+${atis.sidstar ? `SIDs/STARs are preferred.\n` : ''}${atis.cpdlc ? 'PDC Avail. Through DMs.\n' : ''}${
+    additionalNotams.length > 0 ? `${additionalNotams}\n` : ''}
 **Charts:**
 Chart Pack Author: ${chartPackSplitInfo[0]}
 Chart Pack Link: <${chartPackSplitInfo[1]}>
