@@ -17,8 +17,8 @@
 }
 
 .stripContainer>div.stripList {
-  height: 100%;
-  width: 100%;
+  height: 110%;
+  width: 110%;
   display: grid;
   grid-template-rows: 70px repeat(10, min-content);
 
