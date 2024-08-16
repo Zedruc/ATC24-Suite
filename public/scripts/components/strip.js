@@ -120,6 +120,7 @@ function generateStripFromLiveFlightplan(fpl, type) {
   // /* let freeTextField = */ newStrip.querySelector('#notes').value = fpl.notes;
   /* let freeTextField = */ newStrip.querySelector('#route').innerText = fpl.route;
   // /* let freeTextField = */ newStrip.querySelector('#flightplan').value = fpl.flightplan;
+  /* let frequencyField = */ newStrip.querySelector('#frequency').value = fpl.frequency
 
   return newStrip;
 }
