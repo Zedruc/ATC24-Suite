@@ -85,6 +85,7 @@ function generatePrepopulatedStrip(saveData) {
   /* let freeTextField = */ newStrip.querySelector('#notes').value = saveData.info.notes;
   /* let freeTextField = */ newStrip.querySelector('#route').value = saveData.info.route;
   /* let freeTextField = */ newStrip.querySelector('#flightplan').value = saveData.info.flightplan;
+  /* let frequencyField = */ newStrip.querySelector('#frequency').value = saveData.info.frequency;
 
   return newStrip;
 }
