@@ -131,8 +131,13 @@
   height: 70%;
   font-size: small;
 }
-
 .routeText {
+  font-size: small;
+  margin: .1rem 0;
+  width: 100%;
+  text-align: center;
+}
+.frequency {
   font-size: small;
   margin: .1rem 0;
   width: 100%;
