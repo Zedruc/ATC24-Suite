@@ -76,7 +76,7 @@
 .strip>.bottom {
   padding: .2rem;
   grid-column: span 8;
-  height: 120%;
+  height: 150%;
   display: block;
   justify-content: center;
 }
