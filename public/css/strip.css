@@ -17,7 +17,7 @@
 }
 
 .stripContainer>div.stripList {
-  height: 180%;
+  height: 100%;
   width: 100%;
   display: grid;
   grid-template-rows: 70px repeat(10, min-content);
@@ -46,8 +46,8 @@
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: 2fr 1fr;
   height: fit-content;
-  max-height: 350px;
-  min-height: 300px;
+  max-height: 300px;
+  min-height: 250px;
   border: 2px solid var(--strip-border);
 }
 
@@ -76,7 +76,7 @@
 .strip>.bottom {
   padding: .2rem;
   grid-column: span 8;
-  height: 200%;
+  height: 150%;
   display: block;
   justify-content: center;
 }
