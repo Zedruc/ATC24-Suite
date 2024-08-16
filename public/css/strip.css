@@ -142,6 +142,7 @@
   margin: .1rem 0;
   width: 100%;
   text-align: center;
+  offset-position: right 25px
 }
 
 .pdcButton {
