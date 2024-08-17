@@ -12,27 +12,53 @@ let stripTypes = ['inbound', 'outbound', 'vfr'];
 
 let templateStrip = document.getElementById('templateStrip');
 
+
+const arrivalGroups = {
+  'IFRD': { controlArea: 'Rockford', frequency: '124.850' },
+  'ITRN': { controlArea: 'Rockford', frequency: '124.850' },
+  'IBLT': { controlArea: 'Rockford', frequency: '124.850' },
+  'IGAR': { controlArea: 'Rockford', frequency: '124.850' },
+  'IMLR': { controlArea: 'Rockford', frequency: '124.850' },
+
+  'IHEN': { controlArea: 'Cyprus', frequency: '126.300' },
+  'IIAB': { controlArea: 'Cyprus', frequency: '126.300' },
+  'ILAR': { controlArea: 'Cyprus', frequency: '126.300' },
+  'IPAP': { controlArea: 'Cyprus', frequency: '126.300' },
+
+  'IZOL': { controlArea: 'Izolirani', frequency: '124.640' },
+  'IJAF': { controlArea: 'Izolirani', frequency: '124.640' },
+
+  'IPPH': { controlArea: 'Perth', frequency: '135.250' },
+  'ILKL': { controlArea: 'Perth', frequency: '135.250' },
+
+  'ITKO': { controlArea: 'Orenji', frequency: '132.300' },
+  'IDCS': { controlArea: 'Orenji', frequency: '132.300' },
+
+  'IBTH': { controlArea: 'St Barthelemy', frequency: '128.600' },
+
+  'IGRV': { controlArea: 'Grindavik', frequency: '126.750' },
+
+  'ISAU': { controlArea: 'Sauthemptona', frequency: '122.730' },
+};
+
 /**
  *
  * @param {string} type Inbound | Outbound | VFR
  * @param {bool} shouldGenerateRandomSquawk
  * @param {string} stripListType Del | Gnd | Twr | App/Dep
+ * @param {string} departure Departure airport ICAO code
+ * @param {string} arrival Arrival airport ICAO code
  * @returns
  */
-function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
+function generateStrip(type, shouldGenerateRandomSquawk, stripListType, departure, arrival) {
   let newStrip = templateStrip.cloneNode(true);
   newStrip.id = generateId(10);
-  /* newStrip.querySelectorAll('.textInput').forEach(input => {
-    input.addEventListener('focusout', event => {
-      StripSaveManager.updateStrip(newStrip, newStrip.parentElement);
-    });
-  }); */
+  
   newStrip.setAttribute('data-type', type);
   newStrip.removeEventListener('focusout', focusOutEvent);
   newStrip.addEventListener('focusout', focusOutEvent);
 
   if (!stripTypes.includes(type)) return;
-  // if (!stripListTypes.includes(stripListType)) return;
 
   if (shouldGenerateRandomSquawk) {
     let squawk = generateSquawk();
@@ -41,7 +67,17 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
 
   if (type !== 'vfr') {
     newStrip.querySelector('#runway').value = getDepartureRunway();
-    newStrip.querySelector('#departure').value = currentAirport.icao || '';
+    newStrip.querySelector('#departure').value = departure || '';
+  }
+
+  // Set the next frequency based on the arrival airport
+  if (arrival) {
+    let groupInfo = arrivalGroups[arrival];
+    if (groupInfo) {
+      newStrip.querySelector('#frequency').value = `${groupInfo.controlArea} ${groupInfo.frequency}`;
+    } else {
+      newStrip.querySelector('#frequency').value = 'Unknown';
+    }
   }
 
   newStrip.style.backgroundColor = `var(--${type}-bg)`;
@@ -71,21 +107,27 @@ function generatePrepopulatedStrip(saveData) {
   newStrip.style.backgroundColor = `var(--${saveData.type}-bg)`;
   newStrip.style.border = `2px solid var(--${saveData.type}-border)`;
 
-  /* let callsignField = */ newStrip.querySelector('#callsign').value = saveData.info.callsign;
-  /* let squawkField = */ newStrip.querySelector('#squawk').value = saveData.info.squawk;
-  /* let departingField = */ newStrip.querySelector('#departure').value = saveData.info.departure;
-  /* let arrivingField = */ newStrip.querySelector('#arrival').value = saveData.info.arrival;
-  /* let aircraftField = */ newStrip.querySelector('#aircraft').value = saveData.info.aircraft;
-  /* let altitudeField = */ newStrip.querySelector('#altitude').value = saveData.info.altitude;
-  /* let gateField = */ newStrip.querySelector('#gate').value = saveData.info.gate;
-  /* let statusField = */ newStrip.querySelector('#status').value = saveData.info.status;
-  /* let infoField = */ newStrip.querySelector('#info').value = saveData.info.info;
-  /* let runwayField = */ newStrip.querySelector('#runway').value = saveData.info.runway;
-  // /* let sidstarField = */ newStrip.querySelector('#sidstar').value = saveData.info.sidstar;
-  /* let freeTextField = */ newStrip.querySelector('#notes').value = saveData.info.notes;
-  /* let freeTextField = */ newStrip.querySelector('#route').value = saveData.info.route;
-  /* let freeTextField = */ newStrip.querySelector('#flightplan').value = saveData.info.flightplan;
-  /* let frequencyField = */ newStrip.querySelector('#frequency').value = saveData.info.frequency;
+  newStrip.querySelector('#callsign').value = saveData.info.callsign;
+  newStrip.querySelector('#squawk').value = saveData.info.squawk;
+  newStrip.querySelector('#departure').value = saveData.info.departure;
+  newStrip.querySelector('#arrival').value = saveData.info.arrival;
+  newStrip.querySelector('#aircraft').value = saveData.info.aircraft;
+  newStrip.querySelector('#altitude').value = saveData.info.altitude;
+  newStrip.querySelector('#gate').value = saveData.info.gate;
+  newStrip.querySelector('#status').value = saveData.info.status;
+  newStrip.querySelector('#info').value = saveData.info.info;
+  newStrip.querySelector('#runway').value = saveData.info.runway;
+  newStrip.querySelector('#notes').value = saveData.info.notes;
+  newStrip.querySelector('#route').value = saveData.info.route;
+  newStrip.querySelector('#flightplan').value = saveData.info.flightplan;
+  if (saveData.info.arrival) {
+    let groupInfo = arrivalGroups[saveData.info.arrival];
+    if (groupInfo) {
+      newStrip.querySelector('#frequency').value = `${groupInfo.controlArea} ${groupInfo.frequency}`;
+    } else {
+      newStrip.querySelector('#frequency').value = 'Unknown';
+    }
+  }
 
   return newStrip;
 }
@@ -96,7 +138,6 @@ function generateStripFromLiveFlightplan(fpl, type) {
   newStrip.setAttribute('data-type', type);
 
   newStrip.querySelectorAll('.textInput').forEach(input => {
-    // genNewStrip = newStrip;
     input.removeEventListener('focusout', generateFocusOutEvent);
     input.addEventListener('focusout', generateFocusOutEvent);
   });
@@ -106,21 +147,23 @@ function generateStripFromLiveFlightplan(fpl, type) {
   newStrip.style.backgroundColor = `var(--${type}-bg)`;
   newStrip.style.border = `2px solid var(--${type}-border)`;
   console.log(fpl);
-  /* let callsignField = */ newStrip.querySelector('#callsign').value = fpl.callsign;
-  /* let squawkField = */ newStrip.querySelector('#squawk').value = generateSquawk();
-  /* let departingField = */ newStrip.querySelector('#departure').value = fpl.departing;
-  /* let arrivingField = */ newStrip.querySelector('#arrival').value = fpl.arriving;
-  /* let aircraftField = */ newStrip.querySelector('#aircraft').value = fpl.aircraft;
-  /* let altitudeField = */ newStrip.querySelector('#altitude').value = fpl.altitude;
-  // /* let gateField = */ newStrip.querySelector('#gate').value = fpl.gate;
-  // /* let statusField = */ newStrip.querySelector('#status').value = fpl.status;
-  // /* let infoField = */ newStrip.querySelector('#info').value = fpl.info;
-  // /* let runwayField = */ newStrip.querySelector('#runway').value = fpl.runway;
-  // /* let sidstarField = */ newStrip.querySelector('#sidstar').value = fpl.sidstar;
-  // /* let freeTextField = */ newStrip.querySelector('#notes').value = fpl.notes;
-  /* let freeTextField = */ newStrip.querySelector('#route').innerText = fpl.route;
-  // /* let freeTextField = */ newStrip.querySelector('#flightplan').value = fpl.flightplan;
-  /* let frequencyField = */ newStrip.querySelector('#frequency').value = fpl.frequency
+  
+  newStrip.querySelector('#callsign').value = fpl.callsign;
+  newStrip.querySelector('#squawk').value = generateSquawk();
+  newStrip.querySelector('#departure').value = fpl.departing;
+  newStrip.querySelector('#arrival').value = fpl.arriving;
+  newStrip.querySelector('#aircraft').value = fpl.aircraft;
+  newStrip.querySelector('#altitude').value = fpl.altitude;
+  newStrip.querySelector('#route').innerText = fpl.route;
+
+  if (fpl.arriving) {
+    let groupInfo = arrivalGroups[fpl.arriving];
+    if (groupInfo) {
+      newStrip.querySelector('#frequency').value = `${groupInfo.controlArea} ${groupInfo.frequency}`;
+    } else {
+      newStrip.querySelector('#frequency').value = 'Unknown';
+    }
+  }
 
   return newStrip;
 }
