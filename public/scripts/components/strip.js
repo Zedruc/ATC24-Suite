@@ -12,7 +12,6 @@ let stripTypes = ['inbound', 'outbound', 'vfr'];
 
 let templateStrip = document.getElementById('templateStrip');
 
-
 const arrivalGroups = {
   'IFRD': { controlArea: 'Rockford', frequency: '124.850' },
   'ITRN': { controlArea: 'Rockford', frequency: '124.850' },
@@ -41,16 +40,7 @@ const arrivalGroups = {
   'ISAU': { controlArea: 'Sauthemptona', frequency: '122.730' },
 };
 
-/**
- *
- * @param {string} type Inbound | Outbound | VFR
- * @param {bool} shouldGenerateRandomSquawk
- * @param {string} stripListType Del | Gnd | Twr | App/Dep
- * @param {string} departure Departure airport ICAO code
- * @param {string} arrival Arrival airport ICAO code
- * @returns
- */
-function generateStrip(type, shouldGenerateRandomSquawk, stripListType, departure, arrival) {
+function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
   let newStrip = templateStrip.cloneNode(true);
   newStrip.id = generateId(10);
   
@@ -67,23 +57,23 @@ function generateStrip(type, shouldGenerateRandomSquawk, stripListType, departur
 
   if (type !== 'vfr') {
     newStrip.querySelector('#runway').value = getDepartureRunway();
-    newStrip.querySelector('#departure').value = departure || '';
-  }
-
-  // Set the next frequency based on the arrival airport
-  if (arrival) {
-    let groupInfo = arrivalGroups[arrival];
-    if (groupInfo) {
-      newStrip.querySelector('#frequency').value = `${groupInfo.controlArea} ${groupInfo.frequency}`;
-    } else {
-      newStrip.querySelector('#frequency').value = 'Unknown';
-    }
+    newStrip.querySelector('#departure').value = currentAirport.icao || '';
   }
 
   newStrip.style.backgroundColor = `var(--${type}-bg)`;
   newStrip.style.border = `2px solid var(--${type}-border)`;
 
   return newStrip;
+}
+
+function setFrequencyBasedOnArrival(newStrip, arrival) {
+  let frequencyInput = newStrip.querySelector('#frequency');
+  if (arrival && arrivalGroups[arrival]) {
+    let groupInfo = arrivalGroups[arrival];
+    frequencyInput.value = `${groupInfo.controlArea} ${groupInfo.frequency}`;
+  } else {
+    frequencyInput.value = 'Unknown';
+  }
 }
 
 let genNewStrip;
@@ -120,14 +110,8 @@ function generatePrepopulatedStrip(saveData) {
   newStrip.querySelector('#notes').value = saveData.info.notes;
   newStrip.querySelector('#route').value = saveData.info.route;
   newStrip.querySelector('#flightplan').value = saveData.info.flightplan;
-  if (saveData.info.arrival) {
-    let groupInfo = arrivalGroups[saveData.info.arrival];
-    if (groupInfo) {
-      newStrip.querySelector('#frequency').value = `${groupInfo.controlArea} ${groupInfo.frequency}`;
-    } else {
-      newStrip.querySelector('#frequency').value = 'Unknown';
-    }
-  }
+
+  setFrequencyBasedOnArrival(newStrip, saveData.info.arrival);
 
   return newStrip;
 }
@@ -146,7 +130,6 @@ function generateStripFromLiveFlightplan(fpl, type) {
 
   newStrip.style.backgroundColor = `var(--${type}-bg)`;
   newStrip.style.border = `2px solid var(--${type}-border)`;
-  console.log(fpl);
   
   newStrip.querySelector('#callsign').value = fpl.callsign;
   newStrip.querySelector('#squawk').value = generateSquawk();
@@ -156,14 +139,7 @@ function generateStripFromLiveFlightplan(fpl, type) {
   newStrip.querySelector('#altitude').value = fpl.altitude;
   newStrip.querySelector('#route').innerText = fpl.route;
 
-  if (fpl.arriving) {
-    let groupInfo = arrivalGroups[fpl.arriving];
-    if (groupInfo) {
-      newStrip.querySelector('#frequency').value = `${groupInfo.controlArea} ${groupInfo.frequency}`;
-    } else {
-      newStrip.querySelector('#frequency').value = 'Unknown';
-    }
-  }
+  setFrequencyBasedOnArrival(newStrip, fpl.arriving);
 
   return newStrip;
 }
