@@ -12,21 +12,143 @@ let stripTypes = ['inbound', 'outbound', 'vfr'];
 
 let templateStrip = document.getElementById('templateStrip');
 
-const frequencyGroups = {
-  'IMLR': { group: 'Rockford', frequency: '124.850' },
-  'IGRV': { group: 'Grindavik', frequency: '126.750' },
-  'IPAP': { group: 'Cyprus', frequency: '126.300' },
-  'IDCS': { group: 'Orenji', frequency: '132.300' },
-  'IBAR': { group: 'Cyprus', frequency: '126.300' },
-  'IHEN': { group: 'Cyprus', frequency: '126.300' },
-  'IBLT': { group: 'Rockford', frequency: '124.850' },
-  'ISKP': { group: 'Cyprus', frequency: '126.300' },
-  'ITRC': { group: 'Orenji', frequency: '132.300' },
-  'ILKL': { group: 'Perth', frequency: '135.250' },
-  'ISAU': { group: 'Sauthemptona', frequency: '122.730' },
-  'ISCM': { group: 'Cyprus', frequency: '126.300' },
-  'IBTH': { group: 'St Barthelemy', frequency: '128.600' },
-  'IJAF': { group: 'Izolirani', frequency: '124.640' },
-  'IGAR': { group: 'Rockford', frequency: '124.850' },
-  'IRFD': { group: 'Rockford', frequency: '124.850' },
-  'IPPH': { group: 'Perth', frequency: '135.
+/**
+ *
+ * @param {string} type Inbound | Outbound | VFR
+ * @param {bool} shouldGenerateRandomSquawk
+ * @param {string} stripListType Del | Gnd | Twr | App/Dep
+ * @returns
+ */
+function generateStrip(type, shouldGenerateRandomSquawk, stripListType) {
+  let newStrip = templateStrip.cloneNode(true);
+  newStrip.id = generateId(10);
+  /* newStrip.querySelectorAll('.textInput').forEach(input => {
+    input.addEventListener('focusout', event => {
+      StripSaveManager.updateStrip(newStrip, newStrip.parentElement);
+    });
+  }); */
+  newStrip.setAttribute('data-type', type);
+  newStrip.removeEventListener('focusout', focusOutEvent);
+  newStrip.addEventListener('focusout', focusOutEvent);
+
+  if (!stripTypes.includes(type)) return;
+  // if (!stripListTypes.includes(stripListType)) return;
+
+  if (shouldGenerateRandomSquawk) {
+    let squawk = generateSquawk();
+    newStrip.querySelector('#squawk').value = squawk;
+  }
+
+  if (type !== 'vfr') {
+    newStrip.querySelector('#runway').value = getDepartureRunway();
+    newStrip.querySelector('#departure').value = currentAirport.icao || '';
+  }
+
+  newStrip.style.backgroundColor = `var(--${type}-bg)`;
+  newStrip.style.border = `2px solid var(--${type}-border)`;
+
+  return newStrip;
+}
+
+let genNewStrip;
+function generateFocusOutEvent(e) {
+  StripSaveManager.updateStrip(genNewStrip, genNewStrip.parentElement);
+}
+
+function generatePrepopulatedStrip(saveData) {
+  let newStrip = templateStrip.cloneNode(true);
+  newStrip.id = saveData?.info?.stripId || '';
+  newStrip.setAttribute('data-type', saveData.type);
+
+  newStrip.querySelectorAll('.textInput').forEach(input => {
+    genNewStrip = newStrip;
+    input.removeEventListener('focusout', generateFocusOutEvent);
+    input.addEventListener('focusout', generateFocusOutEvent);
+  });
+
+  if (!stripTypes.includes(saveData.type)) return;
+
+  newStrip.style.backgroundColor = `var(--${saveData.type}-bg)`;
+  newStrip.style.border = `2px solid var(--${saveData.type}-border)`;
+
+  /* let callsignField = */ newStrip.querySelector('#callsign').value = saveData.info.callsign;
+  /* let squawkField = */ newStrip.querySelector('#squawk').value = saveData.info.squawk;
+  /* let departingField = */ newStrip.querySelector('#departure').value = saveData.info.departure;
+  /* let arrivingField = */ newStrip.querySelector('#arrival').value = saveData.info.arrival;
+  /* let aircraftField = */ newStrip.querySelector('#aircraft').value = saveData.info.aircraft;
+  /* let altitudeField = */ newStrip.querySelector('#altitude').value = saveData.info.altitude;
+  /* let gateField = */ newStrip.querySelector('#gate').value = saveData.info.gate;
+  /* let statusField = */ newStrip.querySelector('#status').value = saveData.info.status;
+  /* let infoField = */ newStrip.querySelector('#info').value = saveData.info.info;
+  /* let runwayField = */ newStrip.querySelector('#runway').value = saveData.info.runway;
+  // /* let sidstarField = */ newStrip.querySelector('#sidstar').value = saveData.info.sidstar;
+  /* let freeTextField = */ newStrip.querySelector('#notes').value = saveData.info.notes;
+  /* let freeTextField = */ newStrip.querySelector('#route').value = saveData.info.route;
+  /* let freeTextField = */ newStrip.querySelector('#flightplan').value = saveData.info.flightplan;
+ /* let freeTextField = */ newStrip.querySelector('#frequency').value = saveData.info.frequency;
+
+  return newStrip;
+}
+
+function generateStripFromLiveFlightplan(fpl, type) {
+  let newStrip = templateStrip.cloneNode(true);
+  newStrip.id = generateId(10);
+  newStrip.setAttribute('data-type', type);
+
+  newStrip.querySelectorAll('.textInput').forEach(input => {
+    // genNewStrip = newStrip;
+    input.removeEventListener('focusout', generateFocusOutEvent);
+    input.addEventListener('focusout', generateFocusOutEvent);
+  });
+
+  if (!stripTypes.includes(type)) return;
+
+  newStrip.style.backgroundColor = `var(--${type}-bg)`;
+  newStrip.style.border = `2px solid var(--${type}-border)`;
+  console.log(fpl);
+  /* let callsignField = */ newStrip.querySelector('#callsign').value = fpl.callsign;
+  /* let squawkField = */ newStrip.querySelector('#squawk').value = generateSquawk();
+  /* let departingField = */ newStrip.querySelector('#departure').value = fpl.departing;
+  /* let arrivingField = */ newStrip.querySelector('#arrival').value = fpl.arriving;
+  /* let aircraftField = */ newStrip.querySelector('#aircraft').value = fpl.aircraft;
+  /* let altitudeField = */ newStrip.querySelector('#altitude').value = fpl.altitude;
+  // /* let gateField = */ newStrip.querySelector('#gate').value = fpl.gate;
+  // /* let statusField = */ newStrip.querySelector('#status').value = fpl.status;
+  // /* let infoField = */ newStrip.querySelector('#info').value = fpl.info;
+  // /* let runwayField = */ newStrip.querySelector('#runway').value = fpl.runway;
+  // /* let sidstarField = */ newStrip.querySelector('#sidstar').value = fpl.sidstar;
+  // /* let freeTextField = */ newStrip.querySelector('#notes').value = fpl.notes;
+  /* let freeTextField = */ newStrip.querySelector('#route').innerText = fpl.route;
+  // /* let freeTextField = */ newStrip.querySelector('#flightplan').value = fpl.flightplan;
+ // /* let freeTextField = */ newStrip.querySelector('#frequency').value = fpl.frequency;
+
+  return newStrip;
+}
+
+function generateSquawk() {
+  let squawk = '';
+  for (let i = 0; i < length; i++) {
+    squawk += validDigits[Math.floor(Math.random() * validDigits.length)];
+  }
+  if (squawksInUse.includes(squawk)) return generateSquawk();
+  if (['7700', '7600', '7500', '7000'].includes(squawk)) return generateSquawk();
+  return squawk;
+}
+
+function getDepartureRunway() {
+  for (let i = 0; i < window.activeRunways.length; i++) {
+    const rwy = window.activeRunways[i];
+    if (rwy.arrivalOrDeparture == 'dep' && rwy.active) return rwy.rwyId;
+  }
+  return '';
+}
+
+function generateId(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
