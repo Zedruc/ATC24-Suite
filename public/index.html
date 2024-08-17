@@ -468,16 +468,21 @@ Charts - Flightstrips - Flightplan Management"
             onpaste="clearanceFromFlightPlan(this);"
           />
           <input class="textInput" type="text" id="notes" placeholder="Notes" />
-          <select id="frequency" class=textInput name="options" multiple>
-        <option value="a">Rockford Control 124.850</option>
-        <option value="b">SOTAF Oceanic 128.600</option>
-        <option value="c">Perth Control 135.250</option>
-        <option value="d">Larnaca Control 126.300</option>
-        <option value="e">Tokyo Control 132.300</option>
-        <option value="f">Izolirani Control 124.640</option>
-        <option value="g">Sauthemptona Control 122.730 </option>
-        <option value="h">Grindavik Control 126.750</option>
-    </select>
+
+          <div class="textInput">
+  <button class="textInput">Centre Frequencies</button>
+  <div class="dropdown-content">
+    <p>Rockford Control 124.850</p>
+        <p>SOTAF Oceanic 128.600</p>
+        <p>Perth Control 135.250<p>
+        <p>Larnaca Control 126.300</p>
+        <p>Tokyo Control 132.300</p>
+        <p>Izolirani Control 124.640</p>
+        <p>Sauthemptona Control 122.730 </p>
+        <p>Grindavik Control 126.750</p>
+  </div>
+</div>
+    
         </div>
       </div>
       <div class="stripList" id="templateList" data-list="1">
