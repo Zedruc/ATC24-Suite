@@ -46,8 +46,8 @@
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: 2fr 1fr;
   height: fit-content;
-  max-height: 230px;
-  min-height: 180px;
+  max-height: 180px;
+  min-height: 125px;
   border: 2px solid var(--strip-border);
 }
 
