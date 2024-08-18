@@ -164,15 +164,7 @@
 
 .frdropdown {
   position: relative;
-  text-transform: uppercase;
-  text-align: center;
-  box-sizing: border-box;
-  cursor: text;
-  border: none;
-  color: aliceblue;
-  background-color: rgb(32, 32, 32);
-  font-family: var(--default-font);
-  outline: none;
+  display: inline-block;
 }
 
 .frbtn {
