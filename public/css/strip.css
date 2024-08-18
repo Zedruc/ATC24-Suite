@@ -162,7 +162,7 @@
   z-index: 1;
 }
 
-.trdropdown {
+.frdropdown {
   position: relative;
   text-transform: uppercase;
   text-align: center;
@@ -185,6 +185,8 @@
 
 
 .dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: aliceblue;}
 
 [data-type="inbound"] .pdcButtonContainer,
 [data-type="vfr"] .pdcButtonContainer {
