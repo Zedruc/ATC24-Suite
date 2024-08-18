@@ -9,10 +9,10 @@ const airports = {
           type: 'CTR',
           frequency: '126.300',
         },
-       {
+       /*{
           type: 'OCEANIC',
           frequency: '127.650',
-        },
+        }, /*
         {
           type: 'TWR',
           frequency: '121.200',
