@@ -3892,10 +3892,6 @@ const airports = {
         },
         {
           type: 'TWR',
-          frequency: '128.600',
-        },
-        {
-          type: 'TWR',
           frequency: '118.450',
         },
       ],
