@@ -38,8 +38,8 @@ class NotificationQueue {
           document.location = window.DISCORD_OAUTH2_URI;
         }
       } else if (result.isDismissed) {
-
-        error.play();
+        //when dismiss button is clicked play error sound
+        errorSoundPlayer.play();
       }
 
       this.notifications.shift();
