@@ -430,6 +430,10 @@ let airportATISData = [
         link: 'https://github.com/Treelon/ptfs-charts/tree/main/Sauthemptona/Sauthemptona',
       },
       {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1m18kxQhwlVMXoY4T8FSIHtmz_ohooGbI/view?usp=drivesdk'
+      },
+      {
         author: 'Aloha516',
         link: 'https://drive.google.com/file/d/11_ioZKaEt2Un1oyKa1R6WZ4hUjUFk7VL/view',
       },
@@ -612,6 +616,10 @@ let airportATISData = [
             runways: ['31'],
           },
         ],
+      },
+      {
+        author: 'AeroNav',
+        link: 'https://drive.google.com/file/d/1iYxp9qz4f7C6o5DaMVQQufx9rInLcmJh/view?usp=drivesdk',
       },
       {
         author: 'GA4RIE1',
