@@ -1,10 +1,11 @@
 <div id="changelog"></div>
 
-# Chart Packs
+# Loading Issues
 
 **🔧 Changes**  
 
-* Added AeroNav chart packs for **ISAU** and **ITKO**
+* Deferred loading of external libraries to the end of page load
+  to not block the suite from fully loading
 
 Happy Controlling
 \- Zedruc
