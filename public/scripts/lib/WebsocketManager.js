@@ -56,12 +56,19 @@ class WSManager {
     this.wss.onerror = this.onError;
     this.wss.onmessage = this.onMessage;
     this.wss.onclose = this.onClose.bind(this);
-    window.onbeforeunload = function (e) {
-      e.preventDefault();
-    }; /* .bind(this); */
-    window.onunload = function (e) {
+
+    // Chromium and Firefox Unload
+    window.onbeforeunload = function (e) {      
       this.sendMessage({ id: this.id, type: MessageTypes.CLOSING });
+      e.preventDefault();
     }.bind(this);
+
+    /* window.onunload = function (e) {
+      console.log('2??????');
+      
+      this.sendMessage({ id: this.id, type: MessageTypes.CLOSING });
+    }.bind(this); */
+
     this.connectionAlive = true;
 
     if (this.id) {
@@ -79,12 +86,12 @@ class WSManager {
 
   sendMessage(data) {
     console.log(data);
-    if (this.wss.readyState !== 1) {
+    /* if (this.wss.readyState !== 1) {
       notificationQueue.queue({
         title: 'Error',
         html: "Could not connect to the ATC24-suite server.<br/><br/>Please reload and try again or use the suite in offline mode.<br/>(Offline Mode only means you won't be able to use shared rooms)",
       });
-    }
+    } */
     /**
      * EVERY message has to be JSON
      */

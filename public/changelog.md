@@ -1,11 +1,12 @@
 <div id="changelog"></div>
 
-# Loading Issues
+# Firefox Logout Fix
 
 **🔧 Changes**  
 
-* Deferred loading of external libraries to the end of page load
-  to not block the suite from fully loading
+* Finally fixed Firefox being bad, users are now logged out of the suite properly on Firefox
+
+* Removed Firefox warning
 
 Happy Controlling
 \- Zedruc
