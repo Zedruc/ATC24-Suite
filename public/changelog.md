@@ -1,12 +1,10 @@
 <div id="changelog"></div>
 
-# Firefox Logout Fix
+# Add Mellor Radar
 
 **🔧 Changes**  
 
-* Finally fixed Firefox being bad, users are now logged out of the suite properly on Firefox
-
-* Removed Firefox warning
+* Added back IMLR_RDR adressing issue [73](https://github.com/Zedruc/ATC24-Suite/issues/73); Also good for the event this evening
 
 Happy Controlling
 \- Zedruc
