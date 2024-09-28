@@ -3611,7 +3611,7 @@ const airports = {
       iata: 'MEL',
       stations: [
         {
-          type: 'RFR',
+          type: 'RDR',
           frequency: '125.650',
         },
         {
