@@ -16,7 +16,7 @@ jobs:
         with:
           host: zedruc.net
           username: ${{ secrets.FTP_USERNAME }}
-          port: 8923
+          port: ${{ secrets.SSH_PORT }}
           password: ${{ secrets.ftp_password }}
           localPath: ./public/
           remotePath: ${{ secrets.SUITE_REMOTE_PATH}}
