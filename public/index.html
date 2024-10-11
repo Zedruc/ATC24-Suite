@@ -129,6 +129,15 @@ Charts - Flightstrips - Flightplan Management"
           <div class="settingContainer">
             <input
               type="checkbox"
+              id="moveStripsOnTop"
+              data-setting
+              onchange="Settings.set(this.id, this.checked);"
+            />
+            <p>Put strips on top of list when moving between lists</p>
+          </div>
+          <div class="settingContainer">
+            <input
+              type="checkbox"
               id="generateClearance"
               data-setting
               data-room-setting

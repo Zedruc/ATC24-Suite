@@ -120,7 +120,9 @@ const keybinds = [
       strip.remove();
       // nextStripList.appendChild(stripClone);
       // nextStripList.prepend(stripClone);
-      insertAsFirstChild(stripClone, nextStripList);
+      if(Settings.get('moveStripsOnTop')) insertAsFirstChild(stripClone, nextStripList);
+      else nextStripList.appendChild(stripClone);
+      
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },
   },
@@ -151,7 +153,8 @@ const keybinds = [
       strip.remove();
       // nextStripList.appendChild(stripClone);
       // nextStripList.prepend(stripClone);
-      insertAsFirstChild(stripClone, nextStripList);
+      if(Settings.get('moveStripsOnTop')) insertAsFirstChild(stripClone, nextStripList);
+      else nextStripList.appendChild(stripClone);
 
       StripSaveManager.moveBetweenLists(strip, list, nextStripList);
     },

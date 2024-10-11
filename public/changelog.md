@@ -1,10 +1,10 @@
 <div id="changelog"></div>
 
-# Add Mellor Radar
-
 **🔧 Changes**  
 
-* Added back IMLR_RDR adressing issue [73](https://github.com/Zedruc/ATC24-Suite/issues/73); Also good for the event this evening
+* Added the option to move strips on top of a list when moving between them
+
+[Join the Discord](https://discord.com/invite/EHxWfKEbrq)
 
 Happy Controlling
 \- Zedruc

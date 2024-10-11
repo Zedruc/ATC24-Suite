@@ -135,6 +135,12 @@ The Suite gives you a handful of options to personalize it:
 - `Snap radar heading vector to next standard heading` (Recommended)
   - This rounds headings to a factor of 5, e.g. 241 -> 240, 237 -> 235
 
+- `Show ocean in addition to island outline` (Recommended)
+  - Displays water around the island on the radar screen
+
+- `Put strips on top of list when moving between lists`
+  - Strips will be added on top of lists when moved
+
 - `Keep radar vector after dragging` (Recommended)
   - The radar vector will stay after dragging it
   
@@ -148,7 +154,9 @@ The Suite gives you a handful of options to personalize it:
 - `Only receive flightplans from the event flightplans channel` (Required for Event ATCs) (NOT RECOMMENDED FOR NORMAL USAGE)
   - If enabled, you will be able to use the suite as usual but ONLY event flight plans will be imported
 
-  
+- `Show all flights as enroute when controlling Rockford` (Required for Event ATCs) (NOT RECOMMENDED FOR NORMAL USAGE)
+  - If enabled, EVERY flightplan filed will be imported to your suite
+
 ## Authors
 
 - [@zedruc](https://www.github.com/zedruc)
